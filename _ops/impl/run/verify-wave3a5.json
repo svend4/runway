@@ -1,0 +1,2027 @@
+{
+ "done": 202,
+ "of": 202,
+ "finished": true,
+ "rows": [
+  {
+   "file": "tests/a11y_static.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3222,
+   "status": 0
+  },
+  {
+   "file": "tests/about.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3008,
+   "status": 0
+  },
+  {
+   "file": "tests/adversarial/dates_money.test.mjs",
+   "tests": 49,
+   "pass": 49,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 21004,
+   "status": 0
+  },
+  {
+   "file": "tests/adversarial/golden_properties.test.mjs",
+   "tests": 76,
+   "pass": 76,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 11043,
+   "status": 0
+  },
+  {
+   "file": "tests/adversarial/semantics.test.mjs",
+   "tests": 177,
+   "pass": 175,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 2,
+   "ms": 1506,
+   "status": 0
+  },
+  {
+   "file": "tests/adversarial/verifier_io.test.mjs",
+   "tests": 148,
+   "pass": 146,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 2,
+   "ms": 12333,
+   "status": 0
+  },
+  {
+   "file": "tests/afford.test.mjs",
+   "tests": 36,
+   "pass": 36,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3838,
+   "status": 0
+  },
+  {
+   "file": "tests/analyze.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1521,
+   "status": 0
+  },
+  {
+   "file": "tests/anonymize.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1378,
+   "status": 0
+  },
+  {
+   "file": "tests/arith.test.mjs",
+   "tests": 5,
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 794,
+   "status": 0
+  },
+  {
+   "file": "tests/as_of.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1311,
+   "status": 0
+  },
+  {
+   "file": "tests/assistant_ext.test.mjs",
+   "tests": 35,
+   "pass": 35,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4872,
+   "status": 0
+  },
+  {
+   "file": "tests/backtest.test.mjs",
+   "tests": 32,
+   "pass": 32,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 13994,
+   "status": 0
+  },
+  {
+   "file": "tests/backup.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 381,
+   "status": 0
+  },
+  {
+   "file": "tests/backup_file.test.mjs",
+   "tests": 31,
+   "pass": 31,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1196,
+   "status": 0
+  },
+  {
+   "file": "tests/backup_file_boot.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1770,
+   "status": 0
+  },
+  {
+   "file": "tests/backup_file_pack.test.mjs",
+   "tests": 2,
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 601,
+   "status": 0
+  },
+  {
+   "file": "tests/band_adapter.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2233,
+   "status": 0
+  },
+  {
+   "file": "tests/bench_compare.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 11455,
+   "status": 0
+  },
+  {
+   "file": "tests/bench_pages.test.mjs",
+   "tests": 21,
+   "pass": 21,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8029,
+   "status": 0
+  },
+  {
+   "file": "tests/browser_pass_s1.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 358,
+   "status": 0
+  },
+  {
+   "file": "tests/browser_pass_w3a.test.mjs",
+   "tests": 1,
+   "pass": 1,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 340,
+   "status": 0
+  },
+  {
+   "file": "tests/build_manifest.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 34338,
+   "status": 0
+  },
+  {
+   "file": "tests/calc_async.test.mjs",
+   "tests": 21,
+   "pass": 21,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 7076,
+   "status": 0
+  },
+  {
+   "file": "tests/calc_async_boot.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2725,
+   "status": 0
+  },
+  {
+   "file": "tests/calc_async_fix_boot.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1976,
+   "status": 0
+  },
+  {
+   "file": "tests/calc_async_model.test.mjs",
+   "tests": 2,
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4988,
+   "status": 0
+  },
+  {
+   "file": "tests/calc_async_queue.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1000,
+   "status": 0
+  },
+  {
+   "file": "tests/calendar_edit.test.mjs",
+   "tests": 20,
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1120,
+   "status": 0
+  },
+  {
+   "file": "tests/calendar_fix.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2380,
+   "status": 0
+  },
+  {
+   "file": "tests/calendar_form.test.mjs",
+   "tests": 15,
+   "pass": 15,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3125,
+   "status": 0
+  },
+  {
+   "file": "tests/calibration.test.mjs",
+   "tests": 28,
+   "pass": 28,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 582,
+   "status": 0
+  },
+  {
+   "file": "tests/call_log.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1237,
+   "status": 0
+  },
+  {
+   "file": "tests/check_script.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8231,
+   "status": 0
+  },
+  {
+   "file": "tests/clock_matrix.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6560,
+   "status": 0
+  },
+  {
+   "file": "tests/contrast.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3092,
+   "status": 0
+  },
+  {
+   "file": "tests/csv_roundtrip_fields.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 784,
+   "status": 0
+  },
+  {
+   "file": "tests/data_actions.test.mjs",
+   "tests": 33,
+   "pass": 33,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2039,
+   "status": 0
+  },
+  {
+   "file": "tests/data_pack.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 792,
+   "status": 0
+  },
+  {
+   "file": "tests/dates.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1313,
+   "status": 0
+  },
+  {
+   "file": "tests/debt.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1018,
+   "status": 0
+  },
+  {
+   "file": "tests/debt_edit.test.mjs",
+   "tests": 23,
+   "pass": 23,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1744,
+   "status": 0
+  },
+  {
+   "file": "tests/debt_edit_boot.test.mjs",
+   "tests": 15,
+   "pass": 15,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3901,
+   "status": 0
+  },
+  {
+   "file": "tests/debt_forecast.test.mjs",
+   "tests": 39,
+   "pass": 39,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2432,
+   "status": 0
+  },
+  {
+   "file": "tests/decision_currency.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 783,
+   "status": 0
+  },
+  {
+   "file": "tests/defaults_sync.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 580,
+   "status": 0
+  },
+  {
+   "file": "tests/demo.test.mjs",
+   "tests": 34,
+   "pass": 34,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3212,
+   "status": 0
+  },
+  {
+   "file": "tests/empty_states.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1756,
+   "status": 0
+  },
+  {
+   "file": "tests/engine_lock.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 24422,
+   "status": 0
+  },
+  {
+   "file": "tests/engine_stamp.test.mjs",
+   "tests": 15,
+   "pass": 15,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3738,
+   "status": 0
+  },
+  {
+   "file": "tests/entry.test.mjs",
+   "tests": 25,
+   "pass": 25,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1847,
+   "status": 0
+  },
+  {
+   "file": "tests/entry_boot.test.mjs",
+   "tests": 5,
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1665,
+   "status": 0
+  },
+  {
+   "file": "tests/entry_memory_store.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1615,
+   "status": 0
+  },
+  {
+   "file": "tests/error_report_view.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1713,
+   "status": 0
+  },
+  {
+   "file": "tests/expected.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 602,
+   "status": 0
+  },
+  {
+   "file": "tests/ext.test.mjs",
+   "tests": 17,
+   "pass": 17,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1376,
+   "status": 0
+  },
+  {
+   "file": "tests/ext_boot.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1558,
+   "status": 0
+  },
+  {
+   "file": "tests/feed_ext.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3340,
+   "status": 0
+  },
+  {
+   "file": "tests/forms.test.mjs",
+   "tests": 42,
+   "pass": 42,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3096,
+   "status": 0
+  },
+  {
+   "file": "tests/fp10_adv.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 777,
+   "status": 0
+  },
+  {
+   "file": "tests/fp11_adv.test.mjs",
+   "tests": 11,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 1,
+   "ms": 5638,
+   "status": 0
+  },
+  {
+   "file": "tests/fp12_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4707,
+   "status": 0
+  },
+  {
+   "file": "tests/fp13_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1870,
+   "status": 0
+  },
+  {
+   "file": "tests/fp14_adv.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 7469,
+   "status": 0
+  },
+  {
+   "file": "tests/fp15_adv.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2297,
+   "status": 0
+  },
+  {
+   "file": "tests/fp16_adv.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2773,
+   "status": 0
+  },
+  {
+   "file": "tests/fp16_fix.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2104,
+   "status": 0
+  },
+  {
+   "file": "tests/fp17_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 7322,
+   "status": 0
+  },
+  {
+   "file": "tests/fp17_fix.test.mjs",
+   "tests": 20,
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6919,
+   "status": 0
+  },
+  {
+   "file": "tests/fp17_fix2.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2236,
+   "status": 0
+  },
+  {
+   "file": "tests/fp17_fix3.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 527,
+   "status": 0
+  },
+  {
+   "file": "tests/fp18_adv.test.mjs",
+   "tests": 3,
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3434,
+   "status": 0
+  },
+  {
+   "file": "tests/fp19_adv.test.mjs",
+   "tests": 12,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 5,
+   "ms": 1499,
+   "status": 0
+  },
+  {
+   "file": "tests/fp19_fix.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2333,
+   "status": 0
+  },
+  {
+   "file": "tests/fp20_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1311,
+   "status": 0
+  },
+  {
+   "file": "tests/fp21_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3345,
+   "status": 0
+  },
+  {
+   "file": "tests/fp22_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4047,
+   "status": 0
+  },
+  {
+   "file": "tests/fp23_adv.test.mjs",
+   "tests": 13,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 4,
+   "ms": 7478,
+   "status": 0
+  },
+  {
+   "file": "tests/fp24_adv.test.mjs",
+   "tests": 13,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 1,
+   "ms": 73128,
+   "status": 0
+  },
+  {
+   "file": "tests/fp25_adv.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 691,
+   "status": 0
+  },
+  {
+   "file": "tests/fp25_fix.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2169,
+   "status": 0
+  },
+  {
+   "file": "tests/fp26_adv.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2328,
+   "status": 0
+  },
+  {
+   "file": "tests/fp27_adv.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 757,
+   "status": 0
+  },
+  {
+   "file": "tests/fp27_fix.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1663,
+   "status": 0
+  },
+  {
+   "file": "tests/fp28_adv.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2688,
+   "status": 0
+  },
+  {
+   "file": "tests/fp29_adv.test.mjs",
+   "tests": 8,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 4,
+   "ms": 2710,
+   "status": 0
+  },
+  {
+   "file": "tests/fp30_adv.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 942,
+   "status": 0
+  },
+  {
+   "file": "tests/fp47_adv.test.mjs",
+   "tests": 6,
+   "pass": 5,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 1,
+   "ms": 3624,
+   "status": 0
+  },
+  {
+   "file": "tests/fp48_adv.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 19349,
+   "status": 0
+  },
+  {
+   "file": "tests/fp48_boot.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8270,
+   "status": 0
+  },
+  {
+   "file": "tests/fp48_chain.test.mjs",
+   "tests": 3,
+   "pass": 3,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3512,
+   "status": 0
+  },
+  {
+   "file": "tests/fp48_pure.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1243,
+   "status": 0
+  },
+  {
+   "file": "tests/fp49_adv.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6471,
+   "status": 0
+  },
+  {
+   "file": "tests/fp49_boot.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 16047,
+   "status": 0
+  },
+  {
+   "file": "tests/fp49_fix.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 10743,
+   "status": 0
+  },
+  {
+   "file": "tests/fp49_pure.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 808,
+   "status": 0
+  },
+  {
+   "file": "tests/fp50_adv.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2979,
+   "status": 0
+  },
+  {
+   "file": "tests/fp51_adv.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1646,
+   "status": 0
+  },
+  {
+   "file": "tests/fuzz_findings.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1845,
+   "status": 0
+  },
+  {
+   "file": "tests/fuzz_nightly.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 9219,
+   "status": 0
+  },
+  {
+   "file": "tests/fx.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 721,
+   "status": 0
+  },
+  {
+   "file": "tests/fx_labels.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1983,
+   "status": 0
+  },
+  {
+   "file": "tests/g001.golden.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 630,
+   "status": 0
+  },
+  {
+   "file": "tests/g001.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 596,
+   "status": 0
+  },
+  {
+   "file": "tests/gen_vocab_tables.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3783,
+   "status": 0
+  },
+  {
+   "file": "tests/hardening.test.mjs",
+   "tests": 40,
+   "pass": 39,
+   "fail": 0,
+   "skipped": 1,
+   "todo": 0,
+   "ms": 3301,
+   "status": 0
+  },
+  {
+   "file": "tests/hourly.test.mjs",
+   "tests": 23,
+   "pass": 23,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 768,
+   "status": 0
+  },
+  {
+   "file": "tests/hours_io.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2689,
+   "status": 0
+  },
+  {
+   "file": "tests/imperatives.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3325,
+   "status": 0
+  },
+  {
+   "file": "tests/import_main_thread.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8379,
+   "status": 0
+  },
+  {
+   "file": "tests/import_model.test.mjs",
+   "tests": 21,
+   "pass": 21,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 880,
+   "status": 0
+  },
+  {
+   "file": "tests/import_race.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 10281,
+   "status": 0
+  },
+  {
+   "file": "tests/import_runway_boot.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4480,
+   "status": 0
+  },
+  {
+   "file": "tests/import_runway_csv.test.mjs",
+   "tests": 25,
+   "pass": 25,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1821,
+   "status": 0
+  },
+  {
+   "file": "tests/import_v11.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1119,
+   "status": 0
+  },
+  {
+   "file": "tests/import_v11_boot.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3871,
+   "status": 0
+  },
+  {
+   "file": "tests/import_wizard.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2893,
+   "status": 0
+  },
+  {
+   "file": "tests/import_worker.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8343,
+   "status": 0
+  },
+  {
+   "file": "tests/import_worker_model.test.mjs",
+   "tests": 2,
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 10660,
+   "status": 0
+  },
+  {
+   "file": "tests/injection.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2086,
+   "status": 0
+  },
+  {
+   "file": "tests/installment.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 602,
+   "status": 0
+  },
+  {
+   "file": "tests/installment_earliest.test.mjs",
+   "tests": 17,
+   "pass": 17,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4392,
+   "status": 0
+  },
+  {
+   "file": "tests/io.test.mjs",
+   "tests": 35,
+   "pass": 34,
+   "fail": 0,
+   "skipped": 1,
+   "todo": 0,
+   "ms": 3749,
+   "status": 0
+  },
+  {
+   "file": "tests/io_fx_rows.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 547,
+   "status": 0
+  },
+  {
+   "file": "tests/journal_log.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 7628,
+   "status": 0
+  },
+  {
+   "file": "tests/layout_fp26.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2235,
+   "status": 0
+  },
+  {
+   "file": "tests/ledger.test.mjs",
+   "tests": 24,
+   "pass": 24,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 985,
+   "status": 0
+  },
+  {
+   "file": "tests/liquidity.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 561,
+   "status": 0
+  },
+  {
+   "file": "tests/lock_policy.test.mjs",
+   "tests": 2,
+   "pass": 2,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 640,
+   "status": 0
+  },
+  {
+   "file": "tests/log.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 575,
+   "status": 0
+  },
+  {
+   "file": "tests/mc_inputs.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 852,
+   "status": 0
+  },
+  {
+   "file": "tests/metrics.test.mjs",
+   "tests": 19,
+   "pass": 19,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2806,
+   "status": 0
+  },
+  {
+   "file": "tests/metrics_feed.test.mjs",
+   "tests": 31,
+   "pass": 31,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2313,
+   "status": 0
+  },
+  {
+   "file": "tests/money.test.mjs",
+   "tests": 19,
+   "pass": 19,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1201,
+   "status": 0
+  },
+  {
+   "file": "tests/montecarlo.test.mjs",
+   "tests": 38,
+   "pass": 38,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3478,
+   "status": 0
+  },
+  {
+   "file": "tests/mutate_engine.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 35249,
+   "status": 0
+  },
+  {
+   "file": "tests/nav_focus.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1930,
+   "status": 0
+  },
+  {
+   "file": "tests/no_default_rates.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1699,
+   "status": 0
+  },
+  {
+   "file": "tests/num_labels_coverage.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 9154,
+   "status": 0
+  },
+  {
+   "file": "tests/number_format_surfaces.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2055,
+   "status": 0
+  },
+  {
+   "file": "tests/offline_inventory.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3922,
+   "status": 0
+  },
+  {
+   "file": "tests/onboarding_median.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1606,
+   "status": 0
+  },
+  {
+   "file": "tests/open_quarantine.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 5263,
+   "status": 0
+  },
+  {
+   "file": "tests/override_idempotent.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1058,
+   "status": 0
+  },
+  {
+   "file": "tests/overview_masked.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2426,
+   "status": 0
+  },
+  {
+   "file": "tests/people_docs.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 827,
+   "status": 0
+  },
+  {
+   "file": "tests/people_pack.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1603,
+   "status": 0
+  },
+  {
+   "file": "tests/prob_band.test.mjs",
+   "tests": 20,
+   "pass": 20,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6027,
+   "status": 0
+  },
+  {
+   "file": "tests/promises.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6190,
+   "status": 0
+  },
+  {
+   "file": "tests/properties.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 56753,
+   "status": 0
+  },
+  {
+   "file": "tests/properties_mutation.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 5460,
+   "status": 0
+  },
+  {
+   "file": "tests/proto_keys.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1225,
+   "status": 0
+  },
+  {
+   "file": "tests/purity.test.mjs",
+   "tests": 126,
+   "pass": 126,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1200,
+   "status": 0
+  },
+  {
+   "file": "tests/pwa.test.mjs",
+   "tests": 23,
+   "pass": 23,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4943,
+   "status": 0
+  },
+  {
+   "file": "tests/quality_report.test.mjs",
+   "tests": 17,
+   "pass": 17,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 20236,
+   "status": 0
+  },
+  {
+   "file": "tests/quality_tools.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 11104,
+   "status": 0
+  },
+  {
+   "file": "tests/readonly_boot.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1841,
+   "status": 0
+  },
+  {
+   "file": "tests/readonly_open.test.mjs",
+   "tests": 15,
+   "pass": 15,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 977,
+   "status": 0
+  },
+  {
+   "file": "tests/reconcile.test.mjs",
+   "tests": 28,
+   "pass": 28,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1754,
+   "status": 0
+  },
+  {
+   "file": "tests/reconcile_boot.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1892,
+   "status": 0
+  },
+  {
+   "file": "tests/recurrence.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2408,
+   "status": 0
+  },
+  {
+   "file": "tests/reserve_backing_free.test.mjs",
+   "tests": 9,
+   "pass": 9,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 778,
+   "status": 0
+  },
+  {
+   "file": "tests/reserve_screen.test.mjs",
+   "tests": 36,
+   "pass": 36,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 5916,
+   "status": 0
+  },
+  {
+   "file": "tests/rights.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 394,
+   "status": 0
+  },
+  {
+   "file": "tests/run_all_tests.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 15821,
+   "status": 0
+  },
+  {
+   "file": "tests/s1_3_adv.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4502,
+   "status": 0
+  },
+  {
+   "file": "tests/s1_4_adv.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1837,
+   "status": 0
+  },
+  {
+   "file": "tests/s1_5_adv.test.mjs",
+   "tests": 17,
+   "pass": 17,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 21901,
+   "status": 0
+  },
+  {
+   "file": "tests/scenario_banner.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2065,
+   "status": 0
+  },
+  {
+   "file": "tests/scenario_builder.test.mjs",
+   "tests": 19,
+   "pass": 19,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2708,
+   "status": 0
+  },
+  {
+   "file": "tests/settings.test.mjs",
+   "tests": 36,
+   "pass": 36,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1796,
+   "status": 0
+  },
+  {
+   "file": "tests/settings_boot.test.mjs",
+   "tests": 6,
+   "pass": 6,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1820,
+   "status": 0
+  },
+  {
+   "file": "tests/settings_defaults.test.mjs",
+   "tests": 17,
+   "pass": 17,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1396,
+   "status": 0
+  },
+  {
+   "file": "tests/showcase.test.mjs",
+   "tests": 42,
+   "pass": 42,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2670,
+   "status": 0
+  },
+  {
+   "file": "tests/sinking.test.mjs",
+   "tests": 29,
+   "pass": 29,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 981,
+   "status": 0
+  },
+  {
+   "file": "tests/sinking_report.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 589,
+   "status": 0
+  },
+  {
+   "file": "tests/small_journals.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 7845,
+   "status": 0
+  },
+  {
+   "file": "tests/start_boot.test.mjs",
+   "tests": 7,
+   "pass": 7,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3717,
+   "status": 0
+  },
+  {
+   "file": "tests/store.test.mjs",
+   "tests": 41,
+   "pass": 41,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 5813,
+   "status": 0
+  },
+  {
+   "file": "tests/tax.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 561,
+   "status": 0
+  },
+  {
+   "file": "tests/tax_hooks.test.mjs",
+   "tests": 11,
+   "pass": 11,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 436,
+   "status": 0
+  },
+  {
+   "file": "tests/threat_model.test.mjs",
+   "tests": 4,
+   "pass": 4,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 531,
+   "status": 0
+  },
+  {
+   "file": "tests/timeline.test.mjs",
+   "tests": 39,
+   "pass": 39,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 8513,
+   "status": 0
+  },
+  {
+   "file": "tests/tools.test.mjs",
+   "tests": 33,
+   "pass": 33,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1521,
+   "status": 0
+  },
+  {
+   "file": "tests/transfer_guard.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1802,
+   "status": 0
+  },
+  {
+   "file": "tests/undo_all.test.mjs",
+   "tests": 43,
+   "pass": 43,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 5971,
+   "status": 0
+  },
+  {
+   "file": "tests/undo_fix.test.mjs",
+   "tests": 24,
+   "pass": 24,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1473,
+   "status": 0
+  },
+  {
+   "file": "tests/v0.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3866,
+   "status": 0
+  },
+  {
+   "file": "tests/validate_ws.test.mjs",
+   "tests": 23,
+   "pass": 23,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 19211,
+   "status": 0
+  },
+  {
+   "file": "tests/verifier.test.mjs",
+   "tests": 33,
+   "pass": 33,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6438,
+   "status": 0
+  },
+  {
+   "file": "tests/vocab_generated.test.mjs",
+   "tests": 10,
+   "pass": 10,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 556,
+   "status": 0
+  },
+  {
+   "file": "tests/wave1_integration.test.mjs",
+   "tests": 8,
+   "pass": 8,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1988,
+   "status": 0
+  },
+  {
+   "file": "tests/wave_edit.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2320,
+   "status": 0
+  },
+  {
+   "file": "tests/waves.test.mjs",
+   "tests": 26,
+   "pass": 26,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1250,
+   "status": 0
+  },
+  {
+   "file": "tests/waves_card.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 3175,
+   "status": 0
+  },
+  {
+   "file": "tests/where_money.test.mjs",
+   "tests": 16,
+   "pass": 16,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 4952,
+   "status": 0
+  },
+  {
+   "file": "tests/why_dialogs_full.test.mjs",
+   "tests": 14,
+   "pass": 14,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 2945,
+   "status": 0
+  },
+  {
+   "file": "tests/why_more.test.mjs",
+   "tests": 12,
+   "pass": 12,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1556,
+   "status": 0
+  },
+  {
+   "file": "tests/wizard.test.mjs",
+   "tests": 29,
+   "pass": 29,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1418,
+   "status": 0
+  },
+  {
+   "file": "tests/worker_contract.test.mjs",
+   "tests": 13,
+   "pass": 13,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1830,
+   "status": 0
+  },
+  {
+   "file": "tests/ws_bridge.test.mjs",
+   "tests": 18,
+   "pass": 18,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 6134,
+   "status": 0
+  },
+  {
+   "file": "tests/ws_edit.test.mjs",
+   "tests": 22,
+   "pass": 22,
+   "fail": 0,
+   "skipped": 0,
+   "todo": 0,
+   "ms": 1216,
+   "status": 0
+  }
+ ]
+}

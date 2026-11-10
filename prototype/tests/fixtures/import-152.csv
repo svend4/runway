@@ -1,0 +1,153 @@
+Date,Description,Amount,Currency
+2026-07-01,Bar Pepe,-65.63,EUR
+2026-07-01,Ikea Alfafar,-40.83,EUR
+2026-07-02,Ikea Alfafar,-22.43,EUR
+2026-07-02,Correos,-35.13,EUR
+2026-07-03,Metro Valencia,-72.73,EUR
+2026-07-04,Bar Pepe,-48.93,EUR
+2026-07-04,Mercadona Valencia,-45.63,EUR
+2026-07-05,Mercadona Valencia,-17.53,EUR
+2026-07-05,Gasolinera Norte,-82.03,EUR
+2026-07-06,"Taxi, Valencia",-37.53,EUR
+2026-07-07,Metro Valencia,-39.33,EUR
+2026-07-07,Transferencia cliente,"1,234.57",EUR
+2026-07-08,Cafe Central,-75.53,EUR
+2026-07-09,Decathlon,-22.13,EUR
+2026-07-09,"Taxi, Valencia",-70.63,EUR
+2026-07-10,Booking.com,-13.73,EUR
+2026-07-10,Decathlon,-13.13,EUR
+2026-07-11,Decathlon,-16.33,EUR
+2026-07-12,Booking.com,-47.73,EUR
+2026-07-12,Amazon Marketplace,-84.03,EUR
+2026-07-13,Salary ACME SL,"2,400.37",EUR
+2026-07-14,Panaderia Luz,-62.63,EUR
+2026-07-14,Gasolinera Norte,-10.63,EUR
+2026-07-15,Metro Valencia,-35.73,EUR
+2026-07-15,Amazon Marketplace,-83.33,EUR
+2026-07-16,Metro Valencia,-39.63,EUR
+2026-07-17,"Taxi, Valencia",-19.73,EUR
+2026-07-17,Ikea Alfafar,-26.03,EUR
+2026-07-18,Farmacia Sol,-61.03,EUR
+2026-07-19,"Taxi, Valencia",-25.63,EUR
+2026-07-19,Cafe Central,-20.03,EUR
+2026-07-20,Lidl Tienda,-17.63,EUR
+2026-07-20,Zara Online,-41.63,EUR
+2026-07-21,Zara Online,-7.33,EUR
+2026-07-22,Booking.com,-11.63,EUR
+2026-07-22,Gasolinera Norte,-31.63,EUR
+2026-07-23,Booking.com,-89.53,EUR
+2026-07-24,Mercadona Valencia,-16.33,EUR
+2026-07-24,Repsol Estacion,-5.33,EUR
+2026-07-25,Cafe Central,-58.73,EUR
+2026-07-25,<img src=x onerror=alert(1)>,-9.99,EUR
+2026-07-26,"=HYPERLINK(""http://example.invalid/x"",""click"")",-19.99,EUR
+2026-07-27,"<script>alert(""x"")</script> Netflix",-12.99,EUR
+2026-07-27,Panaderia Luz,-70.33,EUR
+2026-07-28,Farmacia Sol,-61.83,EUR
+2026-07-29,Decathlon,-27.73,EUR
+2026-07-29,Gasolinera Norte,-18.23,EUR
+2026-07-30,Correos,-35.83,EUR
+2026-07-30,Bar Pepe,-65.83,EUR
+2026-07-31,Amazon Marketplace,-39.13,EUR
+2026-08-01,Ikea Alfafar,-36.13,EUR
+2026-08-01,Bar Pepe,-35.23,EUR
+2026-08-02,Panaderia Luz,-80.23,EUR
+2026-08-03,"Taxi, Valencia",-6.33,EUR
+2026-08-03,Amazon Marketplace,-22.93,EUR
+2026-08-04,Lidl Tienda,-17.13,EUR
+2026-08-04,Metro Valencia,-11.33,EUR
+2026-08-05,Salary ACME SL,"2,400.37",EUR
+2026-08-06,Gasolinera Norte,-42.63,EUR
+2026-02-31,Error fecha,-10.37,EUR
+2026-08-06,"Taxi, Valencia",-55.33,EUR
+2026-08-07,Farmacia Sol,-40.13,EUR
+2026-08-08,Lidl Tienda,-60.83,EUR
+2026-08-08,Bar Pepe,-72.83,EUR
+2026-08-09,Metro Valencia,-63.53,EUR
+2026-08-09,Transferencia cliente,"1,234.57",EUR
+2026-08-10,Cafe Central,-46.33,EUR
+2026-08-11,Mercadona Valencia,-36.53,EUR
+2026-08-11,Panaderia Luz,-89.13,EUR
+2026-08-12,Mercadona Valencia,-21.43,EUR
+2026-08-13,Metro Valencia,-71.83,EUR
+2026-08-13,Cafe Central,-4.57,EUR
+2026-08-13,Cafe Central,-4.57,EUR
+2026-08-14,Metro Valencia,-84.73,EUR
+2026-08-15,Ikea Alfafar,-57.63,EUR
+2026-08-16,Zara Online,-32.93,EUR
+2026-08-16,"Taxi, Valencia",-60.93,EUR
+2026-08-17,Repsol Estacion,-12.03,EUR
+2026-08-18,Mercadona Valencia,-79.03,EUR
+2026-08-18,Panaderia Luz,-75.23,EUR
+2026-08-19,Lidl Tienda,-4.03,EUR
+2026-08-19,"Taxi, Valencia",-54.63,EUR
+2026-08-20,Bar Pepe,-20.13,EUR
+2026-08-21,Mercadona Valencia,-63.33,EUR
+2026-08-21,Ikea Alfafar,-25.33,EUR
+2026-08-22,Bar Pepe,-58.43,EUR
+2026-08-23,"Taxi, Valencia",-31.53,EUR
+2026-08-23,Gasolinera Norte,-9.43,EUR
+2026-08-24,Bar Pepe,-82.13,EUR
+2026-08-24,Booking.com,-76.93,EUR
+2026-08-25,Amazon Marketplace,-47.43,EUR
+2026-08-26,Lidl Tienda,-48.13,EUR
+2026-08-26,Gasolinera Norte,-42.73,EUR
+2026-08-27,Lidl Tienda,-90.53,EUR
+2026-08-28,Bar Pepe,-74.93,EUR
+2026-08-28,Salary ACME SL,"2,400.37",EUR
+2026-08-29,Zara Online,-37.33,EUR
+2026-08-29,Panaderia Luz,-24.53,EUR
+2026-08-30,Gasolinera Norte,-86.93,EUR
+2026-08-31,Decathlon,-21.03,EUR
+2026-08-31,Spotify AB,-83.83,EUR
+2026-09-01,Ikea Alfafar,-82.43,EUR
+2026-09-02,Decathlon,-18.13,EUR
+2026-09-02,Lidl Tienda,-42.63,EUR
+2026-09-03,Booking.com,-49.73,EUR
+2026-09-03,Cafe Central,-63.33,EUR
+2026-09-04,Amazon Marketplace,-3.23,EUR
+2026-09-05,Metro Valencia,-43.03,EUR
+2026-09-05,Amazon Marketplace,-22.53,EUR
+2026-09-06,Gasolinera Norte,-17.33,EUR
+2026-09-07,Ikea Alfafar,-7.33,EUR
+2026-09-07,Panaderia Luz,-84.73,EUR
+2026-09-08,Repsol Estacion,-66.13,EUR
+2026-09-08,Zara Online,-32.93,EUR
+2026-09-09,Decathlon,-12.93,EUR
+2026-09-10,Spotify AB,-34.73,EUR
+2026-09-10,Bar Pepe,-6.63,EUR
+2026-09-11,Gasolinera Norte,-23.83,EUR
+2026-09-12,Transferencia cliente,"1,234.57",EUR
+2026-08-30,Comma amount,"12,50",EUR
+2026-09-12,Zara Online,-57.53,EUR
+2026-09-13,Booking.com,-49.53,EUR
+2026-09-13,Cafe Central,-90.73,EUR
+2026-09-14,Decathlon,-2.93,EUR
+2026-09-15,Gasolinera Norte,-50.43,EUR
+2026-09-15,Mercadona Valencia,-80.53,EUR
+2026-09-16,Panaderia Luz,-2.03,EUR
+2026-09-17,Booking.com,-3.33,EUR
+2026-09-17,Decathlon,-39.93,EUR
+2026-09-18,Correos,-32.63,EUR
+2026-09-18,Gasolinera Norte,-65.93,EUR
+2026-09-19,Panaderia Luz,-90.53,EUR
+2026-09-20,Panaderia Luz,-58.93,EUR
+2026-09-20,Salary ACME SL,"2,400.37",EUR
+2026-09-21,"Taxi, Valencia",-67.33,EUR
+2026-09-22,Ikea Alfafar,-82.53,EUR
+2026-09-22,Ikea Alfafar,-60.43,EUR
+2026-09-23,Lidl Tienda,-10.83,EUR
+2026-09-23,Lidl Tienda,-53.13,EUR
+2026-09-24,Bar Pepe,-3.23,EUR
+2026-09-25,Spotify AB,-77.33,EUR
+2026-09-25,Amazon Marketplace,-38.83,EUR
+2026-09-26,Ikea Alfafar,-21.73,EUR
+2026-09-27,Metro Valencia,-30.53,EUR
+2026-09-27,Spotify AB,-64.63,EUR
+2026-09-28,Booking.com,-38.83,EUR
+2026-09-28,Spotify AB,-77.03,EUR
+2026-09-29,Repsol Estacion,-29.03,EUR
+2026-09-30,Cafe Central,-70.93,EUR
+2026-09-30,Mercadona Valencia,-90.43,EUR
+2026-10-01,Ikea Alfafar,-13.33,EUR
+2026-10-02,Lidl Tienda,-77.83,EUR

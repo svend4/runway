@@ -1,0 +1,160 @@
+{
+ "phase": "C",
+ "results": [
+  {
+   "fp": "FP-08",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\tax_hooks.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\sinking_report.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\liquidity.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\installment.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp08.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\forms.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_rule.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_hours.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_tax.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_sinking.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_fx.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_accounts.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\form_installment.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\forms.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\forms.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\forms.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\tax_hooks.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\sinking_report.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\liquidity.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\installment.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP08.md"
+   ],
+   "tests_total": 206,
+   "tests_pass": 206,
+   "acceptance": [
+    {
+     "criterion": "TST-23 / TST-24 REQ-064: проведённый доход порождает allocation.recorded по правилу на дату факта; на G-001 выплата 2 790,00 € при ставке 20 % даёт 558,00 € в конверт",
+     "status": "met",
+     "evidence": "engine/tax_hooks.mjs (on_posted_income/on_posted_payment, pending_posted_allocations) + виды правок post_income и record_posted_allocations. tests/tax_hooks.test.mjs: 279000 при 2000 bp → запись tax:TR-20@… 55800, rule_version 1, дата факта; версии 2000/2200 bp (60000 на 06-30, 66000 на 07-02); запись журнала через ledger.make_event и reduce. tests/forms.test.mjs: post_income пишет факт и аллокацию 55800, в приложении (журнал tx.posted + allocation.recorded). Ограничение в notes: факты не позже funded_as_of в запись не идут."
+    },
+    {
+     "criterion": "REQ-075 / REQ-108: диапазон часов 80 / 93 / 110 даёт доход 2 400 / 2 790 / 3 300; «недоработка 8 ч» показывает 240,00 €",
+     "status": "met",
+     "evidence": "form_hours.mjs: stream_income_range, shortfall_model, set_stream_hours; form_tax.mjs: income_envelope_model и карточка «Налоги и часы». forms.test.mjs: 240000/279000/330000; на 2026-10-20 факт 3120 → недоработка 480 мин, эффект 24000; DOM: «Недоработка 8 ч … 240,00 €», «Доход за октябрь 2 790,00 € (диапазон 2 400,00–3 300,00 €), выплата 5 ноября; в конверт по правилу 20 % — 558,00 €»."
+    },
+    {
+     "criterion": "REQ-018: «запас» = Σ savings + Σ asset·bp/10^4 (пример 145000) отдельно от operating; crypto по умолчанию не ликвидна (REQ-080)",
+     "status": "met",
+     "evidence": "engine/liquidity.mjs + form_accounts.mjs. tests/liquidity.test.mjs: 100000 + 150000·3000bp → 145000, при bp=0 → 100000, operating 400000 отдельно и равен opening_minor analyze; крипта 0 по умолчанию, 2250 при 3000 bp, крипта в operating — E_SCHEMA. forms.test.mjs: форма счёта и карточка «Запас вне прогноза: 1 450,00 €»."
+    },
+    {
+     "criterion": "REQ-069 / REQ-070 / REQ-071: W_RESERVE_BEHIND несёт число и сумму; plan_status показывает «цель достигнута» и «до срока нет дат взноса»",
+     "status": "met",
+     "evidence": "engine/sinking_report.mjs (sinking_plan, reserve_behind_detail, confirm_rows, pool_split_report), form_sinking.mjs, вид правки confirm_contributions. tests/sinking_report.test.mjs: [12000×5], [21313×4,21312×4], догон [24358,24357×6], пул [11996,4198,21306], fixed 129500/недостача 50500, reached, no_dates (shortfall 60000); W_RESERVE_BEHIND {missed_count 2, missed_minor 24000} совпадает с reserve_behind_detail (refill, fixed, догон). DOM: «Взносов не подтверждено: 2 взноса на сумму 240,00 €», «Цель достигнута», «До срока нет дат взноса»."
+    },
+    {
+     "criterion": "REQ-192 TST-30: рассрочка с процентами из DebtPlan даёт части [20706 × 5, 20705] через check_purchase",
+     "status": "met",
+     "evidence": "engine/installment.mjs (installment_plan, parts_from_debt_plan, move_part_date, split_horizon), form_installment.mjs. tests/installment.test.mjs: [20706×5, 20705], Σ 124235, проценты 4235, check_purchase kind ok с beyond_horizon_minor 103529, m_after равен ручному min(free−cum). forms.test.mjs (модель и DOM): график, итог 1 242,35 €, вердикт, «Не все платежи учтены»."
+    },
+    {
+     "criterion": "REQ-067: плашка правила содержит дату «не подтверждено с …»; при status = disabled числа конверта заменены текстом",
+     "status": "met",
+     "evidence": "form_tax.mjs: tax_state_model (hidden, now_minor/end_minor = null), rule_banner, confirm_edit, render_tax_hours_card. forms.test.mjs: stale/disabled по формуле ttl; в приложении при disabled карточка не содержит «558,00», показывает «Правило не подтверждено с 2026-01-01: подтвердите или измените.»; расчёт free и резерв 150000 продолжаются; «Подтвердить правило» добавляет версию 2 и числа возвращаются."
+    },
+    {
+     "criterion": "REQ-032: действие «пропустить вхождение» пишет override skip; вхождение не попадает в ряд; inputs_hash детерминирован",
+     "status": "met",
+     "evidence": "form_rule.mjs: skip_edit/restore_edit, вид правки set_occurrence_override (проверка validate_override и nominal_dates). forms.test.mjs: override {R-RENT, 2026-10-25, skip}, событие R-RENT@2026-10-25 исчезает из ряда, inputs_hash одинаков при повторе и отличается от исходного, возврат восстанавливает исходный hash; DOM: кнопка «Пропустить» → журнал override.set."
+    },
+    {
+     "criterion": "Каждая форма отвергает невалидный ввод кодом E_* без повтора введённого текста; все ключи создаёт приложение",
+     "status": "met",
+     "evidence": "forms.test.mjs: для форм правила, потока, налога, цели, курса, обмена, счёта и рассрочки перебор невалидных вводов — код из канона E_* и проверка no_echo (введённая строка не встречается в ошибке); в DOM текст формы «Не принято (E_…)» без введённого. Идентификаторы rule_/stream_/trl_/res_/fx_/trf_/acc_/pur_ создаёт ctx.new_id (регулярки в тестах)."
+    }
+   ],
+   "notes": [
+    "Существующий код не менял: app.mjs, i18n.mjs, ext.mjs, ws_edit.mjs, engine/index.mjs, tests/demo.test.mjs, tests/purity.test.mjs, ext_manifest.mjs не тронуты; все правки аддитивные. Пакет подключается через pack_fp08.mjs → register(ext): экран #forms (7 разделов), слоты reserves.sections (налоги и часы, недоработка, «проведено, но в конверт не записано», план взносов, запас и счета) и data.sections (ссылка на формы), пять новых видов правок через register_edit (set_occurrence_override, set_stream_hours, post_income, record_posted_allocations, confirm_contributions), с защитой от повторной регистрации.",
+    "Новые engine-модули (tax_hooks, sinking_report, liquidity, installment) не реэкспортируются из engine/index.mjs и вне карты рангов purity.test.mjs: проверяются чистота и импорты, циклов нет.",
+    "Ограничение по канону: reserve_open игнорирует аллокации с датой не позже funded_as_of, поэтому pending_posted_allocations такие факты не включает; на G-001 (funded_as_of = as_of = 2026-10-04) выплата, проведённая сегодня, отдельной записью в конверт не идёт. Для демонстрации 558,00 € тесты используют дату позже funded_as_of (as_of 2026-11-06).",
+    "Правило применяется к проведённому факту по stream_id или tag из applies_to (C-025); факты G-001 несут tag = S-HOURLY без stream_id и правилу по stream_ids не соответствуют. Форма «Выплата получена» задаёт stream_id.",
+    "«Подтвердить правило» добавляет версию (REQ-065) с valid_from и reviewed_at = сегодня и условным recorded_at = max(сегодня T12:00:00Z, recorded_at прошлых версий): часов в приложении нет. Без ttl_days подтверждать нечего (кнопка недоступна).",
+    "fx.stale_days читается через flat_params из параметров рабочей области, литерала значения в коде нет. Параметр crypto.liquidity_bp по-прежнему не читается: доля крипты берётся из поля счёта liquidity_bp (по умолчанию 0).",
+    "Записи форм идут через ctx.set_ws и в стопку «Отменить» FP-04 не попадают (deps.undo не публикуется): это описано в hook-requests-FP08.md (п. 3) вместе с предложениями: запись в конверт при вводе дохода через «+» (record_posted_allocations в commit_entry), числа в тексте W_RESERVE_BEHIND (warning_text), строгие ранги модулей в purity.test.mjs, обновление README и карты модулей.",
+    "Исправленные по ходу дефекты в собственном коде: совпадение DOM-идентификаторов раздела и формы (section vs form) — разделы переименованы fp08-sec-*, карточка накоплений fp08-card-sink; null в replaceChildren заменён на фильтр kids(); обработчик выбора правила/цели регистрируется до обработчика предпросмотра.",
+    "Проверено: forms 42, tax_hooks 11, sinking_report 12, liquidity 7, installment 7, purity 93, demo 34 — всё зелёное (в demo.test проходит TST-56: паритет RU/EN каталога forms, нет мёртвых ключей, запрещённые формулировки). Дополнительно зелёные ext, ext_boot, ws_edit, ws_bridge, settings, settings_boot, entry, entry_boot, showcase, data_pack, backup, scenario_builder, wave_edit, why_more. tools/lint_vocab.mjs: 0 ошибок (63 предупреждения в wiki, не мои файлы). Полный набор не запускался (по правилам задания); TST-54 не затрагивался."
+   ]
+  },
+  {
+   "fp": "INTEGRATOR-WAVE1",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ext.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\app.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ws_edit.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp03.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp04.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp05.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\README_ext.md",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\wave1_integration.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\purity.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\demo.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ext.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ws_edit.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\settings.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\data_pack.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\README.md",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\wave1-acceptance.md",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\run\\run1.txt",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\run\\run2.txt",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\tst-coverage.json"
+   ],
+   "tests_total": 1672,
+   "tests_pass": 1667,
+   "acceptance": [
+    {
+     "criterion": "Все запросы hook-requests-FP01…FP09 разобраны, нужные правки общих файлов применены аддитивно",
+     "status": "met",
+     "evidence": "Принято: хук fmt, слоты banner.actions и scenarios.after, ctx.refresh/adopt, validate_ws в ws_edit, служебные предупреждения и числа W_RESERVE_BEHIND, слот overview.cards при s<q1, плашка 'Не учтено' по readiness.reasons, why_button у обеих строк 'Купить', θ>=1, строгие ранги purity. Таблица решений — _ops/impl/wave1-acceptance.md, раздел 'Запросы пакетов'. Не приняты (с обоснованием): set_as_of, единая стопка Undo для форм, запись в конверт из '+', waves.card, перевод FP-05 на ctx.adopt."
+    },
+    {
+     "criterion": "Полный прогон всех тестов безопасно для памяти, 0 падений, todo/skip осмысленные",
+     "status": "met",
+     "evidence": "62 файла по одному с --test-concurrency=1: 1672 tests, 1667 pass, 0 fail, 2 skipped (hledger-оракул, ночной FUZZ_N), 3 todo (было 13). TST-54 (timeline.test.mjs) падал по одному разу в run1 и run2 из-за нагрузки (p95~210 мс при p50~70 мс); на снимке до волны замер сопоставим; отдельный перезапуск файла 39/39. Логи: _ops/impl/run/run1.txt, run2.txt."
+    },
+    {
+     "criterion": "Ни один тест, существовавший до волны, не исчез",
+     "status": "met",
+     "evidence": "tools/additive_check.mjs против _backups/…checkpoint-30: пропавших экспортов и файлов нет; тестов 1099 → 1688 вызовов test(; единственная запись 'пропал' — TST-32 ADV откат партии (был todo), переписан FP-02 в проверку с опцией omit imports (допустимо при закрытии дефекта; ожидание уже буквального — см. notes)."
+    },
+    {
+     "criterion": "lint_vocab и lint: 0 ошибок; пакеты загружаются, нет конфликтов маршрутов/ключей i18n/идентификаторов DOM",
+     "status": "met",
+     "evidence": "lint_vocab (и --registry): 0 ошибок; lint: 0 ошибок. tests/wave1_integration.test.mjs: все 7 pack_fpNN загружены без failed/absent, 10 вкладок пакетов без повторов, все экраны рисуются. Скрипт-проверка: литералы id: в DOM не повторяются между файлами, селекторы style.css и 7 css/*.css не пересекаются, register_strings не отказал ни одному каталогу."
+    },
+    {
+     "criterion": "FP-01…FP-09: все критерии приёмки из backlog.json",
+     "status": "partial",
+     "evidence": "50 из 52 критериев met, 2 partial: FP-04 REQ-090 (медиана ввода ≤5 с на ≥5 людях — процессная проверка, автотест не заменяет; число полей/действий проверено), FP-08 TST-23/24 (558,00 € получены через форму 'Выплата получена' и 'Записать в конверт'; быстрый ввод '+' запись в конверт не делает). Таблица с доказательствами по каждому критерию — _ops/impl/wave1-acceptance.md."
+    },
+    {
+     "criterion": "prototype/README.md обновлён (карта модулей, новые файлы, фактические числа тестов)",
+     "status": "met",
+     "evidence": "Раздел 'Состояние на 2026-10-06', структура каталога, карта модулей engine (9 новых строк, строки кода пересчитаны), карта модулей демо по пакетам, слои зависимостей, раздел 'Демо', ограничения, todo (3), связанные документы; числа из run2."
+    },
+    {
+     "criterion": "wave1-acceptance.md составлен: таблица FP/критерий/статус/доказательство и список невыполненного",
+     "status": "met",
+     "evidence": "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\wave1-acceptance.md: итоги прогона, что сделано интегратором, таблицы по FP-01…FP-09, решения по запросам, 10 пунктов 'не выполнено / ждёт владельца'."
+    }
+   ],
+   "notes": [
+    "Изменения поведения существующего кода (аддитивно, но видимые): (1) validate_ws стал общей проверкой каждой правки в ws_edit.mjs (as_of берётся из env); цена ≈ 70 мс на 5 000 фактов на правку (импорт FP-06 пишет партией через ctx.set_ws, не циклом apply_edit). (2) PARAM_SPECS['wave.threshold_minor'].min: 0 → 1 (канон θ ≥ 1). (3) app.mjs: fmt() идёт через хук fmt (без настройки number_format — прежний make_fmt); текст banner.not_ready теперь 'Не учтено: {list}.' и называет причины из readiness.reasons (для одной причины 'повседневные траты' текст прежний); gate.readiness больше не называет одну причину; why_button у строки 'по плану' на экране 'Купить'; warning_text использует warnings_ext и warn.W_RESERVE_BEHIND_n. (4) pack_fp05 перерисовывает через ctx.refresh() вместо события hashchange. (5) emit события 'adopt' получил поле source ('dataset' по умолчанию).",
+    "Тесты изменены (не ослаблены): ext.test (списки SLOTS/HOOKS дополнены + новый тест), demo.test (список импортов app.mjs + ../engine/warnings_ext.mjs), settings.test (заглушка ext получила register_hook, ожидание + 'hook:fmt'), data_pack.test (page.renders ≤ 1 вместо === 0: теперь допустим ctx.refresh), purity.test (строгие ранги SPECIAL для 9 модулей), ws_edit.test (+2 теста). Новый файл wave1_integration.test.mjs (8 тестов).",
+    "TST-32 ADV 'откат партии буквально' (бывший todo) переписан FP-02 в проверку с опцией omit imports; additive_check помечает его как пропавший по названию. Формулировка ожидания уже буквального равенства; решение по К-31 за владельцем.",
+    "TST-54 (timeline.test.mjs) чувствителен к нагрузке: падал по одному разу в двух полных прогонах, в 5 из 7 отдельных запусков проходит; замер тем же кодом на снимке до волны сопоставим (регресса нет). Итог 1667 pass учитывает перезапуск.",
+    "Не выполнено и вынесено владельцу/следующей волне: set_as_of ('сегодня' в демо), единая стопка 'Отменить' для форм FP-08, мастера импорта и правок FP-07, запись в конверт при вводе дохода через '+' (нужен tag/stream_id в шторке или правило сопоставления), перевод FP-05 'Восстановить' на ctx.adopt, слот waves.card, хранение операции hours, процессная проверка REQ-090, ночной фаззинг FUZZ_N и оракул hledger, прогон в настоящем браузере и настоящей IndexedDB. Документы wiki/*, _ops/gap/*, design-brief, canon-decisions не трогались (за координатором).",
+    "_ops/tst-coverage.json пересобран тем же методом, что прежний (воспроизведён на снимке: 29 файлов, 1099 вызовов test(, те же счётчики): теперь 62 файла, 1688 вызовов, missing пуст.",
+    "Запросы на правки общих файлов от интегратора не создавались: все общие файлы правились самим интегратором.",
+    "Тонкость среды: heredoc Bash-инструмента ломается на последовательности ${...} внутри JS-шаблонов — скрипты с шаблонными строками писались через Write."
+   ]
+  }
+ ]
+}

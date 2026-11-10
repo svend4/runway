@@ -1,0 +1,106 @@
+{
+  "slug": "open-source-mobile-trackers",
+  "name": "Мобильные и open-source трекеры: Cashew, Spendee, Wallet (BudgetBakers), Money Manager (Realbyte) + Bluecoins и MMEX",
+  "category": "mobile",
+  "checked": "2026-10-04",
+  "price": "Cashew: бесплатно, GPL-3.0; Pro $1.49/мес, $11.99/год, $19.99 навсегда (App Store, 2026-10-04). Spendee: Basic бесплатно; Plus $1.99/мес или $14.99/год; Premium $5.99/мес или $35.99/год, триал 7 дней, цены зависят от страны (spendee.com/pricing, 2026-10-04). Wallet: Free + Premium (месяц, год, lifetime); суммы на официальных страницах не найдены; App Store US (2026-10-04): Premium месяц $5.99, 3-летний $49.99, lifetime — $29.99 или $49.99 (агрегаторы расходятся, не подтверждено); сторонние: Finder UK £5.49/мес, £48.99 навсегда; Pocket Clear $5.99/мес — не подтверждено. Money Manager: бесплатно с рекламой; sync $2.49/мес или $19.99/год; отдельная версия без рекламы €6.99 (App Store DE, 2026-10-04). Bluecoins: бесплатно с рекламой, Premium разовой покупкой (сумма не подтверждена). MMEX: бесплатно, GPL-2.0.",
+  "status_note": "Все шесть продуктов живы, но состояние разное. Cashew: один разработчик; последний публичный релиз на GitHub 5.3.4+396 от 2024-07-01 (GitHub API 2026-10-04 подтверждает), бета 6.0.8+450 объявлена 2025-06-10 (issue #725), последний коммит в репозитории 2026-03-09 (ссылка в README); App Store показывает версию 5.9, а APKMirror (сторонний каталог) — Android-сборки до 6.7.2 от 2026-10-03, то есть сборки магазинов заметно новее GitHub-релизов (вывод). Независимый код-ревью 2025-06-09: около 103 тыс. строк Dart без значимых тестов. Spendee, Wallet, Money Manager — коммерческие проприетарные; Money Manager: App Store (2026-10-04) показывает версию 2.14.6, обновлённую около недели назад, около 19 тыс. оценок, 4.8; разработчик заявляет 20M+ загрузок. Wallet развивает API и MCP-интеграцию. Bluecoins: © 2026 в документации. MMEX: GPL-2.0, около 2,3 тыс. звёзд, стабильный релиз v1.9.4 от 2026-08-31 (GitHub), последний push 2026-10-04; в заметках к v1.9.4 упомянут баг расчёта баланса с фильтром по датам.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Лучшие в группе — MMEX (cash-flow отчёт по расписаниям: свободные средства с учётом будущих обязательств) и Bluecoins (проекция из напоминаний и операций с будущей датой, окно «прошлые 3 месяца → будущие 3»; показ итогового остатка в гайде не описан). Wallet заявляет «ожидаемый баланс после всех предстоящих платежей» на странице Planned Payments (2026-10-04), но горизонт, учёт неплановых трат и формат не описаны — маркетинг без деталей. Cashew, Spendee, Money Manager: ежедневной проекции остатка не найдено."
+    },
+    "can_i_afford": {
+      "level": "none",
+      "note": "Выделенного what-if (проверка гипотетической покупки и самая узкая точка) в документации и обзорах ни одного продукта группы не найдено; для Spendee сводка поиска (источник не открывался) упоминает отсутствие сложных what-if. Обходной путь — внести операцию с будущей датой и смотреть проекцию там, где она есть (вывод, не проверено)."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Повторы есть у всех: Cashew (типы upcoming/subscription/repeating, сводка расписаний в среднем за месяц/год), Wallet (Planned Payments, автопоиск повторов по истории), Bluecoins (daily/weekly/monthly/yearly/custom, условия окончания, сдвиг выходных), MMEX (автопроводка или подтверждение). У Spendee повторы только в ручных кошельках. Агрегата «сколько нужно к каждой волне» нет: только списки будущих (Cashew, Wallet, MMEX с окном 15 дней)."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "Цели есть у Cashew (операции направляются на покупку или накопление) и Wallet (savings goals, эндпоинт goals в API); у Cashew есть среднемесячный пересчёт расписаний, из которого можно получить сумму отчисления. Автоматического графика откладывания под годовой платёж ни у кого не найдено."
+    },
+    "tax_envelope": {
+      "level": "none",
+      "note": "Налогового конверта и правил по доходу нет. Единственное найденное — пометка операции «для налогов» в Money Manager (по обзору CHOICE), это тег, а не расчёт."
+    },
+    "multi_currency": {
+      "level": "full",
+      "note": "Spendee: валюта кошелька и свой курс на каждую операцию, но валюту нельзя сменить после первой операции. Bluecoins: счета в любых валютах, курсы на операцию и на счёт, крипта (по собственному гайду). Cashew: несколько валют, актуальные курсы, своя валюта для переводов. Wallet: одна валюта на счёт, курсы обновляются ночью с ручным переопределением (по сниппету справки); в пользовательских обсуждениях жалуются на пересчёт баланса по текущему курсу (содержимое feedback-страницы не открывалось)."
+    },
+    "hourly_income": {
+      "level": "none",
+      "note": "Ставок, часов, инвойсов и нерегулярного дохода как модели в изученных материалах (2026-10-04) не найдено ни у одного продукта группы; доход вводится как обычная операция."
+    },
+    "privacy_local_first": {
+      "level": "full",
+      "note": "Лучший уровень — Cashew (данные в локальной SQLite, без банковских агрегаторов, по метке App Store разработчик данные не собирает; синхронизация через Firebase и бэкап на Google Drive не имеют E2E-шифрования), Bluecoins (данные на устройстве, бэкап в Drive/Dropbox/OneDrive пользователя) и MMEX (локальная SQLite с AES). Wallet и Spendee — облачные, с банковскими агрегаторами (у Wallet названы Salt Edge и Yodlee); Money Manager — офлайн, но платная sync и рекламные идентификаторы. Self-host не найден."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Wallet: импорт CSV/XLS/OFX, экспорт CSV/XLS/PDF, REST API (300 запросов/час) — API только в Premium; экспорт тоже Premium (по сниппету справки). Spendee: импорт xls/xlsx/CSV до 10 МБ только через веб и только в ручные кошельки. Cashew: импорт CSV и Google Sheets, у экспорта CSV есть открытые баги. Bluecoins: CSV/QIF импорт, отчёты PDF/Excel/HTML. MMEX: CSV/QIF импорт. Money Manager: Excel; по CHOICE ещё CSV/PDF."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Wallet предлагает MCP-интеграцию для внешних ассистентов (Claude, ChatGPT и др.): чтение по умолчанию, запись включается отдельно по типам данных, OAuth 2.0, отзываемые токены, лимит 300 запросов в час; это доступ к данным, а не grounded-расчёт. Встроенные AI-функции Wallet (автокатегоризация, предсказания) на странице описаны общими словами и не проверены. У остальных продуктов AI-ассистента не найдено."
+    },
+    "openness": {
+      "level": "full",
+      "note": "Cashew — GPL-3.0 (Flutter, открытый репозиторий, но релизы отстают от магазина); MMEX — GPL-2.0 (C++17/wxWidgets). Spendee, Wallet, Money Manager и Bluecoins закрыты. У Wallet есть REST API (только Premium) и MCP (тариф на странице не указан, лимит 300 запр./час общий с API) как слой расширяемости."
+    }
+  },
+  "borrow": [
+    "Один движок для факта и прогноза (Bluecoins): проекция — тот же агрегатор над сгенерированными вхождениями расписаний с окном «N назад → N вперёд», без отдельного кода прогноза.",
+    "Режим расписания auto|confirm (MMEX): автопроводка в срок либо подтверждение с правкой суммы; горизонт напоминаний — настройка пользователя.",
+    "Нормализация повторов к месяцу и году (Cashew): amount_minor × частота / 12 как стартовое предложение для sinking fund.",
+    "Слой неопределённости (Wallet): прогноз = факт + расписания + среднее по незапланированным категориям, отдельно помеченное как оценка (вывод).",
+    "Автопоиск повторов по истории (Wallet): после импорта предлагать правило повторения при стабильном интервале и получателе; подтверждает человек.",
+    "Курс на операцию (Spendee, Bluecoins): хранить fx_rate и источник курса в каждой записи, с ручным переопределением.",
+    "Модель прав для AI-инструментов (Wallet MCP): чтение по умолчанию, запись включается отдельно по типам данных, отзываемые токены, лимит запросов; движок прогноза выставлять как детерминированные инструменты.",
+    "Локальные данные и бэкап в хранилище пользователя (Bluecoins, Cashew) без обязательного банковского агрегатора; E2E-шифрование синхронизации — отличие от Cashew."
+  ],
+  "avoid": [
+    "Делить функции по типу счёта: у Spendee повторы доступны только ручным кошелькам, поэтому банковские данные не попадают в прогноз.",
+    "Платный экспорт и API (Wallet) — vendor lock-in.",
+    "Валюта на счёт без фиксации курса в записи: баланс пересчитывается по текущему курсу (жалоба в обсуждениях Wallet, не проверено).",
+    "Финансовый код без тестов и с глобальным изменяемым состоянием (замечания код-ревью Cashew).",
+    "Открытый репозиторий при непрозрачных релизах: публичные релизы должны совпадать с магазинными сборками.",
+    "Только пометка «для налогов» вместо правил: налоговые расчёты — конфигурируемые данные пользователя, это расчёт по введённым правилам, не консультация."
+  ],
+  "sources": [
+    "https://github.com/jameskokoska/Cashew",
+    "https://github.com/jameskokoska/Cashew/releases",
+    "https://github.com/jameskokoska/Cashew/issues/725",
+    "https://apps.apple.com/app/id6463662930",
+    "https://codewithandrea.com/videos/code-review-cashew-app/",
+    "https://www.spendee.com/pricing",
+    "https://help.spendee.com/article/229-scheduled-transactions",
+    "https://help.spendee.com/article/121-import-transactions",
+    "https://help.spendee.com/article/140-sync-my-bank-account-with-spendee",
+    "https://help.spendee.com/article/231-how-to-setchange-the-currency-and-exchange-rate",
+    "https://budgetbakers.com/en/products/wallet/",
+    "https://budgetbakers.com/en/products/wallet/features/planned-payments/",
+    "https://support.budgetbakers.com/hc/en-us/articles/7076953735314-Setup-Budgets",
+    "https://support.budgetbakers.com/hc/en-us/articles/7151606064018-How-to-export-transactions-from-Wallet",
+    "https://budgetbakers.com/en/products/wallet/integrations/mcp/",
+    "https://budgetbakers.com/en/products/wallet/integrations/rest-api/",
+    "https://www.finder.com/uk/budgeting/wallet-budgetbakers-review",
+    "https://theportablewife.com/living-abroad/best-budgeting-app-for-expats-wallet/",
+    "https://apps.apple.com/app/id560481810",
+    "https://www.choice.com.au/products/money/financial-planning-and-investing/creating-a-budget/realbyte-money-manager",
+    "https://realbyteapps.com/",
+    "https://www.apppricinglab.com/app/apple/560481810",
+    "https://unitq.com/unitq-scorecards/moneymanagerfree",
+    "https://www.bluecoinsapp.com/guide/cashflow/",
+    "https://www.bluecoinsapp.com/guide/",
+    "https://moneymanagerex.org/docs/features/scheduled/",
+    "https://github.com/moneymanagerex/moneymanagerex",
+    "https://pocketclear.app/blog/cheapest-budgeting-apps-2026.html",
+    "https://api.github.com/repos/jameskokoska/Cashew/releases",
+    "https://api.github.com/repos/moneymanagerex/moneymanagerex/releases",
+    "https://www.apkmirror.com/apk/dapper-app-developer/cashew-expense-budget-tracker/",
+    "https://apps.apple.com/us/app/id1032467659"
+  ]
+}

@@ -1,0 +1,422 @@
+/* style.css — демо Runway: адаптивная одностраничка, светлая и тёмная темы, без внешних шрифтов и CDN.
+   Темы: токены на :root; тёмная — по prefers-color-scheme (если тема не выбрана вручную) и по data-theme="dark".
+   Смысл не передаётся только цветом: вердикт — слово и значок, режимы — сплошная и пунктирная линии, волны — штриховка и подпись. */
+
+:root {
+  color-scheme: light dark;
+  --bg: #f5f6f8;
+  --surface: #ffffff;
+  --surface-2: #eef1f5;
+  --text: #1b2230;
+  --muted: #566176;
+  --border: #ccd3de;
+  --control-border: #7f899a; /* граница полей ввода: контраст ≥ 3:1 с фоном и карточкой (WCAG 1.4.11); --border остаётся для разделителей */
+  --accent: #1f5fbf;
+  --accent-text: #ffffff;
+  --plan: #1f5fbf;
+  --worse: #a64b00;
+  --buffer: #5b6b86;
+  --wave: #7556bf; /* ≥ 4,5:1 на bg, surface, surface-2 и banner-bg: .tag и .sc-ai лежат и на подложке surface-2 */
+  --focus: #0b57d0;
+  --ok: #176b3a;
+  --ok-bg: #e3f4ea;
+  --fragile: #8a5a00;
+  --fragile-bg: #fff1d0;
+  --tight: #9a3b00;
+  --tight-bg: #ffe6d6;
+  --no: #a31c26;
+  --no-bg: #fde3e5;
+  --banner-bg: #eef3fb;
+  --shadow: 0 1px 2px rgba(20, 30, 50, 0.08);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11151c;
+    --surface: #1a2029;
+    --surface-2: #232b37;
+    --text: #e8ecf3;
+    --muted: #a3adbf;
+    --border: #3a4455;
+    --control-border: #6c7688;
+    --accent: #7fb0ff;
+    --accent-text: #0b1220;
+    --plan: #7fb0ff;
+    --worse: #ffb066;
+    --buffer: #a9b6cf;
+    --wave: #b7a2f5;
+    --focus: #9ec3ff;
+    --ok: #7fdca3;
+    --ok-bg: #16352a;
+    --fragile: #ffd27a;
+    --fragile-bg: #3a2f12;
+    --tight: #ffb48a;
+    --tight-bg: #3d2417;
+    --no: #ff9aa2;
+    --no-bg: #43191e;
+    --banner-bg: #1c2940;
+    --shadow: none;
+  }
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #11151c;
+  --surface: #1a2029;
+  --surface-2: #232b37;
+  --text: #e8ecf3;
+  --muted: #a3adbf;
+  --border: #3a4455;
+  --control-border: #6c7688;
+  --accent: #7fb0ff;
+  --accent-text: #0b1220;
+  --plan: #7fb0ff;
+  --worse: #ffb066;
+  --buffer: #a9b6cf;
+  --wave: #b7a2f5;
+  --focus: #9ec3ff;
+  --ok: #7fdca3;
+  --ok-bg: #16352a;
+  --fragile: #ffd27a;
+  --fragile-bg: #3a2f12;
+  --tight: #ffb48a;
+  --tight-bg: #3d2417;
+  --no: #ff9aa2;
+  --no-bg: #43191e;
+  --banner-bg: #1c2940;
+  --shadow: none;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font: 1rem/1.5 system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-wrap: anywhere;
+}
+
+h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 8px; }
+h1 { font-size: 1.25rem; }
+h2 { font-size: 1.5rem; }
+h3 { font-size: 1.1rem; }
+h4 { font-size: 1rem; margin-top: 14px; }
+p { margin: 0 0 10px; }
+ul { margin: 0 0 10px; padding-left: 1.2em; }
+ul.plain { list-style: none; padding-left: 0; }
+ul.plain li { margin-bottom: 4px; }
+small { font-size: 0.8em; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden;
+  clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+}
+
+.skip { position: absolute; left: -999px; top: 0; background: var(--accent); color: var(--accent-text); padding: 8px 12px; z-index: 50; }
+.skip:focus { left: 8px; top: 8px; }
+
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+/* ── каркас ───────────────────────────────────────────────────────────── */
+
+.shell { display: grid; grid-template-columns: minmax(0, 1fr); min-height: 100vh; }
+
+.top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px;
+  padding: 12px 16px; background: var(--surface); border-bottom: 1px solid var(--border);
+}
+.brand .sub { margin: 0; color: var(--muted); font-size: 0.9rem; }
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.ctl { display: inline-flex; align-items: center; gap: 6px; }
+.ctl-label { color: var(--muted); font-size: 0.85rem; }
+
+.content { padding: 12px 16px 96px; min-width: 0; max-width: 1100px; width: 100%; margin: 0 auto; }
+
+/* Навигация (S1.4): порядок фокуса клавиатуры = видимый порядок (WCAG 2.4.3). В DOM подряд два списка: «Разделы приложения»
+   (ul.nav-sections, ссылки) и «Действия» (ul.nav-actions, li.nav-action — кнопки слота nav.actions). На любой ширине они идут именно так:
+   CSS меняет только направление и прокрутку, а порядок не трогает — нигде нет order, *-reverse и grid-размещения элементов навигации
+   (проверяет tests/nav_focus.test.mjs). Фокус-кольцо ссылок рисуется внутрь: списки прокручиваются, и внешнее кольцо обрезал бы overflow;
+   у кнопок поля списка не меньше 5 px (кольцо 3 px + отступ 2 px). */
+.nav { background: var(--surface); border-bottom: 1px solid var(--border); }
+.nav ul { list-style: none; margin: 0; padding: 0; display: flex; }
+.nav .nav-sections { overflow-x: auto; }
+.nav a {
+  display: block; padding: 12px 14px; min-height: 44px; color: var(--text); text-decoration: none; white-space: nowrap;
+  border-bottom: 3px solid transparent;
+}
+.nav a:hover { background: var(--surface-2); }
+.nav a:focus-visible { outline-offset: -3px; }
+.nav a[aria-current="page"] { border-bottom-color: var(--accent); font-weight: 600; }
+/* слот nav.actions (FP-01): кнопки действий пакетов — отдельным списком под разделами; на средней ширине переносятся, а не прячутся за прокрутку */
+.nav .nav-actions { flex-wrap: wrap; align-items: center; gap: 4px; padding: 6px 8px; border-top: 1px solid var(--border); }
+.nav .nav-action { display: flex; align-items: center; }
+
+/* Колонка навигации — в rem (220 px при шрифте 16 px), но не шире 40 % окна: при крупном шрифте браузера (200 %) она растёт вместе с текстом, а подписи
+   разделов переносятся (ниже `.nav a { white-space: normal }`), поэтому скрытое переполнение по X (`overflow-x: hidden`) ничего не обрезает (tests/a11y_static.test.mjs). */
+@media (min-width: 1024px) {
+  .shell { grid-template-columns: min(13.75rem, 40vw) minmax(0, 1fr); grid-template-rows: auto 1fr; }
+  .top { grid-column: 1 / -1; }
+  .content { padding-bottom: 32px; }
+}
+
+/* Широкое окно: панель липнет к верху окна и не выше окна (за вычетом --nav-gap: запас на шапку, пока она видна, — иначе низ панели с действиями
+   оказался бы за краем окна). Список разделов прокручивается внутри панели (18 разделов длиннее окна), а действия лежат под ним и остаются
+   на виду без прокрутки списка. Порядок тот же, что в DOM: разделы сверху, действия снизу. */
+@media (min-width: 1024px) {
+  .nav { --nav-gap: 8.5rem; display: flex; flex-direction: column; align-self: start; position: sticky; top: 0; max-height: calc(100vh - var(--nav-gap)); border-right: 1px solid var(--border); }
+  .nav .nav-sections { flex: 1 1 auto; min-height: 0; flex-direction: column; overflow-x: hidden; overflow-y: auto; }
+  .nav .nav-actions { flex: 0 0 auto; }
+  .nav a { border-bottom: 0; border-left: 3px solid transparent; white-space: normal; } /* подпись переносится, а не обрезается скрытым переполнением колонки */
+  .nav a[aria-current="page"] { border-left-color: var(--accent); }
+}
+
+/* Шапка в одну строку от 1280 px; от 1024 до 1279 px её элементы переносятся и она выше */
+@media (min-width: 1280px) {
+  .nav { --nav-gap: 6rem; }
+}
+
+/* Телефон: нижняя панель в два ряда — разделы, под ними действия (ближе к большому пальцу); действия не ждут прокрутки восемнадцати ссылок */
+@media (max-width: 599px) {
+  .nav { position: fixed; left: 0; right: 0; bottom: 0; z-index: 20; border-top: 1px solid var(--border); border-bottom: 0; }
+  .nav a { min-width: 84px; text-align: center; padding: 12px 10px; border-bottom: 0; border-top: 3px solid transparent; }
+  .nav a[aria-current="page"] { border-top-color: var(--accent); }
+  .nav .nav-actions { flex-wrap: nowrap; overflow-x: auto; }
+  .nav .nav-action { flex: 0 0 auto; }
+  .controls { width: 100%; }
+}
+
+/* Телефон, группа «Ещё» (FP-26, U22): demo/nav_more.mjs ставит классы .nav-grouped, .nav-primary, .nav-more только в узком окне. Порядок в DOM — вкладки, «Ещё»
+   (со списком остальных разделов), действия — тот же, что на экране; CSS его не переставляет. Действия в этом режиме переносятся на вторую строку, а не прокручиваются
+   вбок (были «Вернуть» и «?», частично вне экрана 375 px); правило выше (nowrap, overflow-x: auto) остаётся для окна без группировки. */
+@media (max-width: 599px) {
+  .nav.nav-grouped { display: flex; flex-wrap: wrap; }
+  .nav.nav-grouped > .nav-primary { flex: 1 1 0; min-width: 0; }
+  .nav.nav-grouped .nav-primary li, .nav.nav-grouped .nav-more-list li { flex: 1 1 auto; display: flex; }
+  .nav.nav-grouped .nav-primary a, .nav.nav-grouped .nav-more-list a { flex: 1 1 auto; min-width: auto; padding: 12px 6px; text-align: center; }
+
+  .nav.nav-grouped > .nav-more { flex: 0 0 auto; }
+  .nav.nav-grouped > .nav-more[open] { flex: 1 0 100%; border-top: 1px solid var(--border); }
+  .nav-more > summary { display: block; min-height: 44px; padding: 12px 10px; cursor: pointer; text-align: center; white-space: nowrap; border-top: 3px solid transparent; }
+  .nav-more > summary:hover { background: var(--surface-2); }
+  .nav-more > summary:focus-visible { outline-offset: -3px; }
+  .nav-more > summary::after { content: " ▾" / ""; }
+  .nav-more[open] > summary::after { content: " ▴" / ""; }
+  .nav-more.has-current > summary { border-top-color: var(--accent); font-weight: 600; }
+  .nav.nav-grouped .nav-more-list { flex-wrap: wrap; max-height: 45vh; overflow-y: auto; }
+
+  /* действия переносятся (в style.css на телефоне они не переносились и прокручивались вбок: «Вернуть» и «?» выходили за край) */
+  .nav.nav-grouped > .nav-actions { flex: 1 0 100%; flex-wrap: wrap; overflow-x: visible; }
+  /* панель выше: под содержимым оставлено место на два ряда действий и запас на третий */
+  .nav.nav-grouped ~ .content { padding-bottom: 12rem; }
+}
+
+/* Низкое узкое окно (масштаб 200 % на телефоне — около 190×330 px, телефон набок): фиксированная панель в два-четыре ряда заняла бы до 70 % высоты окна, а отступ
+   под неё (rem) не растёт вместе с ней. Здесь панель — обычный блок между шапкой и содержимым, как на 600–1023 px (порядок DOM тот же), и отступ под неё не нужен.
+   Значение `position: static` — не «fixed»: счёт фиксированных правил панели в tests/nav_focus.test.mjs не меняется. */
+@media (max-width: 599px) and (max-height: 480px) {
+  .nav { position: static; border-top: 0; border-bottom: 1px solid var(--border); }
+  .shell .nav ~ .content { padding-bottom: 32px; }
+}
+
+/* ── элементы управления ──────────────────────────────────────────────── */
+
+button, input, select { font: inherit; color: inherit; }
+
+.btn, .chip, .seg button {
+  min-height: 40px; padding: 6px 14px; border: 1px solid var(--border); border-radius: 8px;
+  background: var(--surface); cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  text-decoration: none; color: var(--text);
+}
+.btn:hover, .chip:hover, .seg button:hover { background: var(--surface-2); }
+.btn.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+.chip { border-radius: 999px; min-height: 36px; margin: 0 6px 6px 0; }
+.chip:disabled { opacity: 0.55; cursor: not-allowed; }
+/* FP-49 (исправление после проверки): отключённая кнопка `.btn` выглядит отключённой — без неё фон, цвет и курсор-рука делали «Вернуть выбранный набор» неотличимой от включённой.
+   Подсветку при наведении отключённая кнопка не получает (фон возвращается к обычному; у `.btn.primary` — к цвету акцента, иначе светлый текст стоял бы на светлом фоне). */
+.btn:disabled { opacity: 0.55; cursor: not-allowed; }
+.btn:disabled:hover { background: var(--surface); }
+.btn.primary:disabled:hover { background: var(--accent); }
+.chips { display: flex; flex-wrap: wrap; }
+
+.seg { display: inline-flex; border-radius: 8px; overflow: hidden; }
+.seg button { border-radius: 0; margin-left: -1px; }
+.seg button:first-child { border-radius: 8px 0 0 8px; margin-left: 0; }
+.seg button:last-child { border-radius: 0 8px 8px 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); font-weight: 600; }
+
+.link { background: none; border: 0; padding: 2px 4px; min-height: 24px; color: var(--accent); text-decoration: underline; cursor: pointer; }
+
+input[type="text"], input[type="date"], select {
+  min-height: 40px; padding: 6px 10px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--surface); max-width: 100%;
+}
+input[type="range"] { width: 100%; min-height: 28px; accent-color: var(--accent); }
+input:disabled { opacity: 0.6; }
+
+.field { margin-bottom: 14px; display: grid; gap: 6px; }
+.field label { font-weight: 600; }
+.row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.row input[type="text"] { flex: 1 1 260px; }
+.ask label { display: block; font-weight: 600; margin-bottom: 6px; }
+.file { color: var(--muted); }
+
+/* ── сводка и плашки ──────────────────────────────────────────────────── */
+
+.chips-row { list-style: none; padding: 0; margin: 0 0 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.chips-row li { padding: 4px 10px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); font-size: 0.9rem; }
+
+.banner {
+  padding: 8px 12px; margin: 0 0 8px; border-left: 4px solid var(--accent); background: var(--banner-bg); border-radius: 4px;
+}
+.banner.tight { border-left-color: var(--tight); background: var(--tight-bg); }
+.banner.short { border-left-color: var(--no); background: var(--no-bg); }
+.banner.scenario { border-left-color: var(--wave); }
+.error { color: var(--no); font-weight: 600; }
+.muted { color: var(--muted); }
+.lead { color: var(--muted); }
+.bad { color: var(--no); font-weight: 600; }
+.neg { color: var(--text); }
+.pos { color: var(--ok); }
+
+/* ── карточки и сетки ─────────────────────────────────────────────────── */
+
+.card {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; margin-bottom: 12px;
+  box-shadow: var(--shadow); min-width: 0;
+}
+.grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); margin-bottom: 12px; }
+.grid .card { margin-bottom: 0; }
+li.sel { font-weight: 600; }
+.actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+
+.verdict {
+  display: inline-flex; gap: 6px; align-items: center; padding: 2px 12px; border-radius: 999px; border: 2px solid currentColor; font-weight: 700;
+}
+.verdict-OK { color: var(--ok); background: var(--ok-bg); }
+.verdict-FRAGILE { color: var(--fragile); background: var(--fragile-bg); }
+.verdict-TIGHT { color: var(--tight); background: var(--tight-bg); }
+.verdict-NO { color: var(--no); background: var(--no-bg); }
+.state-chip { padding: 2px 10px; border-radius: 999px; border: 1px solid var(--border); }
+.state-chip.stale { border-color: var(--fragile); color: var(--fragile); }
+.state-chip.disabled { border-color: var(--no); color: var(--no); }
+.tag { color: var(--wave); font-size: 0.85em; }
+
+details.card > summary { cursor: pointer; font-weight: 600; min-height: 28px; }
+details.sentence { margin: 10px 0; }
+
+/* ── таблицы ──────────────────────────────────────────────────────────── */
+
+.table-wrap { overflow: auto; max-width: 100%; margin-top: 8px; }
+.tbl { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+.tbl caption { text-align: left; }
+.tbl th, .tbl td { padding: 6px 10px; border-bottom: 1px solid var(--border); text-align: left; vertical-align: top; }
+.tbl thead th { background: var(--surface-2); font-weight: 600; position: sticky; top: 0; }
+.tbl tbody th { font-weight: 500; }
+.tbl.wide { min-width: 880px; }
+.num { text-align: right !important; font-variant-numeric: tabular-nums; white-space: nowrap; }
+tr.mark th, tr.mark td { background: var(--banner-bg); font-weight: 600; }
+tr.total th, tr.total td { font-weight: 700; border-top: 2px solid var(--text); }
+tr.overdue td { color: var(--no); }
+.col-actions { font-size: 0.85rem; font-weight: 400; }
+
+/* ── график ───────────────────────────────────────────────────────────── */
+
+.chart-wrap { width: 100%; min-height: 290px; overflow: hidden; }
+.chart { display: block; max-width: 100%; height: auto; touch-action: pan-y; }
+.chart .axis { font-size: 11px; fill: var(--muted); }
+.chart .gridline { stroke: var(--border); stroke-width: 1; }
+.chart .tick { stroke: var(--muted); stroke-width: 1; }
+.chart .zero { stroke: var(--muted); stroke-width: 1.2; }
+.chart .line { fill: none; stroke-linejoin: round; stroke-linecap: round; }
+.line.plan { stroke: var(--plan); stroke-width: 2.75; }
+.line.worse { stroke: var(--worse); stroke-width: 2.75; stroke-dasharray: 8 5; }
+.line.thin { stroke-width: 1.25; opacity: 0.75; }
+.line.worse.thin { stroke-dasharray: 3 3; }
+.line.past { stroke: var(--muted); stroke-width: 2.25; }
+.buffer { stroke: var(--buffer); stroke-width: 2; stroke-dasharray: 1.5 5; stroke-linecap: round; }
+.buffer-label { font-size: 11px; fill: var(--buffer); }
+.today { stroke: var(--text); stroke-width: 1.25; }
+.today-label { font-size: 11px; fill: var(--text); font-weight: 600; }
+.hatch-line { stroke: var(--wave); stroke-width: 2.2; }
+rect.wave { opacity: 0.6; stroke: var(--wave); stroke-width: 1; }
+.wave-label { font-size: 11px; fill: var(--wave); font-weight: 600; }
+.narrow { stroke: var(--surface); stroke-width: 2; }
+.narrow.plan { fill: var(--plan); }
+.narrow.worse { fill: var(--worse); }
+.narrow-label { font-size: 12px; fill: var(--text); font-weight: 600; paint-order: stroke; stroke: var(--surface); stroke-width: 3px; }
+.cursor-line { stroke: var(--text); stroke-width: 1; opacity: 0.6; }
+.cursor-dot.plan { fill: var(--plan); }
+.cursor-dot.worse { fill: var(--worse); }
+.slider-row { display: grid; gap: 4px; margin-top: 8px; }
+.readout { margin: 6px 0; font-variant-numeric: tabular-nums; }
+.legend { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 0.85rem; color: var(--muted); }
+.legend li { display: inline-flex; align-items: center; gap: 6px; }
+.swatch { flex: none; }
+.swatch .line { stroke-width: 2.5; }
+
+/* ── календарь волн ───────────────────────────────────────────────────── */
+
+.cals { display: flex; flex-wrap: wrap; gap: 16px; }
+.cal { border-collapse: collapse; font-size: 0.9rem; }
+.cal caption { font-weight: 600; text-align: left; padding-bottom: 4px; }
+.cal th { color: var(--muted); font-weight: 500; padding: 2px 4px; }
+.cal td { width: 2.8em; height: 2.8em; text-align: center; vertical-align: middle; border: 1px solid var(--border); padding: 0; }
+.cal td.out { color: var(--muted); }
+.cal td.empty { border-color: transparent; }
+.cal td small { display: block; font-size: 0.65em; line-height: 1; }
+.cal td.wave-day { background: repeating-linear-gradient(45deg, transparent 0 4px, var(--wave) 4px 6px); font-weight: 700; }
+.cal td.wave-day span { background: var(--surface); padding: 0 3px; border-radius: 3px; }
+.cal td.today { outline: 3px solid var(--text); outline-offset: -3px; font-weight: 700; }
+
+/* ── лента и ассистент ────────────────────────────────────────────────── */
+
+.seam {
+  display: flex; align-items: center; gap: 12px; margin: 14px 0; font-weight: 600; color: var(--text);
+}
+.seam::before, .seam::after { content: ""; flex: 1; border-top: 2px dashed var(--text); }
+.members { margin-bottom: 8px; }
+.chat .msg { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; margin-bottom: 10px; }
+.chat .you { margin-bottom: 6px; }
+.chat .a0 { border-left: 4px solid var(--accent); padding-left: 10px; }
+.chat .meta { margin: 0; }
+
+/* ── диалог ───────────────────────────────────────────────────────────── */
+
+dialog {
+  width: min(720px, calc(100vw - 24px)); max-height: calc(100vh - 24px); overflow: auto; padding: 16px; border: 1px solid var(--border);
+  border-radius: 12px; background: var(--surface); color: var(--text);
+}
+dialog::backdrop { background: rgba(10, 14, 22, 0.6); }
+.dlg-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; margin-bottom: 8px; }
+.dlg-head h2 { font-size: 1.2rem; }
+
+.foot { color: var(--muted); font-size: 0.85rem; margin-top: 16px; }
+
+@media (max-width: 599px) {
+  body { font-size: 0.9375rem; }
+  .brand .sub, .ctl-label { display: none; }
+  .top { gap: 6px; }
+  .controls { gap: 6px; }
+  .controls .btn, .controls .seg button, .controls select { min-height: 36px; padding: 4px 10px; }
+  .chips-row { gap: 4px; }
+  .chips-row li { padding: 2px 8px; font-size: 0.8rem; }
+  .content { padding: 10px 12px 8.5rem; } /* под нижнюю панель в два ряда (с запасом на полосу прокрутки) */
+  .top { padding: 10px 12px; }
+  .card { padding: 12px; }
+  .tbl { font-size: 0.9rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { scroll-behavior: auto !important; transition: none !important; animation: none !important; }
+}
+
+@media print {
+  .nav, .controls, .skip { display: none; }
+  .content { max-width: none; }
+}

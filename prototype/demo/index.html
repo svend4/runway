@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <!-- TST-59: только свои файлы, без inline-скриптов и стилей, без внешних шрифтов и аналитики. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Runway — демо</title>
+  <meta name="description" content="Демо прогноза денежного потока Runway: расчёт по введённым данным и правилам, без регистрации, на данных G-001.">
+  <meta name="theme-color" content="#1f5fbf">
+  <!-- FP-12: манифест приложения и иконка (SVG, без бинарных файлов); сервис-воркер регистрирует pwa.mjs только на localhost и HTTPS -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.mjs"></script>
+</head>
+<body>
+  <a id="skip" class="skip" href="#main">К содержимому</a>
+  <div class="shell">
+    <header class="top">
+      <div class="brand">
+        <h1 id="app-title">Runway — демо</h1>
+        <p id="app-sub" class="sub">Прогноз денежного потока: расчёт по введённым данным и правилам</p>
+      </div>
+      <div id="controls" class="controls"></div>
+    </header>
+    <nav id="nav" class="nav" aria-label="Разделы"></nav>
+    <div class="content">
+      <section id="summary" class="summary" aria-label="Сводка"></section>
+      <main id="main" tabindex="-1">
+        <p>Загрузка набора данных…</p>
+        <noscript>
+          <p>Для демо нужен JavaScript: расчёт идёт в этой странице, без сервера и без передачи данных.</p>
+          <p>The demo needs JavaScript: the calculation runs in this page, with no server and no data sent anywhere.</p>
+        </noscript>
+      </main>
+      <footer id="footer" class="foot"></footer>
+    </div>
+  </div>
+  <div id="live" class="sr-only" role="status" aria-live="polite"></div>
+  <dialog id="dlg" aria-labelledby="dlg-title">
+    <div class="dlg-head">
+      <h2 id="dlg-title"></h2>
+      <button id="dlg-close" type="button" class="btn">Закрыть</button>
+    </div>
+    <div id="dlg-body"></div>
+  </dialog>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/* css/forms.css — пакет FP-08: экран «Формы данных» и карточки на экране «Резервы». Токены цветов — из style.css (светлая и тёмная темы наследуются), своих цветов нет.
+   Смысл не передаётся только цветом: ошибка поля — текст с кодом рядом с полем, отметка поля — aria-invalid плюс рамка. Без внешних адресов и шрифтов (CSP style-src 'self'). */
+
+.fp08 .fp08-tabs { margin-bottom: 14px; flex-wrap: wrap; }
+.fp08 .fp08-tabs button { min-height: 36px; }
+.fp08-section { margin-bottom: 18px; }
+.fp08-section > h3 { margin-top: 0; }
+.fp08-form { max-width: 720px; }
+.fp08-form .field input[type="text"],
+.fp08-form .field input[type="date"] { max-width: 18em; }
+.fp08-form .field select { max-width: 100%; }
+.fp08-form .field .error:empty { display: none; }
+.fp08-form input[aria-invalid="true"],
+.fp08-form select[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.fp08-form .field.check label { font-weight: 500; display: inline-flex; gap: 6px; align-items: center; }
+.fp08-status { min-height: 1.5em; margin: 8px 0 0; }
+.fp08-preview { padding: 6px 10px; border: 1px dashed var(--border); border-radius: 8px; background: var(--surface-2); margin: 8px 0; }
+.fp08-preview:empty { display: none; }
+.fp08-preview ul { margin: 4px 0; }
+.fp08-big { font-size: 1.1rem; font-weight: 600; }
+.fp08-ok { font-weight: 600; }
+.fp08-rule, .fp08-stream, .fp08-taxrule { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.btn.small { min-height: 30px; padding: 2px 10px; font-size: 0.9rem; }
+.fp08-behind { margin-top: 8px; }
+.fp08-card .tbl { margin: 8px 0; }
+.fp08-card h3 { margin-top: 0; }
+/* FP-13: действия над одним вхождением правила («Перенести», «Другая сумма») и примечание о календаре в форме правила */
+.fp13-slot:empty { display: none; }
+.fp13-inline { margin: 8px 0 8px 12px; padding: 8px 12px; border: 1px dashed var(--border); border-radius: 8px; max-width: 520px; }
+.fp13-inline .field input[type="text"],
+.fp13-inline .field input[type="date"] { max-width: 16em; }
+.fp13-inline input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.fp13-inline .error:empty { display: none; }
+.fp08-occ { margin-bottom: 6px; }
+.fp08-calnote:empty { display: none; }
+.fp08-calnote { margin: 6px 0; }

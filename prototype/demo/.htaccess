@@ -1,0 +1,11 @@
+# .htaccess — для Apache (XAMPP): тип файла манифеста PWA и «не кэшировать» для воркера и манифеста хэшей (FP-12).
+# Каталог demo/ открывается так: http://localhost/01/301/runway/prototype/demo/. Если Apache не читает .htaccess
+# (AllowOverride None), страница работает, но браузер может не принять манифест без типа application/manifest+json;
+# тогда добавьте строку AddType в конфигурацию сервера (подробности — prototype/demo/README_ext.md, раздел «Пакет FP-12»).
+AddType application/manifest+json .webmanifest
+
+<IfModule mod_headers.c>
+  <FilesMatch "^(sw\.js|shell_manifest\.json|manifest\.webmanifest)$">
+    Header set Cache-Control "no-cache"
+  </FilesMatch>
+</IfModule>

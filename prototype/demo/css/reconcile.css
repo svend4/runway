@@ -1,0 +1,22 @@
+/* reconcile.css — стили пакета FP-11: экран «Сверка» (#reconcile) и карточка «Сверка» на «Обзоре».
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: у пункта очереди есть слова «Просрочено / Возможное совпадение / Оплачено частично», состояние строки факта — текст в ячейке. */
+
+.reconcile .rc-list { list-style: none; margin: 0; padding: 0; }
+.reconcile .rc-item { border: 1px solid var(--border); border-left-width: 5px; border-radius: 8px; padding: 10px 12px; margin: 0 0 10px; background: var(--surface); }
+.reconcile .rc-item.rc-overdue { border-left-color: var(--no); }
+.reconcile .rc-item.rc-double { border-left-color: var(--fragile); }
+.reconcile .rc-item.rc-partial { border-left-color: var(--worse); }
+.reconcile .rc-head { margin: 0 0 4px; }
+.reconcile .rc-state { margin: 0 0 4px; font-weight: 600; }
+.reconcile .rc-actions { margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.reconcile .rc-actions .btn { min-height: 44px; }
+.reconcile .rc-sub { margin: 4px 0; }
+.reconcile .rc-note { margin: 6px 0 0; }
+.reconcile .rc-table td .btn { min-height: 36px; margin: 2px 0; }
+.reconcile .rc-table td.num, .reconcile .rc-table th.num { text-align: right; white-space: nowrap; }
+.reconcile .rc-pager { align-items: center; margin-top: 10px; gap: 12px; }
+.reconcile .field select { max-width: 100%; }
+.reconcile #rc-empty { margin: 0; }
+
+.rc-card .btn { margin-top: 2px; }

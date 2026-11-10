@@ -1,0 +1,9 @@
+tests/waves_card.test.mjs tests=22 pass=21 fail=1
+✖ REQ-036 строки хуков приложения: слот waves.card — одна строка в app.mjs; app.mjs пакет по имени не знает, а блок пакета не импортирует app.mjs (28.6437ms)
+✖ failing tests:
+✖ REQ-036 строки хуков приложения: слот waves.card — одна строка в app.mjs; app.mjs пакет по имени не знает, а блок пакета не импортирует app.mjs (28.6437ms)
+tests/s1_5_adv.test.mjs tests=17 pass=17 fail=0
+tests/wave_edit.test.mjs tests=12 pass=12 fail=0
+tests/ext.test.mjs tests=17 pass=17 fail=0
+tests/demo.test.mjs tests=34 pass=34 fail=0
+DONE

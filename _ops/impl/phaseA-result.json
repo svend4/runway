@@ -1,0 +1,163 @@
+{
+ "phase": "A",
+ "results": [
+  {
+   "fp": "FP-01",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ext.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ext_manifest.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\dom.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ws_edit.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ws_bridge.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ids.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\journal_log.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\README_ext.md",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ext.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ext_boot.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ws_edit.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\ws_bridge.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\journal_log.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\journal_gen.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\app.mjs (изменён: только хуки, 30 добавленных строк)",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n.mjs (изменён: register_strings, ext_strings, 4 ключа ext.*, t() ищет и в каталогах пакетов)",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\style.css (изменён: 2 строки, .nav-action)",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\demo.test.mjs (изменён: запреты, импорты и TST-56 на все demo/**/*.mjs и demo/i18n/*.mjs)",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP01.md"
+   ],
+   "tests_total": 176,
+   "tests_pass": 176,
+   "acceptance": [
+    {
+     "criterion": "TST-38 REQ-094: ws → журнал → ws → analyze даёт тот же inputs_hash и те же числа на g001, g001-low, g001-gap, g001-late",
+     "status": "met",
+     "evidence": "tests/ws_bridge.test.mjs: по два теста на набор (круг через записи и через файл runway-journal/1): inputs_hash, ряды, Q1, события и предупреждения совпадают, ws совпадает вместе с порядком элементов; G-001 после круга: opening 400000, end_close 340000. Дополнительно круг на ws со всеми корзинами. Все 18 тестов файла проходят."
+    },
+    {
+     "criterion": "TST-16 REQ-012: свёртка «снимок + хвост» равна свёртке всего журнала на ≥ 10^3 случайных журналах с seed; хэш префикса не меняется после append",
+     "status": "met",
+     "evidence": "tests/journal_log.test.mjs: ровно 1000 сворачиваемых журналов (seed 16, все виды записей, откаты и замены на любую раннюю запись), снимки на разных позициях; тест красный на мутации (наивная свёртка ошибается более чем в 20 случаях ссылок назад). Второй тест: 200 журналов, create_journal со снимками каждые 3–9 записей, сравнение на каждом шаге. Хэш префикса: цепочка сверяется с независимым расчётом после каждого append, снимка, свёртки, экспорта и отката; записи заморожены."
+    },
+    {
+     "criterion": "REQ-017: ws_edit возвращает код ошибки модели на каждую недопустимую правку (негативный тест на каждый из 8 кодов), в том числе ноги перевода с ненулевой суммой и ключи __proto__",
+     "status": "met",
+     "evidence": "tests/ws_edit.test.mjs: отдельные тесты на E_NOT_INTEGER, E_OVERFLOW, E_BAD_DATE, E_FUTURE_POSTED (G-001: 2026-10-05 при as_of 2026-10-04), E_RULE_INVALID (в т.ч. сумма ставок > 10000 bp), E_CURRENCY_MISMATCH, E_NO_RATE, E_SCHEMA; ноги −50000/+49999 отвергаются (+ принимаются −50000/+50000, void убирает обе); __proto__/constructor/prototype отвергаются на любой глубине правки и в идентификаторах; контекст ошибки не содержит названий, заметок и меток; единое пространство Id; fuzz 600 мусорных правок. 20 тестов проходят."
+    },
+    {
+     "criterion": "REQ-153: открытие журнала на 36 500 записей со снимком ≤ 2 с на Node; без снимка замер публикуется с n и датой",
+     "status": "met",
+     "evidence": "tests/journal_log.test.mjs (REQ-153): n = 36 536 записей, Node v24.13.0, 2026-10-05: открытие со снимком (JSON.parse + open_journal + state()) 0,57–0,99 с в разных прогонах, без снимка 1,5–4 с (зависит от нагрузки машины), запись в JSON ≈ 274 байта (допущение 250, +10 %). Числа печатаются t.diagnostic и записаны в demo/README_ext.md. Замер чувствителен к нагрузке: берётся лучшее из трёх, при единичном падении перезапустить отдельно."
+    },
+    {
+     "criterion": "TST-59: в app.mjs по-прежнему ровно один fetch и нет innerHTML; запреты расширены на все demo/**/*.mjs; новый список импортов зафиксирован в demo.test.mjs",
+     "status": "met",
+     "evidence": "tests/demo.test.mjs (34 теста, проходят): прежние проверки app.mjs сохранены (ровно один fetch, нет innerHTML); новый тест запретов на все demo/**/*.mjs (innerHTML/outerHTML/insertAdjacentHTML/srcdoc, XMLHttpRequest, WebSocket, sendBeacon, EventSource, importScripts, eval(, new Function, document.write, setAttribute('style'); fetch( только в app.mjs; import() только в ext_manifest.mjs; app.mjs не называет пакеты; ≤ 40 строк хуков); импорты всех модулей разрешаются и модули не импортируют app.mjs; список импортов app.mjs = index, tools, verifier, ./ext.mjs, ./i18n.mjs; TST-56: паритет, плейсхолдеры, мёртвые ключи и запрещённые слова — по всему коду демо и каталогам demo/i18n/*.mjs."
+    },
+    {
+     "criterion": "Обязательный дизайн каркаса: ext.mjs (экраны, слоты, хуки, i18n, css, ctx, терпимость к падению пакета), ext_manifest.mjs, dom.mjs, ids.mjs, документация demo/README_ext.md; app.mjs — только хуки ≤ 40 строк; 1098 прежних тестов сохранены",
+     "status": "met",
+     "evidence": "tests/ext.test.mjs (16) и tests/ext_boot.test.mjs (6, настоящий app.mjs на заглушке DOM: boot, навигация из реестра с экраном пакета, маршрут #smoke, все слоты, show_why, ctx.edit с откатом, смена набора данных → adopt) проходят; diff app.mjs против исходника: 30 добавленных строк. Прежние тесты демо (31) и purity (72) проходят; движок и прежние тесты не менялись. Полный прогон всего набора не запускался (его делает интегратор)."
+    }
+   ],
+   "notes": [
+    "Изменения существующего (все аддитивные): app.mjs — 30 добавленных и 11 заменённых строк (импорт ext, nav из реестра, known_view для маршрута, слоты в 5 экранах, хук show_why, хук scenario_ops до поиска сохранённого сценария, set_ws с откатом, ext.reset в adopt_workspace, bind_host/load_packs/run('boot') в boot). Поведение без пакетов прежнее.",
+    "i18n.mjs: добавлены register_strings/ext_strings и 4 ключа ext.* (RU/EN); t() теперь ищет ключ через Object.hasOwn в каталоге приложения, затем в каталогах пакетов (прежнее поведение для известных и неизвестных ключей сохранено). style.css: +2 строки (.nav-action).",
+    "tests/demo.test.mjs: только расширены проверки (запреты, импорты, TST-56 на все demo/**/*.mjs и demo/i18n/*.mjs); ни одна прежняя проверка не ослаблена. Новые подводные камни для авторов пакетов (описаны в README_ext.md): тест ищет запрещённые слова ПОДСТРОКОЙ по всему коду демо — даже в комментариях (слово «безопасность» содержит запрещённое «безопасно»; также innerHTML, eval( и т.п.); fetch( запрещён вне app.mjs; динамический import() только в ext_manifest.mjs; каталог строк demo/i18n/<пакет>.mjs — пространство имён = имя файла.",
+    "Допущение по метаданным: поля ws вне корзин (workspace_id, name, locale, decision_currency, as_of, format и прочие) хранятся одной записью profile.set с зарезервированным profile_id 'ws:meta' — отдельного типа записи в каноне нет. Состояние imports/extra/matches в ws не возвращается (их в ws нет). Идентификатор факта в ws = event_id, в журнале = entity_id записи tx.posted.",
+    "Находка по движку (для FP-02/канона, подробно в _ops/impl/hook-requests-FP01.md): reduce(events, base) клонирует базу через canon — на 36 500 фактах это ≈ 2 с на вызов, и «снимок + хвост» через reduce не быстрее полной свёртки. Обход: journal_log.fold_tail даёт reduce «частичную базу» затронутых сущностей и вливает результат по ключам (engine/ledger.mjs не менялся). Просьба: режим reduce без клонирования.",
+    "Находка по канону/движку: послепроход reduce по matches зависит от порядка ключей, а клон базы через canon его теряет; если факт привязан и по ключу, и по event_id, reduce(events, base) может дать другого победителя, чем reduce(events). journal_log в таком случае уходит на полную свёртку. Предложение: match.set.fact_event_id — только event_id записи tx.posted.",
+    "Удаление сущности в журнале = откат действующей записи И всей цепочки её замен (supersedes_id): по канону C-070 откат одной последней записи-замены воскресил бы исходную (поймано случайным тестом синхронизации журнала).",
+    "ws_edit: сообщения об ошибках введённых значений идут раньше «нет идентификатора»; set_param принимает null только у необязательных параметров (buffer_minor, wave.threshold_minor, decision_currency), «сброс к умолчанию» удалением ключа не реализован; таблица PARAM_SPECS сверена с vocab.json тестом (kdf.* не редактируются); границы параметров — границы ввода, не канона.",
+    "Нужно интегратору: подключить validate_ws (FP-02) через ws_edit.register_validator; пересобрать _ops/tst-coverage.json; дополнить prototype/README.md и wiki (файлы и тесты каркаса, число тестов); в браузере отсутствующие pack_fpNN.mjs дают строку 404 в консоли — интегратор вправе сократить PACKS в ext_manifest.mjs. Эти запросы записаны в _ops/impl/hook-requests-FP01.md.",
+    "Тест REQ-153 (36 500 записей) идёт ≈ 10 с и чувствителен к нагрузке машины (как TST-54): берётся лучший из трёх замеров открытия со снимком; при единичном падении перезапустить отдельно. Прогон журнального теста TST-16 на 1000 журналах ≈ 7 с.",
+    "Браузер не использовался (общий): проверка app.mjs — на заглушке DOM (tests/ext_boot.test.mjs); вёрстку слота nav.actions в реальном браузере не смотрели."
+   ]
+  },
+  {
+   "fp": "FP-02",
+   "files": [
+    "prototype/engine/validate_ws.mjs (новый)",
+    "prototype/engine/warnings_ext.mjs (новый)",
+    "prototype/tests/hardening.test.mjs (новый, 40 тестов)",
+    "prototype/tests/proto_keys.test.mjs (новый, 10)",
+    "prototype/tests/validate_ws.test.mjs (новый, 21)",
+    "prototype/tests/defaults_sync.test.mjs (новый, 8)",
+    "prototype/tests/fixtures/journal-v1.json (новый)",
+    "prototype/engine/fx.mjs",
+    "prototype/engine/timeline.mjs",
+    "prototype/engine/verifier.mjs",
+    "prototype/engine/io.mjs",
+    "prototype/engine/sinking.mjs",
+    "prototype/engine/recurrence.mjs",
+    "prototype/engine/calibration.mjs",
+    "prototype/engine/backtest.mjs",
+    "prototype/engine/ledger.mjs",
+    "prototype/engine/money.mjs (добавлены own_has/own_put)",
+    "prototype/engine/index.mjs (горизонт, числа W_RESERVE_BEHIND)",
+    "prototype/engine/tools.mjs (max_calls, ключи словарей)",
+    "prototype/engine/montecarlo.mjs (диапазон lag_pool)",
+    "prototype/engine/hourly.mjs (plan_to_date, validate_stream)",
+    "prototype/tests/adversarial/semantics.test.mjs (снят todo ×4, названия)",
+    "prototype/tests/adversarial/verifier_io.test.mjs (снят todo ×5, один todo заменён тестом)",
+    "_ops/impl/hook-requests-FP02.md (новый)"
+   ],
+   "tests_total": 1256,
+   "tests_pass": 1250,
+   "acceptance": [
+    {
+     "criterion": "TST-27: снят todo semantics:1336; одиночная нога остаётся в events.plan; пара operating+operating исключается; golden G-001 без изменений",
+     "status": "met",
+     "evidence": "todo снят, тест зелёный. hardening.test.mjs: одиночная нога, пара, три ноги, нога на savings, детерминизм порядка, G-001 без предупреждения. g001.golden и arith.lock прошли в полном прогоне."
+    },
+    {
+     "criterion": "TST-45/TST-46: сняты todo verifier_io:227, :231, :237; новых ложных тревог на шаблонах RU/EN нет",
+     "status": "met",
+     "evidence": "Все три todo сняты, ассерты тестов не менялись. hardening.test.mjs проверяет 11 глифов минуса, Cf-символы, 6 новых форм разметки, 100 000 знаков за < 1 с. Шаблоны каталога RU/EN и ответы A0 на 4 наборах × 8 инструментов × 2 локали проходят verify_answer."
+    },
+    {
+     "criterion": "TST-51 REQ-091: «12,50» при thousands=«,» — bad_amount; «1.234,50» и «1,234.50» читаются как раньше",
+     "status": "met",
+     "evidence": "todo verifier_io:1113 снят. hardening.test.mjs: профиль даёт reject bad_amount (счётчик «отклонено» в dry_run), фаззинг 10^4 ячеек по независимому оракулу, round-trip format_minor."
+    },
+    {
+     "criterion": "TST-43: id-колонки export_csv не начинаются с = + - @ TAB CR; round-trip не меняется",
+     "status": "met",
+     "evidence": "todo verifier_io:1599 снят. hardening.test.mjs: 7 опасных id во всех четырёх колонках, amount_minor «-4730» без апострофа, round-trip export→import."
+    },
+    {
+     "criterion": "TST-32 REQ-093: state_hash до импорта = после отката партии (omit imports)",
+     "status": "met",
+     "evidence": "ledger.state_hash(state,{omit}) и core_hash. todo verifier_io:1440 заменён двумя утверждениями: omit/core_hash совпадают, полный хэш различается (К-31). hardening.test.mjs: реальный import_commit/import_rollback, повторный импорт даёт 0 новых."
+    },
+    {
+     "criterion": "REQ-158: validate_ws + analyze на ≥10^3 повреждённых журналах всегда дают результат или код REQ-017; horizon_days вне предела → E_SCHEMA быстрее 50 мс",
+     "status": "met",
+     "evidence": "validate_ws.test.mjs: 1200 повреждённых рабочих областей (строгий режим и карантин) и 1200 повреждённых файлов-копий, 0 внутренних ошибок, Object.prototype не загрязнён. Число повышается FUZZ_N / HARDEN_FUZZ_N. Горизонт: 3661, 2·10^5, 3·10^6, 10^9, MAX_SAFE → E_SCHEMA < 50 мс."
+    },
+    {
+     "criterion": "Все 1098 прежних тестов зелёные; todo с 13 до ≤5; golden и arith.lock не изменились",
+     "status": "partial",
+     "evidence": "Полный прогон: 1256 тестов, 1250 pass, 1 fail, 2 skipped, 3 todo (было 13). Единственное падение — TST-54 (производительность) под нагрузкой параллельного прогона; отдельно проходит дважды. В базовом прогоне до правок он падал так же. Прежние тесты не ослаблены, но переименованы (снят «CANON?/canon_suspect») и один todo-тест заменён — см. notes."
+    },
+    {
+     "criterion": "Ограничение среды: оракул hledger (TST-44) остаётся skip",
+     "status": "met",
+     "evidence": "Бинаря нет в PATH, тест io.test.mjs по-прежнему skip; второй skip — ночной фаззинг hardening.test.mjs без FUZZ_N."
+    }
+   ],
+   "notes": [
+    "ИЗМЕНЕНИЯ ПОВЕДЕНИЯ существующего кода. 1) timeline: одиночная нога перевода (один transfer_id на одну запись в plans) считается расходом и даёт предупреждение W_TRANSFER_UNPAIRED {transfer_id}. Три ноги и пара operating+operating — как прежде. 2) fx.opening_in_decision: явный остаток 0 в чужой валюте курса не требует (также в timeline: drift и anchor-дрейф через zero_or_decision).",
+    "КОМПРОМИСС по Q-16: существующий тест timeline.test.mjs:323 закрепляет E_NO_RATE для operating-счёта в USD без якоря и без фактов, ослаблять его нельзя. Поэтому незаданный остаток по-прежнему требует курс, а явный нулевой (якорь 0) — нет. Backlog хотел снять и «не задан»; решение — за владельцем.",
+    "verifier: SIGN расширен глифами U+2010–2012, 207B, 208B, FE58, FE63, FF0D, 2796; «− 470» (U+2212 с пробелом) читается как минус; слова «минус»/«minus»/«negative» перед числом и тире U+2014/2015 вплотную делают число «отрицательным и несверяемым» (V_NO_MATCH при любом evidence). Это совпало с точными ожиданиями снятых todo и теста verifier_io:91, поэтому отдельный код V_AMBIGUOUS_NUMBER из backlog используется только когда рядом нет числа. Символы Cf → V_MARKUP (в т.ч. ZWJ в эмодзи — осознанный компромисс К-26). Новые формы разметки: определения «[r]: …», «![a][r]», «//host/…», голый домен с путём. Голый домен без пути разметкой не считается (К-25). Числа словами: серии ≥2 и «круглые» двадцать…девяносто, сто…девятьсот, twenty…hundred (Q-06). Бонус «Cf в check_structure» не делался: нарушение и так возникает в verify_text.",
+    "io: parse_amount_cell требует группы тысяч ровно по три цифры (в т.ч. для пробелов/NBSP/U+202F); dry_run: match.window_days > 31 → E_SCHEMA (К-4); CSV_TEXT дополнен account_id, currency, event_id, dedup_key. ledger: state_hash(state, opts), core_hash, reduce(events, base, {own:true}) (запрос FP-01). sinking: contribution_dates идёт с месяца start−1 (Q-18, закрыт todo semantics:451) и обрывает перебор не на nom ≥ due, а на nom ≥ due+62 — найдено оракулом: при weekend=prev номинал на сроке или за ним сдвигается до срока и раньше терялся; reserve_open_ex (ignored, clipped_minor), reserve_open — обёртка; refill_to_target без target → E_SCHEMA target_missing вместо E_NOT_INTEGER (Q-29).",
+    "index/timeline: horizon_days > 3660 (и horizon_end дальше 3660 дней) → E_SCHEMA до расчёта, новая константа HORIZON_DAYS_MAX; W_RESERVE_BEHIND получил missed_count и missed_minor, прежние поля сохранены. tools: tools.max_calls вне 1…12 (в т.ч. 0 и 10^9) → 12 (раньше 0…2^53 допускалось). montecarlo.lag_pool: worse.income_delay_days вне 0…365 → E_SCHEMA вместо массива в память. hourly: plan_to_date при заданном темпе — exp для закрытого периода и min(pace·elapsed, exp) для открытого (Q-19, снят todo semantics:1059); validate_stream не бросает на не-массиве bonus. backtest.window_metrics: skill через BigInt (Q-28), strict assert_minor на naive. money: добавлены own_has/own_put (корень графа, вне списка touched_files — нужен по Q-07). tools.mjs, montecarlo.mjs, hourly.mjs, index.mjs тоже правились минимально (вне списка touched_files, но по сути FP-02).",
+    "КЛАСС __proto__ (Q-07): calibration.lag_observations/flow_calibration (E_SCHEMA lags_not_array), timeline.rule_statuses/flat_params/scenario_fx_shock, fx (shock по Object.hasOwn), backtest.replay_state, tools (walk, reserve_kinds) — через own_put/own_has. Сквозной proto_keys.test.mjs: 8 враждебных id × calibration, montecarlo, timeline, ledger (16 корзин), backtest, analyze (8 вариантов), tools, io, sinking. sinking.reserve_series на «__proto__» осталось явным E_SCHEMA (так и было).",
+    "validate_ws.mjs (вне index, не реэкспортируется): validate_ws, validate_journal, quarantine_invalid, analyze_checked, check_params, assert_params, PARAM_RANGES, WS_LIMITS. Заменяет writer.mjs из Q-22 в части проверки/карантина. Даты чужого файла ограничены 1900-01-01…2200-12-31: фаззинг нашёл, что as_of = 10^9 дней считается вечно. Диапазоны К-4 — предложение (горизонт 1…3660, delay 0…365, window 0…31, max_calls 1…12); остальные границы — только технические (тип, bp ≤ 10000). Расхождение со спецификацией: acceptance требует E_SCHEMA на horizon_days вне предела, Q-12 — «умолчание + предупреждение»; реализовано оба: строгий analyze даёт E_SCHEMA, карантин/check_params подставляют умолчание и W_PARAM_OUT_OF_RANGE.",
+    "Служебные предупреждения (W_TRANSFER_UNPAIRED, W_HOURS_KEY_IGNORED, W_PARAM_OUT_OF_RANGE, W_RECORD_QUARANTINED, W_OVERRIDE_SIGN, W_RESERVE_CLIPPED) живут в warnings_ext.mjs, а не в vocab.json: реестр закрыт К-39, purity.test.mjs считает ровно 16 кодов. Интерфейс пока покажет общий «warn.other» — запрос интегратору в hook-requests-FP02.md. W_OVERRIDE_SIGN и W_RESERVE_CLIPPED зарегистрированы, но движком пока не выдаются (validate_override и reserve_open_ex готовы для слоя записи).",
+    "ИЗМЕНЕНИЯ СУЩЕСТВУЮЩИХ ТЕСТОВ (ничего не ослаблено). Сняты todo: semantics 1336, 1342, 451, 1059; verifier_io 227, 231, 237, 1113, 1599 (ассерты не менялись, только названия вместо «CANON?/canon_suspect»). Тест verifier_io:1440 (todo «state_hash буквально равен») заменён тестом с core_hash/omit и ассертом неравенства полного хэша — по прямой рекомендации Q-21; буквальное равенство невозможно (К-31). Остались todo: semantics 353 (П-13, Q-23) и 1465 (П-16, Q-24), verifier_io 2657 (П-30, Q-11, v2) — итого 3.",
+    "Не сделано из quality-backlog: Q-08 (on_posted_income), Q-11 (alias_ids, v2), Q-13 (bench), Q-14 (hledger/Docker), Q-15 (fx_observations), Q-23/Q-24 (перевод todo в «известное ограничение»), Q-25 (скрипт test:nightly: переменные окружения в npm-скриптах несовместимы между оболочками; GP_SEEDS и FUZZ_N уже работают флагом), Q-26, Q-27, Q-32…Q-35.",
+    "ПРОБЛЕМЫ ПРЕЖНЕГО КОДА, найденные по пути (не правились): extract_quantities маскирует найденное через пересборку всей строки на каждое совпадение — квадрат на длинных текстах (100 000 знаков «1,1,» ≈ 2 с, «1 234 » ≈ 2,6 с, «![» ≈ 0,7 с); новые проходы Q-04 сделаны линейными. Время TST-54 в полном прогоне плавает от нагрузки; рекомендую отдельный запуск.",
+    "Файл _ops/impl/hook-requests-FP02.md: тексты предупреждений и числа W_RESERVE_BEHIND для i18n, подключение validate_ws/analyze_checked в ws_edit и при открытии файла, список закрытых Q/П/К для wiki 16-prototype-findings, README, tst-coverage, quality-backlog. wiki/*, raw/*, demo/*, design-brief, canon-decisions не трогались; node tools/lint_vocab.mjs — 0 ошибок."
+   ]
+  }
+ ]
+}

@@ -1,0 +1,100 @@
+{
+  "slug": "plain-text-accounting",
+  "name": "Plain-text accounting: hledger, Beancount (+Fava), Ledger",
+  "category": "plain-text",
+  "checked": "2026-10-04",
+  "price": "Бесплатно, только открытый код: hledger (GPL-3.0+, финансируется спонсорством — hledger.org), Beancount (GPL-2.0-only, PyPI), Fava (MIT, PyPI), Ledger (BSD-3-Clause, GitHub). Платных тарифов у самих программ не найдено; сторонний хостинг beancount.io не изучался (не подтверждено).",
+  "status_note": "Живы все три. hledger: стабильная ветка 1.52.x (1.52.4), превью «2.0» 1.99.5 опубликовано 2026-10-02 (GitHub API; последний stable-релиз 1.52.4 от 2026-09-10, 1.99.x помечены prerelease). Beancount 3.2.3 от 2026-05-05 (PyPI); Fava 1.30.16 от 2026-08-18 (PyPI). Ledger: последний релиз v3.4.1 от 2025-10-26, то есть около года без релиза, но репозиторий ведётся (GitHub).",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "hledger: периодические правила `~ monthly` плюс `--forecast` добавляют будущие транзакции после последней обычной транзакции, по умолчанию на 6 месяцев вперёд (горизонт задаётся). Ledger: `--forecast-while`, `--forecast-years`. Beancount 3: в plugins/ на master нет forecast.py (в ветке v2 был — вынесен из ядра), `[MONTHLY]` в голом Beancount не действует по стороннему гайду; нужны сторонние плагины (beancount-periodic, beancount-interpolate — по сводке поиска, глубоко не проверены). Остаток по будущим проводкам виден в отчётах с бегущим итогом; отдельного отчёта «кривая остатка по дням» в docs не найдено (вывод, не подтверждено)."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Только вручную: документированные способы — будущая транзакция в журнале с фильтром по дате или отдельный forecast/scenario-файл, подключаемый по необходимости (hledger forecasting). Встроенного расчёта «самой узкой точки» и сравнения сценариев в найденных docs нет (вывод)."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "hledger и Ledger: зрелые периодические правила `~`, они же служат бюджетными целями (`--budget` требует интервала отчёта). Видимость будущих списаний есть, агрегации «сколько нужно к каждой волне» нет (вывод). В Beancount повторяемость — только сторонние плагины."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "hledger budgeting описывает конверты как реальные счета, виртуальные субсчета или отдельные счета; отдельной функции sinking fund docs не упоминают. Fava: директива `custom \"budget\"` с интервалом daily/weekly/monthly/quarterly/yearly, бюджет приводится к дневному эквиваленту (по сводке поиска). beancount-interpolate имеет плагин spread для размазывания трат (по сводке поиска, не проверено)."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "hledger: авто-проводки `= revenues:consulting` с множителем `*0.25` откладывают долю дохода на налоговый счёт, но применяются только с флагом `--auto`. Ledger: automated transactions `=` с множителями. Налоговых правил по датам и ставкам нет — всё вручную в журнале. Расчёт по введённым правилам, не консультация."
+    },
+    "multi_currency": {
+      "level": "full",
+      "note": "Сильнейшая ось группы: несколько commodities на одном счёте, фактический курс операции `@`/`@@`, база рыночных цен (`P` в hledger/Ledger, `price` в Beancount), оценка `-V`, `-X`, `--value=then|end|now`; Beancount добавляет `operating_currency`. Таблиц курсов по умолчанию и автоподгрузки нет (вывод)."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "hledger умеет форматы `timeclock` и `timedot` для учёта часов, но в изученном разделе manual нет ставок и перевода часов в деньги или в прогноз. У Beancount есть пример freelancer-ledger с инвойсами на accrual (по сводке поиска). Модели «ставка × часы → ожидаемый доход» нет."
+    },
+    "privacy_local_first": {
+      "level": "full",
+      "note": "Журнал — локальные текстовые файлы, версионируются в git; нет облака, аккаунтов и обязательных банковских агрегаторов. Fava и hledger-web запускаются локально (Fava — localhost:5000)."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Экспорт без lock-in: CSV, JSON, HTML (hledger), взаимный экспорт между hledger и Beancount по FAQ. Импорт — CSV rules (hledger, по FAQ «полуручной, но быстрый» процесс) и скрипты-импортёры (Beancount; Bitwave и Lynch отмечают, что их приходится вести самим). Прямых банковских коннекторов в ядре нет (сторонние импортёры не изучались, не подтверждено). Мобильный ввод — только сторонние клиенты (MoLe, NanoLedger, Beancount Mobile CE, cone). API: CLI, HTTP/JSON в hledger-web, Python API у Beancount."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Штатного AI-ассистента в hledger, Beancount, Fava и Ledger нет. Оценка partial только за сторонние (не часть продукта) инструменты из раздела AI на plaintextaccounting.org: accountant24 (локальный мультимодельный агент на hledger), интеграция Claude Code с hledger, Countbean (плагин Claude Code и MCP-сервер для Beancount), Beanhand (AI-разбор чеков для Beancount); есть также сторонние MCP-серверы hledger и beancount.io. Глубоко не проверялись; к детерминированному прогнозу они отношения не имеют (вывод)."
+    },
+    "openness": {
+      "level": "full",
+      "note": "Лицензии GPL-3.0+ (hledger), GPL-2.0-only (Beancount), MIT (Fava), BSD-3-Clause (Ledger); у Beancount плагины на Python, у hledger скриптуемый CLI и HTTP."
+    }
+  },
+  "borrow": [
+    "Журнал append-only (неизменяемые события, исправления компенсирующими записями) плюс git; прогноз и остатки всегда пересчитываются из журнала.",
+    "Инвариант баланса: проводки Posting{account, amount_minor, currency} суммируются в 0 по валюте; в UI показывать «откуда → куда» без дебета и кредита.",
+    "Balance assertion как якорь сверки: подтверждённый остаток на дату, проекция стартует от последнего якоря, расхождение показывается явно; аналог pad — явная проводка «неразнесённое».",
+    "Commodity плюс база цен: фактический курс хранить в операции, рыночные курсы FxRate{date, base, quote} отдельно; политика оценки then/end/now как в hledger --value.",
+    "Слои Actual / Planned / Hypothetical: периодические правила не смешивать с фактом, проекцию начинать от якоря или today, а не от последней записи (как в hledger forecast).",
+    "Авто-проводки как налоговый конверт: правило «поступление по запросу → доля в резерв» с effective_from, всегда применяется и помечается как derived (в hledger за флагом --auto).",
+    "Виртуальные проводки как конверты: наложение над реальным балансом, safe-to-spend = факт минус резервы.",
+    "Нормализация периодических сумм к дневному эквиваленту (идея Fava budget) для sinking funds.",
+    "Экспорт в формат hledger (.journal) и сверка `hledger bal` с движком как независимый тест (идея, не проверено)."
+  ],
+  "avoid": [
+    "Требовать от пользователя знания дебета/кредита и плана счетов.",
+    "Прогноз за флагом, с фиксированным горизонтом и стартом «после последней транзакции»; правила, скрытые за `--auto`.",
+    "Зависимость сверки от порядка строк (Ledger 3.4.1 проверяет assertions по порядку разбора; в master 3.5.0 — по датам, прежнее поведение под --check-in-file-order).",
+    "Импорт только руками или собственными скриптами пользователя.",
+    "Разрыв между учётом часов и прогнозом: ставка и часы должны питать проекцию дохода."
+  ],
+  "sources": [
+    "https://hledger.org/",
+    "https://hledger.org/hledger.html",
+    "https://hledger.org/forecasting.html",
+    "https://hledger.org/budgeting.html",
+    "https://hledger.org/faq",
+    "https://api.github.com/repos/simonmichael/hledger/releases",
+    "https://github.com/simonmichael/hledger",
+    "https://github.com/ledger/ledger",
+    "https://api.github.com/repos/ledger/ledger/releases",
+    "https://ledger-cli.org/doc/ledger3.html",
+    "https://pypi.org/project/beancount/",
+    "https://github.com/beancount/beancount/tree/master/beancount/plugins",
+    "https://beancount.github.io/docs/index.html",
+    "https://beancount.io/docs/Basics/syntax",
+    "https://beancount.io/docs/Tips/forecast-plugin",
+    "https://pypi.org/project/fava/",
+    "https://fava.pythonanywhere.com/example-with-budgets/help/budgets",
+    "https://plaintextaccounting.org/",
+    "https://www.bitwave.io/blog/a-primer-on-plain-text-accounting-beancount-vs-hledger",
+    "https://decks.mtlynch.io/plaintext-acccounting",
+    "https://pypi.org/project/beancount-interpolate/",
+    "https://beancount.io/ledger/open_ledger/freelancer-invoicing",
+    "https://raw.githubusercontent.com/ledger/ledger/master/NEWS.md",
+    "https://raw.githubusercontent.com/ledger/ledger/master/doc/ledger.1",
+    "https://raw.githubusercontent.com/beancount/fava/main/src/fava/help/budgets.md",
+    "https://api.github.com/repos/beancount/beancount/contents/beancount/plugins?ref=v2"
+  ]
+}

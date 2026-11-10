@@ -1,0 +1,106 @@
+{
+  "slug": "pocketsmith",
+  "name": "PocketSmith",
+  "category": "forecast-first",
+  "checked": "2026-10-04",
+  "price": "USD, my.pocketsmith.com/plans (2026-10-04): Free (прогноз 6 мес, 2 счёта, 12 бюджетов); Foundation $14.95/мес или $9.99/мес при оплате за год (прогноз 10 лет, 6 фидов из 1 страны); Flourish $24.95 / $16.66 (30 лет, 18 фидов); Fortune $39.95 / $26.66 (60 лет, фиды без лимита). 14-дневная гарантия возврата. Данные получены через пересказ загрузчика; старые страницы и часть обзоров называют тарифы Premium/Super (10/30 лет) и дают другие цены — устаревшая схема (вывод). Фиды на Free: официальная таблица тарифов перечисляет автоматические фиды, справка и часть обзоров называют их платной опцией — противоречие (не подтверждено).",
+  "status_note": "Жив: последняя запись changelog 2026-09-27 (pocketsmith.com/changes). Владелец — PocketSmith Limited (Новая Зеландия, реестр компаний NZ №2177684, основана 2008). Официальный MCP-сервер запущен 2026-04-01, в каталоге Claude с 2026-08-25. Месячный отчёт Cashflows объявлен deprecated 2026-09-16 (заменяется сравнением периодов в Income & Expense). Safe Balance остаётся в beta с 2016-03-09 (opt-in).",
+  "support": {
+    "forecast_by_date": {
+      "level": "full",
+      "note": "Каждое budget event прибавляется к текущему фактическому балансу; ежедневный прогноз до 60 лет (Fortune), на Free 6 мес. По справке график показывает дни на 3 месяца вперёд, дальше недели. Ежедневные флаги коррекции сверяют прогноз с банком."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Вторичный (what-if) сценарий с бюджетами покупки накладывается дельтой на первичный прогноз и включается переключателем на календаре. Автоматического вывода «минимум после покупки» и даты минимума в справке не найдено (не подтверждено); узкую точку пользователь ищет на графике глазами. Есть лишь legacy-алерт минимального остатка по прогнозу на дашборде (для начавших до 2021-09; первый алерт в месяц) и Balance alert widget по текущему балансу."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Повторяющиеся budget events (недельные, месячные, квартальные и др.; полный список не подтверждён), исключение «только это событие», bill-категории кладут полную сумму на дату, есть grace period и напоминания. Агрегации волн и суммы «нужно к дате» нет; возможен двойной учёт при сдвиге дат платежа (кнопка «Fix this bill» с 2026-06-15)."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "Rollover-бюджеты (beta) переносят неистраченный остаток; справка прямо пишет, что продукт не рассчитан на конверты и zero-based, нет стартового баланса категории. Обход — отдельный счёт-копилка."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "Нативных налоговых правил и авто-резерва нет. Блог (2021) советует вручную переводить процент дохода на отдельный счёт (пример 17.5% для Новой Зеландии); метки помечают вычитаемые расходы, экспорт идёт бухгалтеру."
+    },
+    "multi_currency": {
+      "level": "partial",
+      "note": "Валюта на уровне счёта, база пользователя, пересчёт балансов и категорий в базовую валюту; бюджеты живут в валюте счёта и конвертируются по текущему курсу (пост 2019). Курсы обновляются ежечасно; операция в чужой валюте импортируется как сумма в валюте счёта без конвертации (справка), фиксированного курса отдельной операции нет; по сторонним обзорам счётчик валют расходится — не использован."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "Нерегулярный доход ведут вручную: приблизительное событие на клиента, после оплаты правят до фактической суммы (блог). Ставок, норм часов и инвойсов нет; Files page (2026-07-21) — хранилище документов, не расчёт."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "Облако на собственных серверах PocketSmith, шифрование at rest на уровне устройства, поля БД не шифруются, регион не указан; E2E и self-host нет. Агрегатор не обязателен: можно импортировать файлы, есть режим calendar-only. Фиды read-only через Yodlee, Plaid, Salt Edge, Akahu, Basiq, Mastercard (Австралия); 2FA доступна; данные не продаются (политика 2019)."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Импорт OFX/QFX/QIF/CSV (подтверждено справкой) и миграции из других приложений, фиды из шести агрегаторов; экспорт транзакций CSV/XLSX; публичное API (developer key для личных инструментов; OAuth 2 для приложений после регистрации). Бюджеты и сценарии отдаются через API, UI-экспорт не подтверждён; тарифные ограничения API не подтверждены."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Встроенного ассистента нет; официальный MCP-сервер (с 2026-04-01) подключает Claude/ChatGPT и др.: 66 инструментов при полном доступе, 40 только для чтения, OAuth, «свой ИИ — своя подписка». По заявлению продукта ИИ читает уже посчитанные счета, бюджеты и прогноз, а не считает сам."
+    },
+    "openness": {
+      "level": "partial",
+      "note": "Закрытый код и SaaS-подписка. Расширяемость через публичный REST API (в том числе ресурс Events), developer keys, OAuth 2 и MCP; лицензии на код нет."
+    }
+  },
+  "borrow": [
+    "Первичный прогноз + аддитивные дельта-сценарии на одном графике; Q3 реализовать как временный сценарий с автоматическим выводом минимума и его даты (чего у PocketSmith нет).",
+    "Серия повторов с исключением одного экземпляра: recurrence rule + override по occurrence_id.",
+    "Окно сопоставления факта и плана (±N дней) со статусом «закрыто», чтобы не было двойного учёта при раннем или позднем платеже.",
+    "Ежедневная сверка «прогноз vs факт» и сохранённые снапшоты прогноза как метрика точности; снапшоты баланса как ускорение расчёта.",
+    "Safe-to-spend, но считать от датированных обязательств до следующего дохода, а не по категориям-бюджетам.",
+    "Grounded-ИИ: читает готовый расчёт движка, по умолчанию read-only, изменения только с подтверждением (модель MCP-сервера).",
+    "Платёж как точечное событие на дату; «распределённый по периоду» бюджет — отдельный слой."
+  ],
+  "avoid": [
+    "Применять обычные бюджеты к прогнозу целой суммой и допускать двойной учёт при сдвиге дат.",
+    "Оставлять поиск самой узкой точки пользователю на графике: нужен численный вывод минимума и его даты.",
+    "Делать длину горизонта прогноза платной опцией: прогноз — ядро продукта (вывод).",
+    "Держать базовые функции годами в beta без чёткой семантики (Safe Balance с 2016, rollover).",
+    "Налоги как ручной перевод процента: нужны конфигурируемые правила по датам с оговоркой «не консультация».",
+    "Разнесение «cash flow / budget / net worth» по трём экранам: по обзорам, путает новичков и даёт крутую кривую обучения."
+  ],
+  "sources": [
+    "https://my.pocketsmith.com/plans",
+    "https://www.pocketsmith.com/features/",
+    "https://learn.pocketsmith.com/article/1248-everything-you-need-to-know-about-scenarios-in-pocketsmith",
+    "https://pocketsmith.com/plan-ahead/what-if-scenarios",
+    "https://learn.pocketsmith.com/article/1246-using-the-calendar-and-forecast-graph",
+    "https://learn.pocketsmith.com/article/1247-troubleshooting-the-calendar-and-forecast-graph",
+    "https://learn.pocketsmith.com/article/169-forecast-correction-events-on-the-calendar",
+    "https://learn.pocketsmith.com/article/55-safe-balance-what-it-does-and-how-it-works",
+    "https://learn.pocketsmith.com/article/306-bill-categories",
+    "https://learn.pocketsmith.com/article/505-budgets",
+    "https://learn.pocketsmith.com/article/1355-tips-and-tricks-for-creating-budgets-in-pocketsmith",
+    "https://learn.pocketsmith.com/article/1391-envelope-budgeting-in-pocketsmith",
+    "https://www.pocketsmith.com/blog/paying-tax-as-a-freelancer/",
+    "https://www.pocketsmith.com/blog/how-i-manage-multiple-sources-of-income-in-pocketsmith/",
+    "https://www.pocketsmith.com/blog/using-pocketsmith-to-forecast-your-bills/",
+    "https://www.pocketsmith.com/blog/managing-multiple-currencies-in-pocketsmith-with-video/",
+    "https://www.pocketsmith.com/news/191-multi-currency-support-for-budgets/",
+    "https://pocketsmith.com/security",
+    "https://pocketsmith.com/legal/privacy-policy",
+    "https://learn.pocketsmith.com/article/158-exporting-your-transactions",
+    "https://learn.pocketsmith.com/article/1538-pocketsmith-api-developer-keys",
+    "https://developers.pocketsmith.com/docs/pocketsmith-mcp-server",
+    "https://www.pocketsmith.com/ai/",
+    "https://www.pocketsmith.com/changes",
+    "https://www.phroogal.com/product/pocketsmith-app-budget-personal-finance/",
+    "https://personalfinanceapp.net/tools/pocketsmith/",
+    "https://learn.pocketsmith.com/article/209-setting-minimum-balance-alerts-for-my-accounts",
+    "https://learn.pocketsmith.com/article/1480-widgets-balance-alert-widget",
+    "https://learn.pocketsmith.com/article/122-multi-currency-beta-features-in-pocketsmith",
+    "https://learn.pocketsmith.com/article/145-different-file-types-that-can-be-imported",
+    "https://developers.pocketsmith.com/docs/oauth",
+    "https://www.pocketsmith.com/news/139-introducing-safe-balance-see-what-s-safe-to-spend/",
+    "https://www.companiesoffice.govt.nz/companies/app/ui/pages/companies/2177684"
+  ]
+}

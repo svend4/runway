@@ -1,0 +1,13 @@
+/* data.css — стили пакета FP-05: хранение, файл-копия, «где что лежит», удаление данных.
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: у баннеров есть заголовок и слова, у ошибок — текст. */
+
+.data-card .row { margin-top: 6px; }
+.data-card.banner { padding: 10px 14px; }
+.data-card.banner ul { margin: 4px 0 8px; padding-left: 1.2em; }
+#fp05-storage .row { margin-top: 8px; }
+.data-losses ul { margin: 2px 0 8px; padding-left: 1.2em; }
+.data-losses p { margin: 6px 0 2px; }
+#fp05-rights h4 { margin: 12px 0 4px; }
+#fp05-rights ul { margin: 2px 0 8px; padding-left: 1.2em; }
+#fp05-erase .btn { border-color: var(--no); }

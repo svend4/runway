@@ -1,0 +1,1666 @@
+[
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-009",
+   "REQ-010"
+  ],
+  "new_files": [
+   "prototype/demo/form_calendar.mjs",
+   "prototype/demo/form_plan.mjs",
+   "prototype/demo/pack_fp13.mjs",
+   "prototype/demo/i18n/calendar.mjs",
+   "prototype/tests/calendar_edit.test.mjs",
+   "prototype/tests/override_idempotent.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs (строка в PACKS и LOADERS)",
+   "prototype/demo/form_rule.mjs (кнопки «Перенести» и «Другая сумма» у вхождения; не удалять by_workday при сохранении; поле «n-й рабочий день»)",
+   "запрос хука в _ops/impl/hook-requests-FP13.md, если слот формы правила не подходит"
+  ],
+  "acceptance": [
+   "REQ-009: вид правки upsert_calendar (register_edit) принимает weekend_dows и holidays, проверяется make_calendar; смена календаря пишет запись журнала, а прошлые факты и их facts_hash не меняются (тест calendar.set не меняет posted)",
+   "REQ-009: правило с weekend != keep без календаря в рабочей области больше не молчит: форма предлагает создать календарь или показывает причину",
+   "REQ-009: правило с by_workday сохраняется и правится через форму без потери поля (тест на круг «создать - открыть - сохранить»)",
+   "REQ-010: повторное применение одного и того же set_occurrence_override не меняет inputs_hash и canon(ws.overrides); при двойном ws_to_events / sync_journal вторая запись не появляется",
+   "REQ-010: у вхождения есть действия «Перенести на дату» и «Изменить сумму» с предпросмотром через expand_all; «Отменить» возвращает прежнее состояние",
+   "разовый платёж вводится на экране (upsert_plan), статус меняется в «Сверке»; golden G-001, arith.lock и vocab.json без изменений; RU/EN паритет ключей"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-06",
+   "ALG-01 A01.4-A01.6",
+   "U-форма правила"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-13",
+  "title": "Календарь выходных и праздников, перенос и своя сумма одного вхождения, разовый платёж",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-082",
+   "REQ-083"
+  ],
+  "new_files": [
+   "prototype/demo/debt_edit.mjs",
+   "prototype/demo/pack_fp14.mjs",
+   "prototype/demo/i18n/debt_edit.mjs",
+   "prototype/data/g001-debt.json",
+   "prototype/tests/debt_edit.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/debts.mjs (кнопки «Добавить в прогноз» и «Применить»; допуск дрейфа из общей таблицы параметров вместо литерала 50)",
+   "prototype/engine/warnings_ext.mjs (новый код W_DEBT_BEYOND_HORIZON, аддитивно, vocab.json не трогать)"
+  ],
+  "acceptance": [
+   "REQ-082: вид правки upsert_debt (register_edit) с проверкой счёта, валюты и validate_debt; платёж долга меняет free в ряду на сумму платежа (тест на g001-debt.json)",
+   "REQ-082: перенос даты одной строки сохранённого графика (по образцу move_part_date рассрочки) и «Отменить» возвращают состояние",
+   "REQ-083: apply_prepay и apply_reanchor записывают пересчитанный график в сохранённый долг; сквозной тест: после ре-якорения free считается по новому хвосту",
+   "платёж DebtPlan за horizon_end даёт предупреждение W_DEBT_BEYOND_HORIZON вместо молчаливого отбрасывания; прямой тест validate_ws.debts на E_CURRENCY_MISMATCH",
+   "golden G-001 и все прежние тесты debt.test, showcase.test зелёные"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-22",
+   "ALG-09 A09.3-A09.5",
+   "Q-24 (зажим аннуитета остаётся в FP-31)"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-14",
+  "title": "Долг записывается в прогноз: добавить, применить досрочное погашение и ре-якорение, предупреждение о платежах за горизонтом",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-062",
+   "REQ-067",
+   "REQ-108"
+  ],
+  "new_files": [
+   "prototype/demo/reserve_release.mjs",
+   "prototype/demo/alloc_explain.mjs",
+   "prototype/demo/pack_fp15.mjs",
+   "prototype/demo/i18n/reserve_screen.mjs",
+   "prototype/tests/reserve_screen.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/app.mjs (view_reserves: подмена чисел конверта текстом при disabled; только через запрос хука _ops/impl/hook-requests-FP15.md)",
+   "prototype/demo/i18n.mjs (тексты W_RULE_STALE, gate.rule_disabled: дата reviewed_at, сумма остатка резерва)"
+  ],
+  "acceptance": [
+   "REQ-062: release_residual_edit(ws, reserve_id, as_of) возвращает правку record_allocation с отрицательной суммой source=manual; кнопка «Освободить остаток» в баннере W_RESERVE_RESIDUAL и в карточке резерва; предупреждение исчезает, funded_open = 0, повтор безвреден, «Отменить» откатывает одну запись",
+   "REQ-067 / REQ-108: при disabled (возраст правила > 2·ttl) строка 558,00 и остатки конверта не встречаются нигде в textContent всей страницы #reserves; в плашке и в gate.rule_disabled названа дата reviewed_at; кнопка «Подтвердить правило» есть в баннере",
+   "тексты W_RESERVE_RESIDUAL / W_RESERVE_OVERDUE называют сумму (как W_RESERVE_BEHIND)",
+   "панель «как посчитано» для аллокации: правило и версия, gross, формула mul_div(279000, 2000, 10000, half_even) = 55800, округление, возраст правила (тест значений)",
+   "расчёт движка и golden не менялись; паритет RU/EN"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-05 A05.6",
+   "ALG-06",
+   "U28",
+   "U30",
+   "platform H3"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-15",
+  "title": "Экран «Резервы»: освободить остаток, срок годности правила и «как посчитано» для конверта",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-077",
+   "REQ-079",
+   "REQ-112"
+  ],
+  "new_files": [
+   "prototype/demo/rate_chip.mjs",
+   "prototype/demo/banner_texts.mjs",
+   "prototype/demo/pack_fp16.mjs",
+   "prototype/demo/i18n/rate_chip.mjs",
+   "prototype/tests/rate_signature.test.mjs",
+   "prototype/tests/number_format_surfaces.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/engine/verifier.mjs (необязательный четвёртый параметр number_format у render_value и a0_answer; по умолчанию поведение прежнее)",
+   "prototype/demo/v0.mjs, prototype/demo/import_wizard.mjs, prototype/demo/entry.mjs (передача ws.number_format)",
+   "prototype/demo/app.mjs (show_evidence, warning_text: запрос хука)"
+  ],
+  "acceptance": [
+   "REQ-077 / REQ-079: у каждой суммы в чужой валюте в ленте, «Почему» и карточках волн есть подпись «курс 0,9250 от 2026-10-04» и возраст в днях (тест на событиях с rate_used / orig_amount_minor)",
+   "W_RATE_STALE называет валюту и возраст N дн.; E_NO_RATE называет пару и ведёт на «Формы данных - Курсы» (а не «в настройках»)",
+   "REQ-112: при number_format {десятичный \",\", тысячи \".\"} фраза ответа Q3, таблица доказательств, v0, сводки мастера импорта и ввода показывают «1.234,50 €»; golden-вывод по умолчанию побайтно прежний",
+   "тексты W_RULE_STALE и W_RESERVE_OVERDUE в шапке называют дату или сумму (U28, U30)",
+   "статический тест: нет литерала 30 в rate_status и rate_warnings (литерал переносит FP-17)"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-50",
+   "UP-13",
+   "ALG-08 A08.6",
+   "U29",
+   "U33"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-16",
+  "title": "Подпись курса и его возраста у каждой пересчитанной суммы, формат чисел на всех поверхностях, тексты плашек курса",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-016",
+   "REQ-019"
+  ],
+  "new_files": [
+   "prototype/tools/gen_vocab.mjs",
+   "prototype/engine/vocab.generated.mjs",
+   "prototype/engine/io_readonly.mjs",
+   "prototype/tests/vocab_generated.test.mjs",
+   "prototype/tests/readonly_open.test.mjs",
+   "prototype/tests/fixtures/journal-v2-draft.json (учебная фикстура следующей версии)"
+  ],
+  "touched_files": [
+   "prototype/engine/timeline.mjs (TIMELINE_DEFAULTS собираются из VOCAB)",
+   "prototype/engine/fx.mjs, prototype/engine/index.mjs (литералы 30 и др. из VOCAB)",
+   "prototype/demo/journal_log.mjs (engine_version в снимке, пересборка при смене)",
+   "prototype/demo/data_actions.mjs, prototype/demo/data_view.mjs (inspect_import открывает новее известного только для просмотра)",
+   "prototype/tests/defaults_sync.test.mjs",
+   "prototype/package.json (скрипт gen:vocab)"
+  ],
+  "acceptance": [
+   "REQ-019: числа из таблицы REQ-019 не встречаются литералами в engine/*.mjs, кроме engine/vocab.generated.mjs (статический тест-grep); сгенерированный файл актуален (проверка в defaults_sync.test.mjs); vocab.json и golden G-001 побайтно прежние",
+   "REQ-019: PARAM_RANGES остаются предложением К-4 (proposal: true); vocab.json не правится",
+   "REQ-016: open_readonly(text) разбирает журнал новее известного без апкаста и записи, возвращает events и read_only: true; в «Данные» показана плашка «открыт только для просмотра», кнопки записи и восстановления отключены",
+   "REQ-016: снимок журнала несёт engine_version; при смене версии снимок пересобирается, fold(снимок, хвост) = fold(журнал) сохраняется (journal_log.test: 10^3 журналов)",
+   "учебный шаг апкастера v1 -> v2 + фикстура; прежние fixtures импортируются с заявленным state_hash"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "platform A4",
+   "A7",
+   "N-6",
+   "ALG-02"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-17",
+  "title": "Значения по умолчанию как данные, режим «только чтение» для файла новее известного, версия движка в снимке",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-091",
+   "REQ-095"
+  ],
+  "new_files": [
+   "prototype/demo/import_worker.mjs",
+   "prototype/demo/import_worker_client.mjs",
+   "prototype/data/profiles/runway-csv-1.json",
+   "prototype/tests/import_roundtrip.test.mjs",
+   "prototype/tests/import_worker.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/import_model.mjs (BUILTIN_PROFILES, recommend_profile по заголовку date/amount_minor; plan_csv_async рядом с plan_csv)",
+   "prototype/demo/import_wizard.mjs (подсказка «файл выгружен Runway: суммы в minor units»)",
+   "prototype/tools/build_manifest.mjs (в манифест оболочки попадают новые файлы; npm run build)"
+  ],
+  "acceptance": [
+   "REQ-095: export_csv_file -> мастер -> те же факты, суммы и описания без ведущего «'», строки планов (layer) отфильтрованы, повторный импорт даёт 0 новых; сумма -4730 не читается как -4730,00",
+   "REQ-095: до выхода профиля мастер предупреждает, если в заголовке есть amount_minor",
+   "REQ-091: ответ import_worker побайтно равен parse_with_profile (по образцу проверки analyze в about.mjs); при недоступном Worker включается откат на главный поток; файл до 5 МБ не блокирует интерфейс в модельном замере",
+   "профиль runway-csv-1.json совпадает с копией в BUILTIN_PROFILES (тест сверки копий); CSP не расширялась (worker-src уже есть)",
+   "прежние import_model.test (21) и import_wizard.test (9) зелёные"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-84",
+   "ALG-14 A14.8",
+   "platform I2"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-18",
+  "title": "Импорт: собственный CSV Runway читается мастером; разбор файла в Web Worker",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-23"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-097"
+  ],
+  "new_files": [
+   "prototype/demo/backup_file.mjs",
+   "prototype/demo/i18n/backup_file.mjs",
+   "prototype/tests/backup_file.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/pack_fp05.mjs (кнопка «Выбрать файл-копию» в render_storage_section)",
+   "prototype/demo/store_idb.mjs (ключ meta для handle)",
+   "prototype/demo/backup.mjs (учёт автозаписи в счётчиках напоминания)"
+  ],
+  "acceptance": [
+   "REQ-097: pick_target() через showSaveFilePicker и write_copy(handle, text) с запоминанием handle в IndexedDB; запись после каждой N-й правки или по таймеру через export_journal_copy с проверкой хэша (круг: прочитанное обратно даёт тот же state_hash)",
+   "при отсутствии API, отозванном разрешении или сбое записи включается ручная выгрузка и баннер; запись не теряет данные",
+   "тесты на фейковом handle (createWritable) в Node: успех, отказ, отзыв разрешения, сбой записи",
+   "«Удалить все данные» снимает запомненный handle; ключ с префиксом runway",
+   "ограничение остаётся в тексте: поведение Safari и iOS не проверялось (см. FP-40)"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-68",
+   "platform C2",
+   "ADR-005 п.2"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-19",
+  "title": "Автокопия в выбранный файл (File System Access API) с откатом на ручную выгрузку",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-104",
+   "REQ-132",
+   "REQ-136"
+  ],
+  "new_files": [
+   "prototype/demo/assistant_ext.mjs",
+   "prototype/demo/pack_fp20.mjs",
+   "prototype/demo/i18n/assistant_ext.mjs",
+   "prototype/engine/call_log.mjs",
+   "prototype/tests/assistant_ext.test.mjs",
+   "prototype/tests/call_log.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/app.mjs (calc_chip заменяется render_origin_chip; контекст создаётся с journal и call_log; запрос хука _ops/impl/hook-requests-FP20.md)",
+   "prototype/engine/verifier.mjs (parse_command: интенты «что изменилось», «а если сдвинуть платёж», «что с резервом» - отдельной таблицей, прежние не менять)"
+  ],
+  "acceptance": [
+   "REQ-104 / REQ-132: у каждого ответа ассистента чип показывает режим, версию движка, дату узкой точки и hash_short; кнопка «почему» открывает цепочку вкладов поверх narrowest_why; клик по чипу Q3 проверен DOM-тестом в demo.test; в ответе A0 нет пометки «ответ ИИ»",
+   "интент «что изменилось с <даты>» вызывает what_changed с журналом страницы (мост ws_bridge); ответ проходит верификатор",
+   "REQ-136 (часть без решения владельца): каждый вызов инструмента пишет assistant.call с call_id, tool, args_hash, inputs_hash, engine_version; сырых текстов и аргументов в записи нет; CSV-экспорт журнала вызовов через csv_safe_cell",
+   "повтор по call_id с исходами «совпало / изменилось» не входит в пакет (ждёт FP-34)",
+   "golden и прежние tools.test (33), verifier.test (33), injection.test (14) зелёные"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-78",
+   "ALG-12 A12.4-A12.6",
+   "platform E3",
+   "E7",
+   "U13"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-20",
+  "title": "Ассистент A0: чип происхождения и «почему» у каждого ответа, «что изменилось», журнал вызовов (хэши)",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-23"
+  ],
+  "reqs": [
+   "REQ-150"
+  ],
+  "new_files": [
+   "prototype/demo/calc_async.mjs",
+   "prototype/demo/pack_fp21.mjs",
+   "prototype/tests/calc_async.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (build_model -> асинхронный путь через create_calc_client; флаг в «Настройки»; запрос хука _ops/impl/hook-requests-FP21.md)",
+   "prototype/demo/calc_worker.mjs (новые операции: project, afford, waves поверх analyze)",
+   "prototype/demo/worker_client.mjs",
+   "prototype/tools/build_manifest.mjs"
+  ],
+  "acceptance": [
+   "REQ-150: основные экраны («Обзор», «Купить», «Волны») считают через create_calc_client; результат побайтно равен синхронному (golden G-001 и три варианта, 160 областей golden_properties)",
+   "при любом сбое Worker включается прежний синхронный путь без потери ввода; флаг выключает Worker целиком",
+   "модельный замер блокировки главного потока (worker_threads, monitorEventLoopDelay) <= 50 мс на 10^3 событий; бюджет p95 <= 100 мс подтверждён страницей bench.html из FP-23 с указанием устройства",
+   "пока идёт расчёт, показан скелет «Считаем…» с aria-busy (U34); дребезг: несколько правок за кадр дают один пересчёт",
+   "прежние worker_contract.test (13), about.test (15) зелёные"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "platform A10",
+   "N-1",
+   "U34",
+   "REQ-117 (часть б)"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-21",
+  "title": "Расчёт основных экранов в Web Worker с откатом на главный поток",
+  "effort": "L",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-185",
+   "REQ-090",
+   "REQ-124",
+   "REQ-158"
+  ],
+  "new_files": [
+   "prototype/demo/metrics_feed.mjs",
+   "prototype/demo/entry_memory_store.mjs",
+   "prototype/demo/error_report_view.mjs",
+   "prototype/demo/pack_fp22.mjs",
+   "prototype/demo/i18n/error_report.mjs",
+   "prototype/tests/metrics_feed.test.mjs",
+   "prototype/tests/error_report_view.test.mjs",
+   "prototype/tests/open_quarantine.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/app.mjs (import_file идёт через inspect_import и validate_ws / analyze_checked; запрос хука)",
+   "prototype/demo/log.mjs (подписка window error и unhandledrejection на logger.error({code}))",
+   "prototype/tests/log.test.mjs (охват console-линтера: engine/, cli.mjs, serve.mjs)"
+  ],
+  "acceptance": [
+   "REQ-185: при закрытии окна прогноза в «Сверке» и «Качестве» вызываются record_min_error и record_coverage (подписка через ctx.subscribe); тест на вызов из настоящего app.mjs на заглушке DOM; пакет runway-metrics/1 по-прежнему без сумм и дат",
+   "REQ-090: «последний использованный счёт» запоминается в localStorage с префиксом runway и снимается «Удалить все данные»",
+   "REQ-124: блок «Сообщить об ошибке» показывает report_text целиком, требует согласия, копирует в буфер и ничего не отправляет; глобальные ошибки попадают в безопасную запись (только id, n, ms, code, engine_version)",
+   "REQ-158 (через Q-22): файл с одним невалидным объектом открывается без него, а отброшенное перечислено; один плохой объект больше не отвергает весь файл",
+   "прежние metrics.test (19), log.test, data_actions.test (33) зелёные"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-13 A13.9",
+   "platform C8",
+   "N-3",
+   "Q-22"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-22",
+  "title": "Метрики качества на устройстве, последний счёт в быстром вводе, «Сообщить об ошибке», открытие чужого файла с карантином записей",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-150",
+   "REQ-151",
+   "REQ-152",
+   "REQ-157"
+  ],
+  "new_files": [
+   "prototype/demo/bench.html",
+   "prototype/demo/bench_page.mjs",
+   "prototype/demo/coldstart.html",
+   "prototype/demo/compat.html",
+   "prototype/tests/bench_pages.test.mjs",
+   "prototype/tests/bench_compare.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/tools/bench.mjs (флаг --compare: рост p95 более чем вдвое относительно зафиксированного бюджета = ошибка)",
+   "prototype/tools/build_manifest.mjs (список оболочки)",
+   "prototype/CHECKLIST-release.md (ссылки на страницы в P4 и таблице устройств)"
+  ],
+  "acceptance": [
+   "REQ-150: bench.html считает p50 и p95 полного пересчёта в браузере и показывает устройство и дату; результат копируется в _ops/bench.json (поле device)",
+   "REQ-152: coldstart.html измеряет время от navigationStart до отрисовки «Обзора» (PerformanceNavigationTiming), выводит n и дату для копирования в чек-лист",
+   "REQ-157: compat.html определяет наличие IndexedDB, persist(), Web Locks, serviceWorker, Worker и выводит таблицу для копирования",
+   "REQ-151: проверка роста времени строго <= 2,5 на каждое удвоение N на точках 10^3, 2·10^3, 4·10^3 событий (мягкий допуск 3 и 6,25 заменён или переименован честно)",
+   "tools/bench.mjs --compare падает при росте p95 более чем вдвое; запуск страниц на устройствах - работа людей (FP-40)"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "platform B4",
+   "Q-13",
+   "TST-54"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-23",
+  "title": "Замеры в настоящем браузере: страницы bench, coldstart, compat и сравнение с бюджетом",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-158",
+   "REQ-171",
+   "REQ-172"
+  ],
+  "new_files": [
+   "prototype/tests/properties.test.mjs",
+   "prototype/tests/engine_lock.test.mjs",
+   "prototype/tests/engine.lock.json",
+   "prototype/tools/run_all_tests.mjs",
+   "prototype/tests/small_journals.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/tools/mutate.mjs (каталог мутаций для timeline, afford, sinking, tax, fx, verifier; не менее 40 новых)",
+   "prototype/tests/arith.lock.policy.json (политика версий для engine.lock.json)",
+   "prototype/tests/validate_ws.test.mjs (пул значений +-(2^53-1); генератор пустого журнала, одного события, дублей дат)",
+   "prototype/package.json (test:fast, test:nightly)"
+  ],
+  "acceptance": [
+   "REQ-171: девять именованных property-тестов TST-31..39, каждый на N = 1000 журналах с seed из общего генератора journal_gen.mjs; каждый инвариант краснеет хотя бы на одной мутации",
+   "REQ-172: engine.lock.json хранит sha256(canon(analyze(ws, query))) для 500 журналов (seed 2026); правка замка без повышения ENGINE_VERSION - красный тест",
+   "REQ-158: node tools/fuzz_nightly.mjs --full (10^5 журналов, 1500 областей golden_properties) выполнен на освобождённой машине, результат с датой в _ops/fuzz-nightly.json; 0 необработанных исключений",
+   "мутации: убито не менее 90 % новых мутантов, неубитые перечислены с причиной в _ops/mutation.json",
+   "run_all_tests.mjs запускает файлы по одному и пишет сводку в JSON (ограничение памяти машины); тяжёлые прогоны не входят в test:fast"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "TST-31..39",
+   "TST-51",
+   "TST-52",
+   "N-7",
+   "Q-25",
+   "Q-26",
+   "Q-27"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-24",
+  "title": "Тестовая сеть: property-инварианты на 10^3 журналах, замок движка на 500 журналах, мутации ядра, полный фаззинг",
+  "effort": "L",
+  "status": "done",
+  "done_on": "2026-10-28",
+  "report": "wiki/product/18-implementation-gap-analysis.md (раздел «Итог волны 3а-4»); прогон _ops/impl/run/verify-wave3a4-fp24-fix.txt"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-046",
+   "REQ-068",
+   "REQ-114",
+   "REQ-126",
+   "REQ-177",
+   "REQ-178"
+  ],
+  "new_files": [
+   "prototype/tools/gen_vocab_tables.mjs",
+   "prototype/tools/suggest_num_labels.mjs",
+   "prototype/tests/no_default_rates.test.mjs",
+   "prototype/tests/imperatives.test.mjs",
+   "prototype/tests/threat_model.test.mjs",
+   ".githooks/pre-commit (в каталоге runway)"
+  ],
+  "touched_files": [
+   "tools/lint_vocab.mjs (список императивов; режим --coverage для чисел G-001 без метки)",
+   "prototype/package.json (скрипты check и lint:words)",
+   "prototype/CHECKLIST-release.md (строка R14 «пересмотр модели угроз»)",
+   "wiki/product/07-privacy-security.md (ссылки REQ-154 и REQ-134 в трёх строках таблицы угроз)",
+   "prototype/engine/vocab.json (синоним ключа deprecated - ТОЛЬКО после FP-31)"
+  ],
+  "acceptance": [
+   "REQ-046: линтер находит императивы вне разрешённого списка проверьте / введите / сверьте в i18n-каталогах (тест imperatives.test); найденные «добавьте …», «Заполните поля» заменены нейтральными формулировками",
+   "REQ-068: сканер prototype/{engine,demo,tools} на литералы rate_bp: <число> и названия стран в шаблонах; на ответах T0 нет «ставки N %» без источника в ws.tax_rules; юридическое ревью остаётся за людьми (FP-27)",
+   "REQ-114: gen_vocab_tables.mjs --check падает при дрейфе таблиц вердиктов и режимов в вики; npm run lint:words = lint_vocab + gen_vocab_tables --check; pre-commit хук запускает его локально",
+   "REQ-126: в CHECKLIST-release.md есть R14; тест threat_model.test проверяет >= 11 строк таблицы угроз и REQ-ссылку у каждой",
+   "REQ-177 / REQ-178: npm run check собирает lint, lint_vocab (с --registry), build:check, verify, contrast и падает при ошибке; каждый ключ showcase.cl_* есть в реестре обещаний; 63 предупреждения разобраны (правка текста или lint-vocab: ignore с причиной)",
+   "файл конфигурации CI не создаётся (ждёт решения о хостинге, FP-40)"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-92",
+   "IDEA-99",
+   "UP-06",
+   "Q-27"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-25",
+  "title": "Гейты слов, обещаний, ставок и модели угроз в инструментах сборки",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-049",
+   "REQ-167"
+  ],
+  "new_files": [
+   "prototype/demo/skeleton.mjs",
+   "prototype/demo/css/layout.css",
+   "prototype/demo/pack_fp26.mjs",
+   "prototype/demo/i18n/a11y.mjs",
+   "prototype/tests/a11y_static.test.mjs",
+   "prototype/tests/empty_states.test.mjs",
+   "prototype/tests/scenario_banner.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/style.css (запрос хука: .view--split, группа «Ещё», .is-loading)",
+   "prototype/demo/i18n.mjs (hdr.ready_name: «каркас», «рабочий», «рабочий+», «полный»)"
+  ],
+  "acceptance": [
+   "REQ-167: aria-valuetext для 2026-10-31 на G-001 содержит дату и сумму словами в RU и EN (тест); статическая проверка CSS на 200 % (шрифты в rem, нет фиксированных высот у текстовых блоков, таблицы прокручиваются сами)",
+   "REQ-049: DOM-тест: плашка «Вы в сценарии» видна при выбранном сценарии, «Вернуться к базе» убирает её; четвёртый сценарий отклоняется сообщением sc.max",
+   "U35: тесты отрисовки пустых состояний wv.empty, fd.empty, rs.none, rs.tax_none, rs.sinking_none",
+   "U22 / U23 / U40 / U41 / U21: группа «Ещё» на телефоне, вторая колонка «Обзора» при >= 1024 px, скелет загрузки, названия ступеней готовности - чистый CSS и строки, расчёт не затронут",
+   "ручной проход клавиатурой, 200 % и скринридером остаётся за людьми (FP-40); соответствие WCAG 2.2 AA как факт не заявляется"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "U21",
+   "U22",
+   "U23",
+   "U35",
+   "U40",
+   "U41",
+   "UP-38"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-26",
+  "title": "Доступность и адаптив: фраза для скринридера, 200 %, пустые состояния, плашка сценария, нижняя панель и вторая колонка",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-181",
+   "REQ-183",
+   "REQ-189",
+   "REQ-190",
+   "REQ-186",
+   "REQ-090",
+   "REQ-110",
+   "REQ-157"
+  ],
+  "new_files": [
+   "_ops/people/legal-review-package.md (выгрузка текстов про налоги, советы и точность из i18n и promises + шаблон записи ревью)",
+   "_ops/people/interview-guide.md",
+   "_ops/people/stop-criteria-record.md (шаблон decision и опросник приглашённых)",
+   "_ops/people/market-watch.md (напоминание на 2027-01-02)",
+   "_ops/people/timing-protocol.md (замер медианы ввода <= 5 с и времени до первого прогноза на >= 5 людях)",
+   "_ops/people/volunteer-journals.md (инструкция и согласие, анонимизация через tools/anonymize.mjs)",
+   "prototype/tools/onboarding_median.mjs",
+   "wiki/product/20-if-developer-disappears.md (таблица «работает всегда / прекратится»)"
+  ],
+  "touched_files": [
+   "prototype/demo/promises.json (запись level measured только после измерения)",
+   "prototype/demo/i18n/about.mjs (строка о плане «если разработчик исчез»)"
+  ],
+  "acceptance": [
+   "REQ-183: пакет для юриста содержит все строки налогов, «советов» и точности из i18n-каталогов и реестра обещаний; шаблон записи ревью (замечания, правки, дата) лежит рядом",
+   "REQ-189 / REQ-181 / REQ-190: гайд интервью, шаблон записи decision, опросник и напоминание на 2027-01-02 готовы; самих интервью и проверок пакет не заменяет",
+   "REQ-090 / REQ-110: протокол замера с секундомером вне приложения; tools/onboarding_median.mjs считает медиану, n и дату из файлов runway-metrics/1 и пишет запись в promises.json только с level measured; публиковать цифру до измерения нельзя",
+   "REQ-186: страница «если разработчик исчез» (что работает всегда: локальная копия, экспорт, SPEC-format, verify; что прекратится: синхронизация, облачный ассистент) со ссылкой из «О программе»; LICENSE не создаётся (FP-46)",
+   "lint, lint_vocab и их реестр без ошибок"
+  ],
+  "owner_hint": "process",
+  "refs": [
+   "REQ-176",
+   "REQ-188 (инструкция добровольцам)",
+   "IDEA-98"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-27",
+  "title": "Пакеты для людей: шаблоны ревью, интервью, критериев остановки, замеров и сбора журналов",
+  "effort": "S",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-046"
+  ],
+  "new_files": [
+   "prototype/demo/feed_ext.mjs",
+   "prototype/demo/where_money.mjs",
+   "prototype/engine/installment_earliest.mjs",
+   "prototype/demo/pack_fp28.mjs",
+   "prototype/demo/i18n/feed_ext.mjs",
+   "prototype/tests/feed_ext.test.mjs",
+   "prototype/tests/installment_earliest.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/i18n.mjs (убрать fd.demo_note; фраза о нехватке получает next_income_day)",
+   "prototype/demo/app.mjs (view_feed: запрос хука на счётчик «Сверка: N» и постраничность)"
+  ],
+  "acceptance": [
+   "оговорка «в демо лента только для чтения» удалена, пока «+ Факт» и «Сверка» работают (тест: в textContent ленты её нет)",
+   "введённый факт можно исправить (void_fact + add_fact), «Отменить» возвращает прежний",
+   "REQ-046: сообщения о нехватке называют первую дату нарушения, need и short_to_buffer и ближайшее ожидаемое поступление; тест на режим нехватки G-001-low",
+   "у строки ленты есть «Почему»; в ленте счётчик «Сверка: N» и ссылка на #reconcile; усечение до 8 фактов оговорено",
+   "карточка налога показывает «следующее списание из конверта» (next_release); карточка «куда делись деньги» строится из sts_breakdown и сходится с остатком",
+   "earliest_date для рассрочки: с какой даты график держится в буфере (перебор сдвига через move_part_date + check_purchase); контекстные кнопки «Спросить ассистента» на карточках",
+   "на экране «Купить» есть переключатель «разбить на N платежей» (рассрочка из form_installment без перехода в «Формы данных»)"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-38",
+   "IDEA-41",
+   "IDEA-29",
+   "UP-03",
+   "ALG-04 A04.5",
+   "ALG-06 A06.5",
+   "U06",
+   "U13"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-28",
+  "title": "Лента и «Обзор»: хвосты интерфейса (устаревшая оговорка, «Исправить факт», сообщение о нехватке с ближайшим поступлением, next_release, «куда делись деньги»)",
+  "effort": "L",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [],
+  "new_files": [
+   "prototype/engine/hours_io.mjs",
+   "prototype/engine/io_fx_rows.mjs",
+   "prototype/demo/pack_fp29.mjs",
+   "prototype/demo/i18n/import_v11.mjs",
+   "prototype/tests/hours_io.test.mjs",
+   "prototype/tests/io_fx_rows.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/ext_manifest.mjs",
+   "prototype/demo/import_model.mjs (ветки для часов и строк с двумя ногами; прежний разбор не менять)",
+   "prototype/demo/settings.mjs (поле «Валюта решения» поверх set_param decision_currency; запрос хука)"
+  ],
+  "acceptance": [
+   "часы из CSV: import_hours_csv поверх parse_csv даёт правки set_stream_hours; сухой прогон и откат партии работают как у фактов",
+   "строка CSV в чужой валюте с двумя ногами больше не отвергается как currency_mismatch: создаётся обмен с курсом и справочной разницей (exchange_difference); повторный импорт даёт 0 новых",
+   "валюта решения выбирается в «Настройках», пересчёт использует её; без курса - E_NO_RATE с понятным сообщением (см. FP-16)",
+   "golden G-001, arith.lock и vocab.json без изменений; прежние import_model.test, fx.test зелёные"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "ALG-07 A07.7",
+   "ALG-14 A14.7",
+   "ALG-08 A08.7",
+   "IDEA-18",
+   "IDEA-19"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-29",
+  "title": "Импорт и настройки v1.1: часы из CSV, строки в чужой валюте двумя ногами, валюта решения в настройках",
+  "effort": "M",
+  "status": "done",
+  "done_on": "2026-10-24"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [],
+  "new_files": [],
+  "touched_files": [
+   "wiki/algorithms/alg-01*.md ... alg-14*.md (блоки «Реализация в прототипе», «известные пробелы»)",
+   "wiki/product/10-roadmap.md",
+   "wiki/product/11-testing-strategy.md",
+   "wiki/product/13-metrics.md",
+   "wiki/product/16-prototype-findings.md",
+   "wiki/product/17-start-plan.md",
+   "wiki/product/18-implementation-gap-analysis.md (статусные цифры: ссылка на страницу 19)"
+  ],
+  "acceptance": [
+   "страницы ALG-01..14 больше не пишут «чего нет» о том, что есть (ALG-05 п.4, ALG-06, ALG-10, ALG-13, ALG-02 п.11-12, ALG-07 п.5, ALG-12, ALG-14); поле updated обновлено",
+   "10-roadmap и 17-start-plan: базовая линия тестов, состояние M0-M6, расположение v0 (demo/v0.html) и фактический состав runway-metrics/1 соответствуют коду",
+   "11-testing-strategy: статус TST и список todo (5) и skip (2) соответствуют коду; 13-metrics не называет runway-metrics/1 нереализованным",
+   "node tools/lint.mjs и node tools/lint_vocab.mjs без ошибок; запись lint в log.md делает координатор"
+  ],
+  "owner_hint": "process",
+  "refs": [
+   "N-8",
+   "ALG-01..14 (раздел «Реализация в прототипе»)",
+   "10-roadmap",
+   "11-testing-strategy",
+   "13-metrics",
+   "16-prototype-findings",
+   "17-start-plan"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "id": "FP-30",
+  "title": "Синхронизация вики с кодом после трёх волн",
+  "effort": "S",
+  "status": "done",
+  "done_on": "2026-10-28",
+  "report": "wiki/product/18-implementation-gap-analysis.md (раздел «Итог волны 3а-4»); дефекты проверки ADV-8…ADV-14 закрыты в FP-51 (2026-11-09)"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-019"
+  ],
+  "new_files": [
+   "_ops/impl/canon-v12-decisions.md (таблица решений)"
+  ],
+  "touched_files": [
+   "_ops/design-brief.md и _ops/canon-decisions.md (правит только человек или по его решению)",
+   "prototype/engine/vocab.json (служебные коды W_* из warnings_ext.mjs, границы параметров - после решения)",
+   "prototype/tests/adversarial/semantics.test.mjs, prototype/tests/adversarial/verifier_io.test.mjs, prototype/tests/fp11_adv.test.mjs (todo превращаются в обычные тесты)"
+  ],
+  "acceptance": [
+   "для каждого К-n записано решение (принять / отклонить / изменить) и дата",
+   "после решения все пять todo переведены в обычные тесты или удалены с причиной; golden G-001, arith.lock и vocab.json меняются только осознанно, с повышением ENGINE_VERSION и записью в политику замка",
+   "node tools/lint_vocab.mjs без ошибок"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "К-4",
+   "К-8",
+   "К-12",
+   "К-26",
+   "К-31",
+   "К-39",
+   "Q-11",
+   "Q-23",
+   "Q-24",
+   "Q-31",
+   "ADV-6"
+  ],
+  "needs_owner": true,
+  "owner_question": "Принять ли в канон v1.2 кандидатов К-1…К-41? Варианты: (а) принять все рекомендации интегратора, кроме К-4 (границы параметров остаются предложением); (б) принять все, включая К-4; (в) отложить - пять todo остаются, служебные коды остаются в warnings_ext.mjs. Отдельно: зажим основной части аннуитета (К-12) утвердить или вернуть E_SCHEMA; идентификатор-инструкцию SAFE_ID ограничить по форме или принять остаточный риск ADR-013; формулировку инварианта 3 для правок волн (К-8) считать верной только для одиночной правки. Поле usual_delay_days контрагента принимается, но на расчёт не влияет: считать ли его сдвигом поступления в режиме «если хуже». Подтвердить или заменить предварительные решения волны 2: журнал - единственный источник; вероятности выключены по умолчанию и включаются согласием; PWA только на localhost или HTTPS в области prototype/; метрики локально, отказ от метрик стирается вместе с данными.",
+  "id": "FP-31",
+  "title": "Канон v1.2: принять или отклонить К-1…К-41 и закрыть пять todo",
+  "effort": "S"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-22"
+  ],
+  "reqs": [
+   "REQ-185",
+   "REQ-110"
+  ],
+  "new_files": [
+   "prototype/demo/metrics_derive.mjs",
+   "prototype/tests/metrics_derive.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/metrics.mjs (PACKAGE_KEYS: readiness_max, activated, q3_opened, anchor_age, backup_age - после решения)",
+   "prototype/SPEC-format.md",
+   "wiki/product/13-metrics.md и 17-start-plan.md (раздел 6.5)",
+   "prototype/demo/v0.mjs (счётчики, если v0.html раздаётся приглашённым)"
+  ],
+  "acceptance": [
+   "определения d7, d28, activation_7d, доли устаревших якорей и доли без копии записаны одним документом и совпадают в вики, SPEC-format и коде",
+   "metrics_derive считает показатели из локальных данных одного устройства без сумм и календарных дат (validate_package)",
+   "файл показывается пользователю целиком до скачивания; отправка автоматически не выполняется"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-54",
+   "U15",
+   "C06",
+   "C07",
+   "platform D1",
+   "D4",
+   "D7",
+   "стоп-критерии №1 и №4"
+  ],
+  "needs_owner": true,
+  "owner_question": "Какой формат runway-metrics/1 считать каноном и какую сборку раздавать приглашённым? Варианты: (а) канон - реализованный формат, вики (13-metrics, 17-start-plan 6.5) приводится к коду; (б) канон - формат из вики, код дописывается полями readiness_max, activated, q3_opened, anchor_age, backup_age; (в) два уровня: минимум v0 и расширенный набор. Приглашённым раздаётся: приложение (метрики есть) или v0.html (метрик нет, пока не добавлены). Кто получает файл и когда (приёмник метрик, REQ-181)? Допустим ли дрейф v0.html: страница принимает до двух необязательных резервов, хотя по REQ-180 v0 «без резервов».",
+  "id": "FP-32",
+  "title": "Метрики: единый формат runway-metrics/1, производные d7, d28, активация и счётчики на v0.html",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-110"
+  ],
+  "new_files": [
+   "prototype/demo/wizard_hours.mjs",
+   "prototype/demo/i18n/wizard_hours.mjs",
+   "prototype/tests/wizard_hours.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/wizard.mjs (вариант шага 3 через слот; прежний путь не менять)",
+   "prototype/demo/form_hours.mjs (повторное использование edit_set_stream_hours)"
+  ],
+  "acceptance": [
+   "на шаге 3 можно ввести ставку, диапазон 80 / 93 / 110 ч и выплату через N дней; предпросмотр показывает доход 2 400 / 2 790 / 3 300 € на данных сквозного примера",
+   "готовность s = 3 достигается обоими путями; журнал шагов времени не содержит сумм",
+   "прежние wizard.test (29), start_boot.test (7) зелёные"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "P03",
+   "IDEA-31",
+   "IDEA-18"
+  ],
+  "needs_owner": true,
+  "owner_question": "Что считать «первым доходом» целевой персоны в мастере и в проверке спроса v0? Варианты: (а) остаётся правило-поступление, поток часов вводится в «Формы данных»; (б) мастер предлагает выбор «правило / ставка × часы» на шаге 3; (в) для персоны-почасовика по умолчанию поток часов, правило - запасной путь.",
+  "id": "FP-33",
+  "title": "Мастер «Старт» для почасовика: поток часов как первый доход",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-20"
+  ],
+  "reqs": [
+   "REQ-136",
+   "REQ-135"
+  ],
+  "new_files": [
+   "prototype/engine/call_replay.mjs",
+   "prototype/mcp.mjs",
+   "prototype/demo/draft_apply.mjs",
+   "prototype/tests/call_replay.test.mjs",
+   "prototype/tests/mcp.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/call_log.mjs (после FP-20; хранение аргументов - по решению)",
+   "prototype/package.json"
+  ],
+  "acceptance": [
+   "replay(call_id) даёт один из трёх исходов: совпало / изменилось: engine <версия> / изменился журнал",
+   "MCP: tools/list возвращает 10 инструментов, propose_change без флага даёт E_NOT_PERMITTED, без файла согласия процесс не стартует",
+   "применение Draft возможно только действием пользователя в интерфейсе; пишутся draft.proposed и draft.confirmed; тест «Draft применяется только жестом»"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "IDEA-73",
+   "IDEA-78",
+   "UP-34",
+   "ADR-010",
+   "ADR-013",
+   "platform E4",
+   "E7",
+   "E8"
+  ],
+  "needs_owner": true,
+  "owner_question": "Хранить ли аргументы вызовов ассистента для повтора по call_id? Варианты: (а) только хэши (ADR-013): повтор невозможен, журнал служит для аудита; (б) аргументы хранятся локально, по отдельному согласию и удаляются с данными; (в) повтор на лету по текущему вопросу пользователя, без хранения. Нужен ли MCP-сервер в этой версии и какой профиль согласия видит внешний хост (полные Result без белого списка)?",
+  "id": "FP-34",
+  "title": "Журнал вызовов: повтор по call_id, применение черновика жестом, MCP-сервер движка (stdio)",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-15"
+  ],
+  "reqs": [
+   "REQ-064",
+   "REQ-191"
+  ],
+  "new_files": [
+   "prototype/engine/reserve_backing.mjs",
+   "prototype/demo/income_tag_link.mjs",
+   "prototype/tests/reserve_backing.test.mjs",
+   "prototype/tests/income_tag_link.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/entry.mjs (поле «Поток / метка» у дохода или кнопка «Привязать и записать в конверт»)",
+   "prototype/demo/form_tax.mjs, prototype/demo/form_sinking.mjs (селектор «Хранится на счёте»)",
+   "prototype/engine/validate_ws.mjs (проверка: счёт неоперационный, та же валюта, не закрыт)"
+  ],
+  "acceptance": [
+   "REQ-064: доход 2 790,00 € через «+» даёт аллокацию 558,00 €; «Отменить» откатывает обе записи (тест entry)",
+   "REQ-191: validate_reserve_backing выдаёт код ошибки; golden-тест: перевод 100000 на привязанный счёт, free остаётся 250000, двойного вычета нет",
+   "согласовано с предупреждением REQ-063"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-16",
+   "IDEA-40",
+   "D-07",
+   "REQ-063"
+  ],
+  "needs_owner": true,
+  "owner_question": "Как сопоставлять доход из быстрого ввода с налоговым правилом? Варианты: (а) спрашивать поток или метку при вводе; (б) предлагать после факта кнопкой; (в) применять правило ко всему доходу без метки. И как учитывать перевод на привязанный к резерву счёт (канон D-07): (а) исключать резерв из R и перевод из расходов; (б) считать резерв частью баланса неоперационного счёта; (в) оставить до v1.1.",
+  "id": "FP-35",
+  "title": "Резервы: связь дохода из «+» с налоговым правилом и привязка резерва к счёту",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-14"
+  ],
+  "reqs": [
+   "REQ-032"
+  ],
+  "new_files": [
+   "prototype/engine/skips_ext.mjs",
+   "prototype/tests/skips_ext.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/hourly.mjs и prototype/engine/debt.mjs (необязательные поля stream.skips[] и debt.skips[], только аддитивно)",
+   "prototype/demo/reconcile.mjs (skip_plan_edit для stream и debt; пояснения no_skip_* снимаются)",
+   "prototype/demo/ws_edit.mjs через register_edit (set_stream_skip, set_debt_skip)"
+  ],
+  "acceptance": [
+   "пропущенное вхождение потока или долга не входит в ряд, остаётся в истории ленты, «Отменить» возвращает",
+   "для повторяющегося правила доступна «отмена» отдельного вхождения",
+   "паритет RU/EN; golden без изменений"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "C-032",
+   "A09",
+   "ALG-07"
+  ],
+  "needs_owner": true,
+  "owner_question": "Что значит «пропустить» платёж по долгу? Варианты: (а) убрать из потока (деньги не уходят); (б) считать просрочкой с ростом остатка долга и пенёй; (в) не разрешать пропуск без подтверждающего факта. Можно ли пропустить выплату по потоку часов без факта (канон C-032 запрещает молчаливый пропуск дохода по выходным)?",
+  "id": "FP-36",
+  "title": "Пропуск платежа по долгу и выплаты по потоку часов",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-053",
+   "REQ-056"
+  ],
+  "new_files": [
+   "prototype/demo/expected_line.mjs",
+   "prototype/engine/flex.mjs",
+   "prototype/tests/expected_line.test.mjs",
+   "prototype/tests/flex.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/timeline.mjs (снять mode_not_in_v1 - только если выбран вариант «полноценный режим»)",
+   "prototype/demo/ws_edit.mjs через register_edit (set_flex)"
+  ],
+  "acceptance": [
+   "REQ-053: переключатель «Показать ожидаемую линию» (по согласию, как вероятностная полоса) рисует expected_series третьей линией и узкую точку; normalize_mode не меняется при варианте (б)",
+   "REQ-056: apply_flex(ctx, flex_marks) даёт new_min и not_closed = max(0, B - new_min) только при trough < 0 или free < B, без рекомендаций; свойство на 10^3 журналов: без пометок new_min равен исходному минимуму",
+   "формулировки проходят lint_vocab"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "IDEA-93",
+   "ALG-02 A02.8",
+   "ALG-13 A13.10",
+   "C-D-04",
+   "REQ-046",
+   "RISK-11"
+  ],
+  "needs_owner": true,
+  "owner_question": "Режим expected: (а) оставить отображаемой оценкой, как сейчас; (б) добавить переключатель на «Обзоре» по согласию; (в) ввести как полноценный режим расчёта с вердиктами Q1/Q3 (меняет канон D-04 и заголовочный режим). Гибкость платежей: (а) оставить в v2; (б) допустить пометки shift / skip_ok / reduce / penalty без рекомендаций; (в) отклонить, так как граница «информация против совета» (RISK-11) и запрет ранжирования ходов (REQ-046).",
+  "id": "FP-37",
+  "title": "Режим expected на «Обзоре» (по согласию) и объявленная гибкость платежей",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-16",
+   "FP-17"
+  ],
+  "reqs": [
+   "REQ-081",
+   "REQ-072"
+  ],
+  "new_files": [
+   "prototype/engine/fx_adverse.mjs",
+   "prototype/engine/fx_history.mjs",
+   "prototype/engine/tax_regimes.mjs",
+   "prototype/engine/tax_calendar.mjs",
+   "prototype/tests/fx_adverse.test.mjs",
+   "prototype/tests/tax_regimes.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/fx.mjs (normalize_policy: kind adverse - аддитивно)",
+   "prototype/demo/form_fx.mjs",
+   "prototype/demo/form_tax.mjs"
+  ],
+  "acceptance": [
+   "REQ-081: при h = 500 bp доход 185000 -> 175750, расход 100000 -> 105000; без истории курсов - отказ с кодом, число не подставляется; карточка «Остатки по валютам» рядом со скалярным вердиктом",
+   "REQ-072: validate_regime_pack отказывает без reviewed_at и ttl_days; оговорка REQ-068 на каждом числе; ставок по умолчанию нет",
+   "IDEA-17: календарь сроков хранит дату, сумму, reviewed_at, ttl_days как данные пользователя, без ставок"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "IDEA-17",
+   "IDEA-20",
+   "ALG-06 A06.6",
+   "ALG-08 A08.8",
+   "REQ-068",
+   "RISK-06"
+  ],
+  "needs_owner": true,
+  "owner_question": "Нужны ли эти направления продукту и в каком виде? (1) Adverse: какая метрика по истории курсов (максимальное или квантильное отклонение), какое окно и минимум точек при ручном вводе без сети; в канон v1.2 или v2 (ADR-012); не читается ли как совет по валюте. (2) Налоговые режимы и шаблоны стран: нужны ли вообще (граница арифметики и налогового совета, RISK-06), кто отвечает за содержание и ревью. (3) Календарь сроков без ставок - допустим ли.",
+  "id": "FP-38",
+  "title": "Политика курса adverse, налоговые режимы и календарь налоговых сроков как данные",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-27"
+  ],
+  "reqs": [
+   "REQ-176",
+   "REQ-188"
+  ],
+  "new_files": [
+   "prototype/demo/quality_user.mjs",
+   "prototype/tools/anonymize_selfcheck.mjs",
+   "prototype/tests/quality_user.test.mjs",
+   "prototype/data/volunteer-report.json (результат с n и датой)"
+  ],
+  "touched_files": [
+   "prototype/tools/anonymize.mjs (пересчёт by_monthday и месяца-конца или самопроверка до / после)",
+   "prototype/engine/vocab.json (поля calibrated_on и n у wave.* - после решения)"
+  ],
+  "acceptance": [
+   "backtest_report запущен на >= 10 реальных анонимизированных журналах; FRR, cry-wolf, n и дата записаны в data/ и в wiki",
+   "самопроверка до / после показывает расхождение метрик после анонимизации (ADV-6) и блокирует расчёт гейта при превышении допуска",
+   "экран «Качество прогноза» показывает метрики на собственных данных пользователя при >= 3 точках отсчёта, с пометкой «ваши данные, n = …»",
+   "значения wave.* в vocab.json получают calibrated_on и n; при hypothesis: false они обязательны"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "IDEA-95",
+   "UP-05",
+   "ALG-13 A13.4",
+   "A13.6",
+   "A13.7",
+   "ADV-6",
+   "Q-34",
+   "стоп-критерий №3"
+  ],
+  "needs_owner": true,
+  "owner_question": "Кто и как набирает >= 10 добровольцев с журналами (канал, согласие на передачу анонимизированного файла) и подтверждаются ли пороги FRR <= 5 % и cry-wolf <= 50 % и окно H = 30, или пересмотреть их до замера? Как поступать с by_monthday при анонимизации: (а) пересчитывать с оговоркой о границах; (б) самопроверка до / после; (в) не использовать анонимизированные журналы для гейта.",
+  "id": "FP-39",
+  "title": "Гейт на журналах добровольцев: сбор, анонимизация, backtest своего журнала, калибровка волн",
+  "effort": "M"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-23"
+  ],
+  "reqs": [
+   "REQ-117",
+   "REQ-152",
+   "REQ-155",
+   "REQ-157",
+   "REQ-167",
+   "REQ-096",
+   "REQ-173"
+  ],
+  "new_files": [
+   "_ops/gap2/pwa-pass-<дата>.md (результат ручного прохода)",
+   "prototype/demo/icons/icon-192.png",
+   "prototype/demo/icons/icon-512.png",
+   "prototype/tests/pwa_png.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/manifest.webmanifest (PNG)",
+   "prototype/serve.mjs (MIME image/png)",
+   "prototype/tools/build_manifest.mjs",
+   "prototype/tools/hledger_oracle.mjs (образ закреплён по digest)",
+   "prototype/CHECKLIST-release.md (заполненные ячейки P1-P12 и таблица устройств)",
+   "файл конфигурации CI (когда определён хостинг)"
+  ],
+  "acceptance": [
+   "CHECKLIST-release.md P1-P12 пройден в Chrome и Edge, на двух телефонах; даты, версии и результат записаны; результат внесён в wiki/product/12-risks.md",
+   "tools/hledger_oracle.mjs --run сверяет hledger bal с 2 055,00 € и 20+ синтетических журналов; оракул проходит или падает с расхождением",
+   "npx tsc -p jsconfig.json выполнен одноразово, ошибки типов в JSDoc исправлены, результат записан в R11",
+   "холодный старт офлайн <= 2 с измерен на трёх устройствах (coldstart.html); число публикуется только с n и датой",
+   "ручной проход клавиатурой, 200 % и скринридером (A1-A3 чек-листа) записан"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-51",
+   "IDEA-82",
+   "IDEA-85",
+   "UP-20",
+   "UP-31",
+   "UP-38",
+   "platform R-1..R-5",
+   "Q-14",
+   "Q-27"
+  ],
+  "needs_owner": true,
+  "owner_question": "Что разрешить и кого привлечь? (1) Загрузка образа hledger в Docker (закрепить по digest) и одноразовый npx typescript как dev-инструмент при политике «0 зависимостей» (ADR-001). (2) Эталонный телефон и два целевых браузера; HTTPS-адрес для установки на телефон. (3) PNG-иконки 192/512 (отмена решения «бинарных файлов нет»). (4) Где хостится CI - каталог runway/ не закоммичен (в git родителя помечен как неотслеживаемый). (5) Кто проходит ручные проверки (клавиатура, 200 %, скринридер, Safari/iOS).",
+  "id": "FP-40",
+  "title": "Проверки в настоящей среде: PWA в Chrome и Edge, устройства, hledger, tsc, PNG-иконки, CI",
+  "effort": "S"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-100",
+   "REQ-101",
+   "REQ-099"
+  ],
+  "new_files": [
+   "prototype/engine/sheet_classify.mjs",
+   "prototype/demo/xlsx_reader.mjs",
+   "prototype/engine/ofx.mjs",
+   "prototype/data/profiles/zenmoney.json",
+   "prototype/tests/sheet_classify.test.mjs",
+   "prototype/tests/ofx.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/io.mjs (разбор «@» как курса операции; свёртка N > 2 ног «откуда - куда» с остатком на счёт-заглушку; FITID приоритетнее хэша в dedup_key)",
+   "prototype/demo/import_model.mjs, prototype/demo/import_wizard.mjs (третья вкладка «Лист из таблицы»; перенос ~-правил и разовых планов)"
+  ],
+  "acceptance": [
+   "REQ-100: classify_sheet различает journal, bills, grid_weeks, category_by_month, sinking, income_log, unknown; на 1 842 строках тестовой таблицы 1 811 / 23 / 8; unknown - отказ без импорта",
+   "REQ-099: export_hledger(G-001) -> import_hledger -> analyze: series.plan.close по дням совпадает с исходным (кроме налогов, часов и сценариев)",
+   "REQ-101: профили банков - данные в data/profiles/*.json с фикстурой реального анонимного экспорта; OFX с FITID через dry_run"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "IDEA-32",
+   "IDEA-33",
+   "IDEA-85",
+   "UP-19",
+   "UP-33",
+   "ALG-14 A14.5-A14.7",
+   "platform I3"
+  ],
+  "needs_owner": true,
+  "owner_question": "Нужны ли эти импорты и какие образцы доступны? (1) Реальные анонимные экспорты Дзен-мани, CoinKeeper и образцы таблиц владельца (колонки не подтверждены). (2) .xlsx: самописный разбор zip и XML без зависимостей или библиотека (лимит <= 3 зависимостей). (3) Как представлять «неразнесённое» при свёртке многоногих проводок: отдельный счёт, тег или строка отчёта без записи; переносить ли ~-правила автоматически. (4) Путь через API или OAuth не рассматривается (противоречит REQ-102).",
+  "id": "FP-41",
+  "title": "Мастер таблиц, адаптеры Дзен-мани и CoinKeeper, OFX, hledger-импорт полнее",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-20",
+   "FP-34"
+  ],
+  "reqs": [
+   "REQ-133"
+  ],
+  "new_files": [
+   "prototype/engine/consent.mjs",
+   "prototype/engine/payload_a3.mjs",
+   "prototype/demo/payload_a23.mjs",
+   "prototype/tests/consent.test.mjs",
+   "prototype/tests/payload_a3.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/payload_preview.mjs (render_payload -> payload_a3)",
+   "prototype/demo/index.html (CSP connect-src - только по решению)",
+   "prototype/engine/verifier.mjs (адаптеры A1-A3 за портом)"
+  ],
+  "acceptance": [
+   "Consent с granted_at, revoked_at, scope и consent.revoke; отзыв охватывает ассистента и метрики",
+   "payload_a3(results) по белому списку (verdict, min{amount_minor, date}, waves[date, need_minor], cause_classes, имя инструмента); golden-размеры 348 и 195 байт из страницы 06 проверены snapshot-тестом на G-001",
+   "в журнал пишется sent{hash, bytes, model_id}; без согласия исходящих запросов нет (offline_inventory.test остаётся зелёным)"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-71",
+   "IDEA-72",
+   "UP-30",
+   "ADR-010",
+   "ADR-013",
+   "platform E5",
+   "E6",
+   "N-5"
+  ],
+  "needs_owner": true,
+  "owner_question": "Включать ли облачные режимы вообще? Если да: провайдер и регион, хранение у провайдера, текст согласия и юридическая формулировка, пересмотр обещания «наружу не уходит ничего», расширение CSP connect-src, бюджет на ключи и оплату. Варианты: (а) не делать до v2; (б) только A1 на устройстве; (в) A3 с белым списком, выключен по умолчанию.",
+  "id": "FP-42",
+  "title": "Облачный ассистент A1-A3: согласие, белый список payload, журнал отправленного",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-17",
+   "FP-19"
+  ],
+  "reqs": [
+   "REQ-134",
+   "REQ-138"
+  ],
+  "new_files": [
+   "prototype/sync/segments.mjs",
+   "prototype/sync/shred.mjs",
+   "prototype/demo/crypto_copy.mjs",
+   "prototype/demo/sync_sim.mjs",
+   "prototype/tests/segments.test.mjs",
+   "prototype/tests/shred.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/vocab.json (kdf.iterations и kdf.wrap перестают быть null - после ADR)"
+  ],
+  "acceptance": [
+   "сегменты op-log шифруются AES-GCM; ключ восстановления; текст «при потере пароля и ключа облачная копия недоступна»",
+   "property-тест 10^3 перестановок сегментов даёт один state_hash",
+   "REQ-138: после destroy_key_header старый ключ не расшифровывает; квитанция remote_ack; redact(ids) перешифровывает историю"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-69",
+   "IDEA-70",
+   "IDEA-87",
+   "UP-25",
+   "ADR-005 п.4-6",
+   "platform F1-F5",
+   "D-1",
+   "D-2"
+  ],
+  "needs_owner": true,
+  "owner_question": "Нужна ли синхронизация и облачная копия? Если да: где и за чей счёт хостится «тупое» хранилище (юрисдикция, договор), какой KDF (PBKDF2 с числом итераций по OWASP или Argon2id/WASM; зависимость при лимите <= 3), политика ключа восстановления. Промежуточный вариант без сервера: только шифрованный файл-копия под паролем (v1.1).",
+  "id": "FP-43",
+  "title": "Шифрованная копия, синхронизация сегментов и облачное удаление (crypto-shredding)",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-43"
+  ],
+  "reqs": [
+   "REQ-115",
+   "REQ-116"
+  ],
+  "new_files": [
+   "prototype/engine/notify.mjs",
+   "prototype/engine/ics.mjs",
+   "prototype/engine/shared_projection.mjs",
+   "prototype/tests/notify.test.mjs",
+   "prototype/tests/shared_projection.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/vocab.json (параметры notify.*)",
+   "prototype/demo/ws_edit.mjs через register_edit (поле visibility)"
+  ],
+  "acceptance": [
+   "REQ-115: should_notify по типу, объекту и gap_bucket; повтор при росте разрыва >= 20 % или сдвиге даты >= 3 дня; не более 2 в неделю; 100000 -> 103600 повтора нет, -> 126000 повтор, третье за неделю нет",
+   "IDEA-47: экспорт волн в .ics локально, без сети",
+   "REQ-116: shared_projection(ws, viewer) выдаёт общий прогноз с «личное (А): -60,00 €» одной строкой и плашкой «прогноз не учитывает личное»; обмен между двумя людьми через экспорт и импорт журнала"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-47",
+   "IDEA-48",
+   "UP-39",
+   "ADR-005"
+  ],
+  "needs_owner": true,
+  "owner_question": "Нужны ли оповещения и семья в v2? Канал оповещений: (а) только внутри открытого приложения; (б) локальный .ics вместо пушей; (в) Web Push через сервер (iOS не подтверждён). Семья: как передавать ключ (QR, парольная фраза, сервер синхронизации) - требует отдельного ADR, решения о сервере и юридической оценки хранения чужих данных.",
+  "id": "FP-44",
+  "title": "Семья (общая рабочая область, приватные статьи) и оповещения с бюджетом внимания",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [],
+  "reqs": [
+   "REQ-113"
+  ],
+  "new_files": [
+   "prototype/demo/i18n/es/*.mjs (по числу каталогов demo/i18n/*.mjs)",
+   "prototype/tests/i18n_es.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/i18n.mjs (LANGS)",
+   "prototype/engine/verifier.mjs (plural es, шаблоны BASE.es / Q3 / INSUFFICIENT)",
+   "prototype/engine/vocab.json (locales)",
+   "prototype/tests/demo.test.mjs (паритет ключей для трёх языков)"
+  ],
+  "acceptance": [
+   "словарь es со всеми ключами RU/EN, плюрали one / other, глоссы IVA и IRPF только как пояснение термина с оговоркой «расчёт по введённым правилам, не консультация»",
+   "верификатор проходит шаблоны на es; формат es-ES по умолчанию",
+   "TST-56 паритет ключей на трёх языках"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-49",
+   "U42",
+   "ALG-12 A12.7"
+  ],
+  "needs_owner": true,
+  "owner_question": "Нужен ли испанский в ближайшем релизе? Кто переводит и вычитывает, включая юридически нейтральные глоссы IVA и IRPF? Входит ли формат es-ES по умолчанию в объём?",
+  "id": "FP-45",
+  "title": "Испанский интерфейс с точкой расширения локалей",
+  "effort": "L"
+ },
+ {
+  "wave": 3,
+  "depends_on": [
+   "FP-27"
+  ],
+  "reqs": [
+   "REQ-186"
+  ],
+  "new_files": [
+   "LICENSE (в runway/ и prototype/)",
+   "prototype/tests/release_hashes.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/tools/verify.mjs (verify_remote читает sw.js с хоста)",
+   "prototype/CHECKLIST-release.md (R10)",
+   "prototype/SPEC-format.md"
+  ],
+  "acceptance": [
+   "LICENSE лежит в корне и в prototype/ и упомянут в «О программе»",
+   "verify_remote сверяет и sw.js с хоста; подмена воркера на хосте даёт красный результат (тест)",
+   "хэш сборки публикуется вместе с релизом в указанном владельцем месте"
+  ],
+  "owner_hint": "process",
+  "refs": [
+   "IDEA-98",
+   "UP-24",
+   "platform D-10",
+   "N-2"
+  ],
+  "needs_owner": true,
+  "owner_question": "Какая лицензия для кода и для спецификации формата? Варианты: (а) разрешительная (MIT или Apache-2.0); (б) копилефт (AGPL-3.0); (в) не лицензировать до публичной беты. Кто второй держатель доменов и ключей и где публиковать хэши сборки?",
+  "id": "FP-46",
+  "title": "Лицензия на код и спецификацию, публикация хэшей релиза",
+  "effort": "S"
+ },
+ {
+  "id": "FP-47",
+  "title": "Хвосты волны 3а без решений владельца: «Почему» у пяти чисел, круг CSV для метки и контрагента, таблицы словаря и сборка, метки чисел G-001, Обзор при disabled",
+  "effort": "M",
+  "depends_on": [],
+  "reqs": [
+   "REQ-104",
+   "REQ-095",
+   "REQ-114",
+   "REQ-178",
+   "REQ-177",
+   "REQ-067",
+   "REQ-191"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "acceptance": [
+   "REQ-104: диалоги «Почему» вердикта, «можно потратить» и волны показывают версию движка и номер расчёта c_…, у «можно потратить» и волны есть контрфакты; тест на каждое из пяти чисел",
+   "REQ-095: круг «экспорт → мастер» восстанавливает метку и контрагента (профиль runway-csv-1 читает tag и counterparty), тест на ячейки с ведущим апострофом; account_id/kind — по решению",
+   "REQ-114: tools/gen_vocab_tables.mjs --write пишет таблицы вики из vocab.json (а не только проверяет дрейф); список назван в тесте как в бэклоге",
+   "REQ-178: npm run build вызывает lint:words и падает при ошибке (без CI и без подключения хука)",
+   "REQ-177: lint_vocab --coverage и tools/suggest_num_labels.mjs: числа G-001 без метки перечисляются; метки num: проставлены на страницах алгоритмов",
+   "REQ-067: таблица значений и график «Обзора» при disabled не печатают ряд «свободно»; тест",
+   "REQ-191: тест «после перевода на привязанный к резерву счёт free не меняется»"
+  ],
+  "new_files": [
+   "prototype/tests/why_dialogs_full.test.mjs",
+   "prototype/tests/csv_roundtrip_fields.test.mjs",
+   "prototype/tools/suggest_num_labels.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/why_more.mjs",
+   "prototype/demo/import_model.mjs",
+   "prototype/data/profiles/runway-csv-1.json",
+   "prototype/tools/gen_vocab_tables.mjs",
+   "prototype/tools/build_manifest.mjs",
+   "tools/lint_vocab.mjs",
+   "prototype/demo/app.mjs",
+   "prototype/demo/home_cards.mjs"
+  ],
+  "status": "done",
+  "wave": "3a-3",
+  "source": "повторный аудит 2026-10-24 (_ops/gap3)",
+  "done_on": "2026-10-24",
+  "report": "wiki/product/18-implementation-gap-analysis.md (раздел «Итог волны 3а-3»); прогон _ops/impl/run/verify-wave3a3.txt"
+ },
+ {
+  "id": "FP-48",
+  "title": "Шесть мелких дефектов проходов в настоящем браузере 2026-10-23…27: подпись «Набор данных», отчёт об ошибке при пустом журнале, подпись переноса, горизонт 57/58, живая область на «Купить», coldstart",
+  "effort": "S",
+  "depends_on": [],
+  "reqs": [
+   "REQ-010",
+   "REQ-124",
+   "REQ-152"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "acceptance": [
+   "подпись «Набор данных» после «Продолжить с сохранённого», «Восстановить из файла» и открытия файла: «Мои данные», «Файл: имя» или набор, а не «G-001 — эталон» (demo/dataset_label.mjs; тесты fp48_pure, fp48_boot)",
+   "«Сообщить об ошибке» при пустом журнале даёт отчёт с версией движка без кода E_UNKNOWN (fp48_pure)",
+   "подпись перенесённого вхождения: «перенесено с 26 октября (по правилу — 25 октября)» (fp48_chain)",
+   "горизонт 57 дней на экранах и в таблице значений (fp48_adv, fp48_boot)",
+   "живая область не затирает сообщение о записи «+ Факт» и «Отменить» на «Купить» (fp48_adv)",
+   "coldstart.html работает под node serve.mjs (fp48_boot)"
+  ],
+  "new_files": [
+   "prototype/demo/dataset_label.mjs",
+   "prototype/tests/fp48_pure.test.mjs",
+   "prototype/tests/fp48_boot.test.mjs",
+   "prototype/tests/fp48_chain.test.mjs",
+   "prototype/tests/fp48_adv.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/pack_fp05.mjs (регистрация хука dataset_label)",
+   "prototype/demo/app.mjs (подписи, живая область)"
+  ],
+  "status": "done",
+  "done_on": "2026-10-28",
+  "wave": "3a-4",
+  "source": "проходы в браузере 2026-10-23…27 (wiki/product/16-prototype-findings.md); проверка wf_fa23e82b-bfc: accept; проход координатора в браузере 2026-10-28 — все шесть подтверждены"
+ },
+ {
+  "id": "FP-49",
+  "title": "Хвосты FP-48 и FP-24 и проход в браузере 2026-10-28: заголовок таблицы значений, живая область в Worker, кнопка «Вернуть выбранный набор», подпись безымянного файла, хвост FZ-1, общий источник горизонта, устаревшие todo",
+  "effort": "S",
+  "depends_on": [],
+  "reqs": [
+   "REQ-158"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "acceptance": [
+   "ADV-05, ADV-06, ADV-09, ADV-11 (fp48_adv) закрыты; у каждого дефекта тест, красный на копии кода до правки и зелёный после",
+   "заголовок «Таблица значений (58 строк: день расчёта и 57 дней вперёд)»",
+   "живая область в Worker: сообщение, затем вердикт (окно 600 мс)",
+   "«Вернуть выбранный набор» отключена при «Мои данные», «Файл», «Загруженный файл» и включена у встроенного набора, в том числе правленого",
+   "хвост FZ-1: длина массива против max_records до развёртки; тесты 2^31 в дочернем процессе",
+   "общий источник горизонта; устаревшие todo сняты"
+  ],
+  "new_files": [
+   "prototype/demo/horizon.mjs",
+   "prototype/tests/fp49_adv.test.mjs",
+   "prototype/tests/fp49_fix.test.mjs",
+   "prototype/tests/fp49_pure.test.mjs",
+   "prototype/tests/fp49_boot.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/engine/validate_ws.mjs (хвост FZ-1; правка движка после полного прогона фаззинга 2026-10-28)",
+   "prototype/demo/app.mjs",
+   "prototype/demo/dataset_label.mjs",
+   "prototype/tools/run_all_tests.mjs"
+  ],
+  "status": "done",
+  "done_on": "2026-10-28",
+  "wave": "3a-5",
+  "source": "проход координатора в браузере 2026-10-28 (ADV-06/09/11); проверка wf_8f9d3ecc-1e9: один средний и два низких → исправлено → accept"
+ },
+ {
+  "id": "FP-50",
+  "title": "Матрица часов и поясов tools/clock_matrix.mjs (base, shift_far, shift_past, midnight_east, midnight_west), предзагрузка часов, разбор каждого красного, тест v0 независим от часов (RISK-22)",
+  "effort": "M",
+  "depends_on": [],
+  "reqs": [
+   "REQ-153",
+   "REQ-180"
+  ],
+  "needs_owner": true,
+  "owner_question": "local_today без смещения остаётся UTC по контракту tests/as_of.test.mjs — менять ли? (решение владельца; сейчас UTC)",
+  "acceptance": [
+   "tools/clock_matrix.mjs прогоняет набор по пяти профилям; вердикт свода вычисляется по данным; неразобранный красный сверх base даёт «НЕ РАЗОБРАНО»",
+   "каждый красный разобран: num_labels_coverage (опорная дата), lint_vocab (дата по UTC — исправлено), v0 (часы страницы передаются портом), fp18_adv (ожидание по состоянию экрана), import_wizard (результат чтения файла — правило 10)",
+   "tests/v0.test.mjs не зависит от часов машины (PAGE_CLOCK); тест D-4 на смещение устройства",
+   "красный в base и во всех профилях — fp30_adv ADV-2/3: закрыт в FP-51"
+  ],
+  "new_files": [
+   "prototype/tools/clock_matrix.mjs",
+   "prototype/tools/clock_shift_preload.mjs",
+   "prototype/tools/clock_matrix_known.json",
+   "prototype/tests/clock_matrix.test.mjs",
+   "prototype/tests/fp50_adv.test.mjs",
+   "_ops/impl/run/clock-matrix-*.json и .txt (пять профилей)"
+  ],
+  "touched_files": [
+   "prototype/demo/import_wizard.mjs (правило 10: результат чтения файла)",
+   "prototype/demo/v0.mjs (порт часов)",
+   "prototype/tools/lint_vocab.mjs («сегодня» — локальная дата)",
+   "prototype/tests/v0.test.mjs",
+   "prototype/tests/num_labels_coverage.test.mjs",
+   "prototype/tests/fp18_adv.test.mjs"
+  ],
+  "status": "review",
+  "impl_on": "2026-11-09",
+  "open_after_review": [
+   "вторая независимая проверка (2026-11-09): вердикт defects, четыре low — не исправлены",
+   "prototype/tools/README.md: «быстрый профиль — 167 файлов» (фактически 172)",
+   "decisions и shared_files_touched не перечисляют все изменения существующих тестов (num_labels_coverage, v0.test fresh_page, lint_vocab)",
+   "первый прогон base (timeline, fp21_adv) не прослеживается в артефактах: attempts и retried пусты в JSON",
+   "тест D-4 в v0.test.mjs зависит от пояса и даты (на TZ=Europe/London 2026-11-09 расхождение)"
+  ],
+  "wave": "3a-5",
+  "source": "проверка wf_8f9d3ecc-1e9: первая — два medium → исправлено; вторая — defects (low) → переход к FP-51 без исправления"
+ },
+ {
+  "id": "FP-51",
+  "title": "Вики, часть 2 (после FP-24, FP-48, FP-49, FP-50): семь замечаний FP-30, несинхронизированные страницы, повторный аудит REQ-158/171/172/175/124, числа прогона verify-wave3a5.txt, бэклог",
+  "effort": "M",
+  "depends_on": [
+   "FP-50"
+  ],
+  "reqs": [
+   "REQ-158",
+   "REQ-171",
+   "REQ-172",
+   "REQ-175",
+   "REQ-124"
+  ],
+  "needs_owner": false,
+  "owner_question": "",
+  "acceptance": [
+   "семь замечаний FP-30 (ADV-8…14) исправлены, todo сняты, названия тестов прежние",
+   "страницы 10, 11, 15, 17 содержат числа прогона verify-wave3a5.txt (201 файл, 3535 тестов, 3499 зелёных, 28 todo); fp30_adv ADV-1…14 зелёные при запуске по одному",
+   "overview, README, 04, 06 (подписи A2/A3 = словарь), prototype/README (39 модулей engine/) синхронизированы",
+   "повторный аудит REQ-158, 171, 172, 175, 124 по _ops/gap3: REQ-158 — реализовано; остальные — evidence и gaps; summary.json пересчитан по записям",
+   "страницы 16, 18, 19 — итоги волн 3а-4 и 3а-5",
+   "_ops/tst-coverage.json пересчитан (201 файл); lint и lint_vocab без ошибок; gen_vocab_tables --check чисто"
+  ],
+  "new_files": [],
+  "touched_files": [
+   "wiki/product/10-roadmap.md",
+   "wiki/product/11-testing-strategy.md",
+   "wiki/product/12-risks.md",
+   "wiki/product/13-metrics.md",
+   "wiki/product/15-prototype-guide.md",
+   "wiki/product/16-prototype-findings.md",
+   "wiki/product/17-start-plan.md",
+   "wiki/product/18-implementation-gap-analysis.md",
+   "wiki/product/19-implementation-status-after-wave2.md",
+   "wiki/product/06-ai-assistant-spec.md",
+   "wiki/algorithms/alg-09-debt-amortization.md",
+   "wiki/algorithms/alg-12-llm-tool-contract-and-number-verifier.md",
+   "wiki/overview.md",
+   "wiki/sources/04-karpathy-llm-wiki.md",
+   "README.md",
+   "prototype/README.md",
+   "_ops/tst-coverage.json",
+   "_ops/gap3/*.json",
+   "_ops/gap2/backlog-wave3.json",
+   "_ops/impl/run/run_all.mjs (правка шапки отменена по проверке 2026-11-09: файл возвращён к версии до пакета)",
+   "prototype/tests/fp30_adv.test.mjs (todo сняты)",
+   "prototype/tests/fp25_adv.test.mjs (todo сняты; ожидание заметок)",
+   "prototype/tests/fp25_fix.test.mjs (ожидание заметок; непустой пример заметки)",
+   "prototype/tests/fp51_adv.test.mjs (файл проверяющего; todo ADV-A…E сняты 2026-11-09)",
+   "prototype/tests/adversarial/verifier_io.test.mjs (комментарий над TST-45; названия прежние)",
+   "prototype/tools/tst_coverage.mjs (новый: пересчёт _ops/tst-coverage.json по отчёту прогона)",
+   "prototype/tools/README.md (раздел «Покрытие TST»)"
+  ],
+  "status": "review",
+  "impl_on": "2026-11-09",
+  "wave": "3a-5",
+  "source": "волна 3а-5, часть 2; приёмка — независимая проверка (до неё статус review)"
+ },
+ {
+  "id": "FP-52",
+  "title": "Расширение тестовой сети: расширенный генератор журналов со вторым замком вывода (несколько версий налогового правила, обратные котировки и валюты с другой экспонентой, резерв выше накопленного, суммы на пороге волн; без повышения ENGINE_VERSION — отдельный раздел политики) и мутанты модулей io, ledger, waves, recurrence, hourly, debt, calibration",
+  "effort": "M",
+  "depends_on": [
+   "FP-24"
+  ],
+  "reqs": [
+   "REQ-171",
+   "REQ-172",
+   "REQ-175"
+  ],
+  "needs_owner": true,
+  "owner_question": "Разрешить ли расширение генератора и второй замок вывода? Если расширение меняет сумму журнала в замке, нужно повышение ENGINE_VERSION и запись в политике замка.",
+  "acceptance": [
+   "второй замок вывода на расширенном генераторе: записи в политике версий, отдельный раздел политики",
+   "мутанты io, ledger, waves, recurrence, hourly, debt, calibration с привязкой к TST-31…39",
+   "не запускать до решения владельца"
+  ],
+  "new_files": [],
+  "touched_files": [],
+  "status": "proposed",
+  "wave": "3a-5",
+  "source": "отчёт FP-24 (wave3a4): D4 в fp24_adv; 34 мутанта этих модулей не видит ни одна из трёх сетей; TST-38 не красен на порче кода"
+ }
+]

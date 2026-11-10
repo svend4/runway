@@ -1,0 +1,120 @@
+{
+  "format": "runway-synthetic-journals/1",
+  "note": "СИНТЕТИЧЕСКИЕ журналы, не данные пользователей; хэш = sha256(canon(записи))",
+  "corpora": {
+    "regular": [
+      {
+        "id": "reg01",
+        "events": 149,
+        "sha256": "e55288ecf1018cbab297af9194d401bba0071fa972be9e043b7da36db5b3bb4f"
+      },
+      {
+        "id": "reg02",
+        "events": 164,
+        "sha256": "00b34bc2726b5552c26749af46abb7e31d1455ae7c60e177ab522c67b04bf487"
+      },
+      {
+        "id": "reg03",
+        "events": 149,
+        "sha256": "6be59523b63b961ca4aa102dd57b28f86e85133bcc47db71b8db776a1aa06cf0"
+      },
+      {
+        "id": "reg04",
+        "events": 164,
+        "sha256": "b20f4f0def6eb7da79626a0eaf3ec589504150dc4e8075d982291abf8980714f"
+      },
+      {
+        "id": "reg05",
+        "events": 149,
+        "sha256": "26a78ad432834c3d500a4ea30bda23f39833ececb9a426f7ed07af5ca29fbbf2"
+      },
+      {
+        "id": "reg06",
+        "events": 164,
+        "sha256": "c3f766109e6e6f2277293294f8f048172ea7c00054a29a13508a97a7a6ee1dde"
+      },
+      {
+        "id": "reg07",
+        "events": 149,
+        "sha256": "7c3dfe396929e3a101e035db778cfd97a616e499f622d998414d19d7f3e005e5"
+      },
+      {
+        "id": "reg08",
+        "events": 164,
+        "sha256": "d4ae1b6abffa1d4ed98111f970900c34bdf21eaaeb89617f56965238643676ba"
+      },
+      {
+        "id": "reg09",
+        "events": 149,
+        "sha256": "62711be25cb04cbdb026dbcd5cbf833c3b148cafe6e3f96ad8d1adb891ecf16f"
+      },
+      {
+        "id": "reg10",
+        "events": 161,
+        "sha256": "d92cc2eb8ccb6f424377d40943395cebc425c710458d576347c97bc0a0e2a469"
+      },
+      {
+        "id": "reg11",
+        "events": 149,
+        "sha256": "b07ff46629406ab58f67b9185acfff417e7cca666fd8f24f89ea4ef186c84e16"
+      },
+      {
+        "id": "reg12",
+        "events": 164,
+        "sha256": "03c861fa62318bc5778334bbfe9f4577eca63f9d025f837dc39f150cef83c287"
+      }
+    ],
+    "stress": [
+      {
+        "id": "str01",
+        "events": 164,
+        "sha256": "bc9c1767131973edc5dd159b4b985b74bf51d5bc9728bac421ffd343942a9224"
+      },
+      {
+        "id": "str02",
+        "events": 149,
+        "sha256": "0f59e8eee5e2e477e9ce813ee2d6f503f69233d356e1138113e8c77bfc6656d5"
+      },
+      {
+        "id": "str03",
+        "events": 149,
+        "sha256": "781ed059b2d23c1979b5974f946e0451dce991efeb6dbce595b005229be49512"
+      },
+      {
+        "id": "str04",
+        "events": 149,
+        "sha256": "50dbb09531899f9103a8df30ec40c7cefe9c1ad0682d005c100e66db69cbb954"
+      },
+      {
+        "id": "str05",
+        "events": 161,
+        "sha256": "8bd88442b3061b6eebf50542b0161696c40a6900f27923fbdc72415b3d0c9e60"
+      },
+      {
+        "id": "str06",
+        "events": 149,
+        "sha256": "87b4404522a9dbbdddf5594ff80dd3fa94b483632bb9fa41309def982afdab10"
+      },
+      {
+        "id": "str07",
+        "events": 149,
+        "sha256": "0c5a1e85e0340a8980cbd7ead87434b0c5ed779a2d4e9f723eac822bbe8b1e90"
+      },
+      {
+        "id": "str08",
+        "events": 149,
+        "sha256": "a7149c8176921d1d2b011789b27e27df0f0515fa0f4296239b15b121f9003e63"
+      },
+      {
+        "id": "str09",
+        "events": 164,
+        "sha256": "ef0622591f7c3fea655d80803737665d85e39ad8d7353fe8c01bdccab503b71d"
+      },
+      {
+        "id": "str10",
+        "events": 149,
+        "sha256": "54e4b046c4994cd261d4b0be4df0bc8e01564c06d7f22e8674ba744b4d3fc719"
+      }
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "format": "runway-template/1",
+  "template_id": "freelancer-skeleton",
+  "kind": "skeleton",
+  "title": { "ru": "Фрилансер: скелет без сумм и ставок", "en": "Freelancer: skeleton without amounts or rates" },
+  "note": {
+    "ru": "Скелет подсказывает названия строк. Сумм, ставок, налоговых календарей и шаблонов стран в нём нет: всё вводите вы. Расчёт по введённым данным и правилам, не консультация.",
+    "en": "The skeleton only suggests row names. It has no amounts, rates, tax calendars or country templates: you enter everything. Calculated from the data and rules you enter; not advice."
+  },
+  "policy": "no_prefilled_amounts_or_rates",
+  "review": { "status": "awaiting_humans", "reviewed_at": null, "ttl_days": 365 },
+  "obligations": [
+    { "slot": "rent", "freq": "M", "label": { "ru": "Аренда", "en": "Rent" } },
+    { "slot": "utilities", "freq": "M", "label": { "ru": "Коммунальные услуги", "en": "Utilities" } },
+    { "slot": "phone", "freq": "M", "label": { "ru": "Связь и интернет", "en": "Phone and internet" } },
+    { "slot": "software", "freq": "M", "label": { "ru": "Подписки и программы для работы", "en": "Work software and subscriptions" } },
+    { "slot": "insurance", "freq": "Y", "label": { "ru": "Страховка", "en": "Insurance" } }
+  ],
+  "income": [
+    { "slot": "client_payout", "freq": "M", "label": { "ru": "Выплата от клиента", "en": "Client payout" } }
+  ],
+  "daily": [
+    { "slot": "everyday", "freq": "W", "label": { "ru": "Продукты и повседневное", "en": "Groceries and everyday spending" } }
+  ],
+  "tax_rule": {
+    "kind": "percent_of_income",
+    "rate_bp": null,
+    "ttl_days": 365,
+    "reviewed_at": null,
+    "note": {
+      "ru": "Ставку и срок проверки правила вводите вы в разделе «Формы данных»; здесь их нет.",
+      "en": "You enter the rate and the review term in the data forms; they are not here."
+    }
+  }
+}

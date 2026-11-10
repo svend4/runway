@@ -1,0 +1,203 @@
+Сквозной прогон 181 файлов по одному: тестов 3310, прошло 3284, упало 3, пропущено 2, todo 21; время 372 с
+КРАСНЫЙ tests/fp27_fix.test.mjs: tests=18 pass=17 fail=1 status=1
+  ✖ REQ-183 FIX-1 пакет честно называет метод выборки по ключу и сохраняет прежние оговорки (по ключевым словам с запасом; Q1; пересборка) (30.6198ms)
+  ✔ REQ-110 FIX-3 reach_check: целочисленные пороги 80 % (предупреждение) и 50 % (отказ); неверные числа — RangeError (1.0661ms)
+  ✖ failing tests:
+  ✖ REQ-183 FIX-1 пакет честно называет метод выборки по ключу и сохраняет прежние оговорки (по ключевым словам с запасом; Q1; пересборка) (30.6198ms)
+    AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+    + actual - expected
+      actual: '# Пакет для юридического ревью формулировок (REQ-183)\n\n> Файл собран скриптом `prototype/tools/people_pack.mjs` из кода приложения; **руками не править** (таблицы пересоберутся). Это не юридическая консультация и не заменяет её:\n> пакет только собирает тексты про налоги, «советы» и точность, чтобы их прочитал специалист. Расчёт по введённым данным и правилам, не консультация.\n\n| Что | Значение |\n|---|---|\n| Отпечаток выгрузки (sha256, 16 знаков) | `c32a7633796a0443` |\n| Версия движка | `0.1.0` |\n| Каталогов строк · строк всего | 33 · 3324 |\n| Строк в выборке (§3) | 317 (налоги — 173, советы — 122, точность — 56; строка может относиться к нескольким классам) |\n| Из них про налоги без оговорки в самой строке | 157 (оговорка может стоять рядом на экране: проверяется по интерфейсу, а не по строке) |\n| Утверждений в реестре обещаний (§4) | 24 |\n| Дата выгрузки, ревьюер, решение | записываются в отдельной записи ревью по шаблону §6, не здесь |\n\n## 1. Зачем этот пакет и что нужно от ревьюера\n\nRunway — приложение для прогноза денежного потока: оно считает по данным и правилам, которые ввёл сам человек, и показывает минимум свободных денег, ответ на вопрос «могу ли я купить» и запас под налоги. В интерфейсе три группы текстов, которые требуют взгляда юриста (RISK-06, RISK-11, [REQ-183](../../wiki/product/02-requirements.md)):\n\n1. **Налоги.** Ставок и шаблонов стран в приложении нет; налоговые правила — данные пользователя, а приложение откладывает «в конверт» долю, которую задал он сам. Нужна оценка, не станет ли такой показ налоговой консультацией, и достаточны ли оговорки.\n2. **«Советы».** Вердикт («выдерживает / впритык / хрупко / не хватает») и «можно потратить» — это расчёт ликвидности по правилам пользователя, а не рекомендация покупать или не покупать. Нужна оценка, как это прочтёт человек, и не пересекает ли формулировка границу «информация против совета».\n3. **Точность.** Приложение не обещает точность прогноза; есть реестр утверждений с уровнем доказанности («проверено тестом», «измерено», «гипотеза» в интерфейс не попадает). Нужна оценка, не создаёт ли какая-то формулировка обещания, которого продукт не даёт.\n\n**О чём просим.** Прочитать таблицы §3–§5. По каждой строке отметить «принять», «заменить текстом …» или «удалить». Ответить на вопросы Q1–Q8 ниже. Решить судьбу налоговой части: оставить, оставить с изменениями или удалить (если ревью признаёт налоговую часть консультацией, она удаляется: правила REQ-064…068, ALG-06; остаются накопление на страховку и ручной резерв, строка № 5 раздела «Критерии остановки и пивота» дорожной карты). Назвать юрисдикции, для которых вывод верен.\n\n**О чём не просим.** Не просим проверять арифметику прогноза и не просим консультации по налогам для конкретного человека.\n\n**Вопросы ревьюеру.**\n\n| № | Вопрос |\n|---|---|\n| Q1 | Считается ли показ суммы «в конверт по правилу пользователя» налоговой консультацией, если ставку вводит сам пользователь, а приложение ставок не содержит? |\n| Q2 | Достаточна ли оговорка «расчёт по введённым данным и правилам, не консультация» (§5.1) и на каких поверхностях она обязательна (обзор, покупка, резервы, ответы ассистента, печать)? |\n| Q3 | Читается ли вердикт («выдерживает / впритык / хрупко / не хватает») и «можно потратить» как рекомендация? Допустимы ли заголовки вида «Могу ли я это купить?»? |\n| Q4 | Достаточно ли «не обещаем точность прогноза» и отметки «эксперимент, не обещание» у вероятностных оценок? Нужна ли оговорка о том, что прошлые платежи не предсказывают будущие? |\n| Q5 | Нет ли совета в шаблонах ответов ассистента A0 (строки из `engine/verifier.mjs`)? |\n| Q6 | Какими словами можно сказать после ревью, что оно проведено (сейчас в интерфейсе: «Юридическое ревью формулировок … не выполнены»)? |\n| Q7 | Нужны ли для версии без аккаунтов и без сервера отдельные условия использования и сведения об ответственности (в приложении их нет)? |\n| Q8 | Есть ли формулировки, которые для вашей юрисдикции нельзя употреблять даже с оговоркой? |\n\n## 2. Как устроен пакет\n\n- Источник — код, а не копия вручную: каталоги строк `prototype/demo/i18n.mjs` и `prototype/demo/i18n/*.mjs`, шаблоны ответов `prototype/engine/verifier.mjs`, шаблон-скелет мастера «Старт» `prototype/demo/start_template.mjs`, реестр обещаний `prototype/demo/promises.json`, словарь `prototype/engine/vocab.json`.\n- Выборка по ключевым словам с запасом (RU или EN): налоги — «налог», «конверт», tax, envelope, VAT, НДС, IVA, «вычет», declaration; советы — «совет», «консульт», «рекоменд», advice, recommend, «инвестиц», «юрид», «вердикт», «можно потратить», «могу ли я купить»; точность — «точност», accuracy, «гарант», «обещ», promise, «уверенност», «вероятност», «эксперимент». Строка с любым словом попадает в таблицу целиком. Налоговый конверт и правила не всегда называют налог словом, поэтому к налогам отнесены ещё строки по ключу: куски ключа, начинающиеся с `tax` или `envelope` (например `rs.tax_line`, `forms.tax_none`, `forms.h_tax_rate`, `forms.f_rate_tax`), и все ключи экранов `rs.*` («Резервы») и `reserveui.*` (карточки резервов и разбор «Как посчитано»). Если на экране есть строка про налоги, советы или точность, которой нет в таблице, это дефект выборки: сообщить, пакет будет пересобран.\n- Номер строки `№` — для ссылок в записи ревью. Номера меняются при пересборке: в записи ревью указывать и номер, и ключ, и отпечаток выгрузки.\n- Пересборка: `node tools/people_pack.mjs legal` из `prototype/`; проверка, что пакет не устарел: `node tools/people_pack.mjs legal --check` (код выхода 1, если файл расходится с кодом). Тест `tests/people_pack.test.mjs` делает ту же проверку.\n- В пакет не входят тексты вне перечисленных источников (вики, README, страницы вне приложения): их читают по ссылкам из записи ревью.\n\n## 3. Строки интерфейса: налоги, «советы», точность\n\nКолонка «Оговорка» — есть ли в самой строке «не консультация» или «not advice». «Классы»: н — налоги, с — советы, т — точность.\n\n| № | Файл · ключ | Классы | RU | EN | Оговорка |\n|---:|---|:-:|---|---|:-:|\n| 1 | `i18n.mjs` · `app.footer` | с | Движок {version} · inputs {hash} · расчёт по введённым данным и правилам, не консультация. Все числа посчитаны на этой странице; ваши данные никуда не отправляются, файлы страница читает только с собственного хоста. | Engine {version} · inputs {hash} · calculated from the data and rules you entered; not advice. All numbers are calculated in this page; your data is not sent anywhere, and the page reads files only from its own host. | да |\n| 2 | `i18n.mjs` · `c.tax_note` | н с | Расчёт по введённым правилам, не консультация. | Calculated from the rules you entered; not advice. | да |\n| 3 | `i18n.mjs` · `as.q_tax` | н | налог | tax | нет |\n| 4 | `i18n.mjs` · `as.t_sts` | с | можно потратить | spendable amount | нет |\n| 5 | `i18n.mjs` · `as.t_tax` | н | налоговый конверт | tax envelope | нет |\n| 6 | `i18n.mjs` · `banner.block` | с | Данных мало для вердикта. Сверьте остаток. | Not enough data for a verdict. Reconcile the balance. | нет |\n| 7 | `i18n.mjs` · `warn.W_NO_RESERVES` | н с | Налоговый конверт и накопления не заданы: вердикт и «можно потратить» посчитаны по физическим деньгам. | No tax envelope or savings are set: the verdict and the spendable amount use physical cash. | нет |\n| 8 | `i18n.mjs` · `gate.readiness` | с | Данных мало для вердикта: готовность данных ниже порога, проверьте, что не учтено. | Not enough data for a verdict: data readiness is below the threshold, check what is not included. | нет |\n| 9 | `i18n.mjs` · `gate.stale` | с | Остаток не сверялся давно: сверьте остаток, вердикт заменён этой подсказкой. | The balance has not been reconciled for a long time: reconcile it; the verdict is replaced by this note. | нет |\n| 10 | `i18n.mjs` · `gate.generic` | с | Данных мало для вердикта. | Not enough data for a verdict. | нет |\n| 11 | `i18n.mjs` · `ov.sts_title` | с | Можно потратить | Spendable | нет |\n| 12 | `i18n.mjs` · `ov.sts_gate` | с | Число «можно потратить» не показано: {reason} | The spendable amount is not shown: {reason} | нет |\n| 13 | `i18n.mjs` · `ov.go_buy` | с | Могу ли я купить? | Can I buy it? | нет |\n| 14 | `i18n.mjs` · `bd.title` | с | Как посчитано «можно потратить» | How the spendable amount is calculated | нет |\n| 15 | `i18n.mjs` · `buy.title` | с | Могу ли я это купить? | Can I buy it? | нет |\n| 16 | `i18n.mjs` · `buy.lead` | с | Три ответа за один жест: вердикт, максимум на дату и самая ранняя дата. | Three answers in one gesture: a verdict, the maximum for a date and the earliest date. | нет |\n| 17 | `i18n.mjs` · `buy.verdict` | с | Вердикт | Verdict | нет |\n| 18 | `i18n.mjs` · `buy.cash_but_reserved` | н | Деньги есть (минимум {value}), но свободных нет — они закреплены под налог и накопление. | There is money (lowest {value}), but none of it is free — it is set aside for tax and savings. | нет |\n| 19 | `i18n.mjs` · `buy.liquidity` | с т | Это расчёт ликвидности по вашим правилам и данным, не рекомендация. | This is a liquidity calculation based on your rules and data, not a recommendation. | да |\n| 20 | `i18n.mjs` · `buy.gate_title` | с | Вердикт отключён | Verdict switched off | нет |\n| 21 | `i18n.mjs` · `rs.title` | н | Резервы | Reserves | нет |\n| 22 | `i18n.mjs` · `rs.lead` | н | Что закреплено под налог и накопления и сколько свободно. | What is set aside for tax and savings, and how much is free. | нет |\n| 23 | `i18n.mjs` · `rs.free` | н | Свободный остаток | Free balance | нет |\n| 24 | `i18n.mjs` · `rs.free_line` | н | Остаток {balance} − резервы {reserved} = свободно на сегодня {free}. | Balance {balance} − reserves {reserved} = free today {free}. | нет |\n| 25 | `i18n.mjs` · `rs.free_masked` | н | Остаток {balance}. Резервы и «свободно на сегодня» не показаны: правило не подтверждено с {since}; числа скрыты до его подтверждения или правки. | Balance {balance}. Reserves and "free today" are not shown: the rule has not been confirmed since {since}; the numbers stay hidden until it is confirmed or changed. | нет |\n| 26 | `i18n.mjs` · `rs.min'... 74786 more characters,
+      expected: '# Пакет для юридического ревью формулировок (REQ-183)\n\n> Файл собран скриптом `prototype/tools/people_pack.mjs` из кода приложения; **руками не править** (таблицы пересоберутся). Это не юридическая консультация и не заменяет её:\n> пакет только собирает тексты про налоги, «советы» и точность, чтобы их прочитал специалист. Расчёт по введённым данным и правилам, не консультация.\n\n| Что | Значение |\n|---|---|\n| Отпечаток выгрузки (sha256, 16 знаков) | `c32a7633796a0443` |\n| Версия движка | `0.1.0` |\n| Каталогов строк · строк всего | 33 · 3331 |\n| Строк в выборке (§3) | 317 (налоги — 173, советы — 122, точность — 56; строка может относиться к нескольким классам) |\n| Из них про налоги без оговорки в самой строке | 157 (оговорка может стоять рядом на экране: проверяется по интерфейсу, а не по строке) |\n| Утверждений в реестре обещаний (§4) | 24 |\n| Дата выгрузки, ревьюер, решение | записываются в отдельной записи ревью по шаблону §6, не здесь |\n\n## 1. Зачем этот пакет и что нужно от ревьюера\n\nRunway — приложение для прогноза денежного потока: оно считает по данным и правилам, которые ввёл сам человек, и показывает минимум свободных денег, ответ на вопрос «могу ли я купить» и запас под налоги. В интерфейсе три группы текстов, которые требуют взгляда юриста (RISK-06, RISK-11, [REQ-183](../../wiki/product/02-requirements.md)):\n\n1. **Налоги.** Ставок и шаблонов стран в приложении нет; налоговые правила — данные пользователя, а приложение откладывает «в конверт» долю, которую задал он сам. Нужна оценка, не станет ли такой показ налоговой консультацией, и достаточны ли оговорки.\n2. **«Советы».** Вердикт («выдерживает / впритык / хрупко / не хватает») и «можно потратить» — это расчёт ликвидности по правилам пользователя, а не рекомендация покупать или не покупать. Нужна оценка, как это прочтёт человек, и не пересекает ли формулировка границу «информация против совета».\n3. **Точность.** Приложение не обещает точность прогноза; есть реестр утверждений с уровнем доказанности («проверено тестом», «измерено», «гипотеза» в интерфейс не попадает). Нужна оценка, не создаёт ли какая-то формулировка обещания, которого продукт не даёт.\n\n**О чём просим.** Прочитать таблицы §3–§5. По каждой строке отметить «принять», «заменить текстом …» или «удалить». Ответить на вопросы Q1–Q8 ниже. Решить судьбу налоговой части: оставить, оставить с изменениями или удалить (если ревью признаёт налоговую часть консультацией, она удаляется: правила REQ-064…068, ALG-06; остаются накопление на страховку и ручной резерв, строка № 5 раздела «Критерии остановки и пивота» дорожной карты). Назвать юрисдикции, для которых вывод верен.\n\n**О чём не просим.** Не просим проверять арифметику прогноза и не просим консультации по налогам для конкретного человека.\n\n**Вопросы ревьюеру.**\n\n| № | Вопрос |\n|---|---|\n| Q1 | Считается ли показ суммы «в конверт по правилу пользователя» налоговой консультацией, если ставку вводит сам пользователь, а приложение ставок не содержит? |\n| Q2 | Достаточна ли оговорка «расчёт по введённым данным и правилам, не консультация» (§5.1) и на каких поверхностях она обязательна (обзор, покупка, резервы, ответы ассистента, печать)? |\n| Q3 | Читается ли вердикт («выдерживает / впритык / хрупко / не хватает») и «можно потратить» как рекомендация? Допустимы ли заголовки вида «Могу ли я это купить?»? |\n| Q4 | Достаточно ли «не обещаем точность прогноза» и отметки «эксперимент, не обещание» у вероятностных оценок? Нужна ли оговорка о том, что прошлые платежи не предсказывают будущие? |\n| Q5 | Нет ли совета в шаблонах ответов ассистента A0 (строки из `engine/verifier.mjs`)? |\n| Q6 | Какими словами можно сказать после ревью, что оно проведено (сейчас в интерфейсе: «Юридическое ревью формулировок … не выполнены»)? |\n| Q7 | Нужны ли для версии без аккаунтов и без сервера отдельные условия использования и сведения об ответственности (в приложении их нет)? |\n| Q8 | Есть ли формулировки, которые для вашей юрисдикции нельзя употреблять даже с оговоркой? |\n\n## 2. Как устроен пакет\n\n- Источник — код, а не копия вручную: каталоги строк `prototype/demo/i18n.mjs` и `prototype/demo/i18n/*.mjs`, шаблоны ответов `prototype/engine/verifier.mjs`, шаблон-скелет мастера «Старт» `prototype/demo/start_template.mjs`, реестр обещаний `prototype/demo/promises.json`, словарь `prototype/engine/vocab.json`.\n- Выборка по ключевым словам с запасом (RU или EN): налоги — «налог», «конверт», tax, envelope, VAT, НДС, IVA, «вычет», declaration; советы — «совет», «консульт», «рекоменд», advice, recommend, «инвестиц», «юрид», «вердикт», «можно потратить», «могу ли я купить»; точность — «точност», accuracy, «гарант», «обещ», promise, «уверенност», «вероятност», «эксперимент». Строка с любым словом попадает в таблицу целиком. Налоговый конверт и правила не всегда называют налог словом, поэтому к налогам отнесены ещё строки по ключу: куски ключа, начинающиеся с `tax` или `envelope` (например `rs.tax_line`, `forms.tax_none`, `forms.h_tax_rate`, `forms.f_rate_tax`), и все ключи экранов `rs.*` («Резервы») и `reserveui.*` (карточки резервов и разбор «Как посчитано»). Если на экране есть строка про налоги, советы или точность, которой нет в таблице, это дефект выборки: сообщить, пакет будет пересобран.\n- Номер строки `№` — для ссылок в записи ревью. Номера меняются при пересборке: в записи ревью указывать и номер, и ключ, и отпечаток выгрузки.\n- Пересборка: `node tools/people_pack.mjs legal` из `prototype/`; проверка, что пакет не устарел: `node tools/people_pack.mjs legal --check` (код выхода 1, если файл расходится с кодом). Тест `tests/people_pack.test.mjs` делает ту же проверку.\n- В пакет не входят тексты вне перечисленных источников (вики, README, страницы вне приложения): их читают по ссылкам из записи ревью.\n\n## 3. Строки интерфейса: налоги, «советы», точность\n\nКолонка «Оговорка» — есть ли в самой строке «не консультация» или «not advice». «Классы»: н — налоги, с — советы, т — точность.\n\n| № | Файл · ключ | Классы | RU | EN | Оговорка |\n|---:|---|:-:|---|---|:-:|\n| 1 | `i18n.mjs` · `app.footer` | с | Движок {version} · inputs {hash} · расчёт по введённым данным и правилам, не консультация. Все числа посчитаны на этой странице; ваши данные никуда не отправляются, файлы страница читает только с собственного хоста. | Engine {version} · inputs {hash} · calculated from the data and rules you entered; not advice. All numbers are calculated in this page; your data is not sent anywhere, and the page reads files only from its own host. | да |\n| 2 | `i18n.mjs` · `c.tax_note` | н с | Расчёт по введённым правилам, не консультация. | Calculated from the rules you entered; not advice. | да |\n| 3 | `i18n.mjs` · `as.q_tax` | н | налог | tax | нет |\n| 4 | `i18n.mjs` · `as.t_sts` | с | можно потратить | spendable amount | нет |\n| 5 | `i18n.mjs` · `as.t_tax` | н | налоговый конверт | tax envelope | нет |\n| 6 | `i18n.mjs` · `banner.block` | с | Данных мало для вердикта. Сверьте остаток. | Not enough data for a verdict. Reconcile the balance. | нет |\n| 7 | `i18n.mjs` · `warn.W_NO_RESERVES` | н с | Налоговый конверт и накопления не заданы: вердикт и «можно потратить» посчитаны по физическим деньгам. | No tax envelope or savings are set: the verdict and the spendable amount use physical cash. | нет |\n| 8 | `i18n.mjs` · `gate.readiness` | с | Данных мало для вердикта: готовность данных ниже порога, проверьте, что не учтено. | Not enough data for a verdict: data readiness is below the threshold, check what is not included. | нет |\n| 9 | `i18n.mjs` · `gate.stale` | с | Остаток не сверялся давно: сверьте остаток, вердикт заменён этой подсказкой. | The balance has not been reconciled for a long time: reconcile it; the verdict is replaced by this note. | нет |\n| 10 | `i18n.mjs` · `gate.generic` | с | Данных мало для вердикта. | Not enough data for a verdict. | нет |\n| 11 | `i18n.mjs` · `ov.sts_title` | с | Можно потратить | Spendable | нет |\n| 12 | `i18n.mjs` · `ov.sts_gate` | с | Число «можно потратить» не показано: {reason} | The spendable amount is not shown: {reason} | нет |\n| 13 | `i18n.mjs` · `ov.go_buy` | с | Могу ли я купить? | Can I buy it? | нет |\n| 14 | `i18n.mjs` · `bd.title` | с | Как посчитано «можно потратить» | How the spendable amount is calculated | нет |\n| 15 | `i18n.mjs` · `buy.title` | с | Могу ли я это купить? | Can I buy it? | нет |\n| 16 | `i18n.mjs` · `buy.lead` | с | Три ответа за один жест: вердикт, максимум на дату и самая ранняя дата. | Three answers in one gesture: a verdict, the maximum for a date and the earliest date. | нет |\n| 17 | `i18n.mjs` · `buy.verdict` | с | Вердикт | Verdict | нет |\n| 18 | `i18n.mjs` · `buy.cash_but_reserved` | н | Деньги есть (минимум {value}), но свободных нет — они закреплены под налог и накопление. | There is money (lowest {value}), but none of it is free — it is set aside for tax and savings. | нет |\n| 19 | `i18n.mjs` · `buy.liquidity` | с т | Это расчёт ликвидности по вашим правилам и данным, не рекомендация. | This is a liquidity calculation based on your rules and data, not a recommendation. | да |\n| 20 | `i18n.mjs` · `buy.gate_title` | с | Вердикт отключён | Verdict switched off | нет |\n| 21 | `i18n.mjs` · `rs.title` | н | Резервы | Reserves | нет |\n| 22 | `i18n.mjs` · `rs.lead` | н | Что закреплено под налог и накопления и сколько свободно. | What is set aside for tax and savings, and how much is free. | нет |\n| 23 | `i18n.mjs` · `rs.free` | н | Свободный остаток | Free balance | нет |\n| 24 | `i18n.mjs` · `rs.free_line` | н | Остаток {balance} − резервы {reserved} = свободно на сегодня {free}. | Balance {balance} − reserves {reserved} = free today {free}. | нет |\n| 25 | `i18n.mjs` · `rs.free_masked` | н | Остаток {balance}. Резервы и «свободно на сегодня» не показаны: правило не подтверждено с {since}; числа скрыты до его подтверждения или правки. | Balance {balance}. Reserves and "free today" are not shown: the rule has not been confirmed since {since}; the numbers stay hidden until it is confirmed or changed. | нет |\n| 26 | `i18n.mjs` · `rs.min'... 74786 more characters,
+КРАСНЫЙ tests/people_pack.test.mjs: tests=9 pass=7 fail=2 status=1
+  ✖ REQ-183 пакет равен коду: _ops/people/legal-review-package.md совпадает с выводом сборщика (устарел — пересобрать: node tools/people_pack.mjs legal) (25.3701ms)
+  ✖ REQ-183 командная строка (процесс): node tools/people_pack.mjs legal --check на настоящем пакете — код 0 (193.696ms)
+  ✖ failing tests:
+  ✖ REQ-183 пакет равен коду: _ops/people/legal-review-package.md совпадает с выводом сборщика (устарел — пересобрать: node tools/people_pack.mjs legal) (25.3701ms)
+    AssertionError [ERR_ASSERTION]: пакет для юриста устарел: пересобрать командой «node tools/people_pack.mjs legal» из prototype/
+      actual: false,
+      expected: true,
+  ✖ REQ-183 командная строка (процесс): node tools/people_pack.mjs legal --check на настоящем пакете — код 0 (193.696ms)
+    AssertionError [ERR_ASSERTION]: Пакет устарел: C:\xampp\htdocs\01\301\runway\_ops\people\legal-review-package.md. Пересобрать: node tools/people_pack.mjs legal
+      actual: 1,
+      expected: 0,
+tests/a11y_static.test.mjs	16	16	0	0	0	1935мс
+tests/about.test.mjs	16	16	0	0	0	1302мс
+tests/adversarial/dates_money.test.mjs	49	49	0	0	0	14622мс
+tests/adversarial/golden_properties.test.mjs	76	76	0	0	0	6192мс
+tests/adversarial/semantics.test.mjs	177	175	0	0	2	2249мс
+tests/adversarial/verifier_io.test.mjs	148	146	0	0	2	11915мс
+tests/afford.test.mjs	36	36	0	0	0	4891мс
+tests/analyze.test.mjs	18	18	0	0	0	1305мс
+tests/anonymize.test.mjs	11	11	0	0	0	1070мс
+tests/arith.test.mjs	5	5	0	0	0	888мс
+tests/as_of.test.mjs	14	14	0	0	0	1093мс
+tests/assistant_ext.test.mjs	35	35	0	0	0	5139мс
+tests/backtest.test.mjs	32	32	0	0	0	6095мс
+tests/backup.test.mjs	8	8	0	0	0	216мс
+tests/backup_file.test.mjs	31	31	0	0	0	595мс
+tests/backup_file_boot.test.mjs	12	12	0	0	0	920мс
+tests/backup_file_pack.test.mjs	2	2	0	0	0	463мс
+tests/band_adapter.test.mjs	11	11	0	0	0	1051мс
+tests/bench_compare.test.mjs	12	12	0	0	0	7020мс
+tests/bench_pages.test.mjs	21	21	0	0	0	5365мс
+tests/browser_pass_s1.test.mjs	4	4	0	0	0	184мс
+tests/browser_pass_w3a.test.mjs	1	1	0	0	0	162мс
+tests/build_manifest.test.mjs	11	11	0	0	0	25528мс
+tests/calc_async.test.mjs	21	21	0	0	0	3756мс
+tests/calc_async_boot.test.mjs	8	8	0	0	0	2324мс
+tests/calc_async_fix_boot.test.mjs	4	4	0	0	0	1591мс
+tests/calc_async_model.test.mjs	2	2	0	0	0	2666мс
+tests/calc_async_queue.test.mjs	7	7	0	0	0	457мс
+tests/calendar_edit.test.mjs	20	20	0	0	0	434мс
+tests/calendar_fix.test.mjs	14	14	0	0	0	1420мс
+tests/calendar_form.test.mjs	15	15	0	0	0	1867мс
+tests/calibration.test.mjs	28	28	0	0	0	237мс
+tests/call_log.test.mjs	16	16	0	0	0	463мс
+tests/check_script.test.mjs	10	10	0	0	0	3982мс
+tests/contrast.test.mjs	8	8	0	0	0	1824мс
+tests/csv_roundtrip_fields.test.mjs	16	16	0	0	0	352мс
+tests/data_actions.test.mjs	33	33	0	0	0	827мс
+tests/data_pack.test.mjs	4	4	0	0	0	417мс
+tests/dates.test.mjs	16	16	0	0	0	558мс
+tests/debt.test.mjs	16	16	0	0	0	485мс
+tests/debt_edit.test.mjs	23	23	0	0	0	738мс
+tests/debt_edit_boot.test.mjs	15	15	0	0	0	2116мс
+tests/debt_forecast.test.mjs	39	39	0	0	0	1039мс
+tests/decision_currency.test.mjs	10	10	0	0	0	388мс
+tests/defaults_sync.test.mjs	9	9	0	0	0	310мс
+tests/demo.test.mjs	34	34	0	0	0	1398мс
+tests/empty_states.test.mjs	11	11	0	0	0	1296мс
+tests/engine_stamp.test.mjs	15	15	0	0	0	1814мс
+tests/entry.test.mjs	25	25	0	0	0	833мс
+tests/entry_boot.test.mjs	5	5	0	0	0	1203мс
+tests/entry_memory_store.test.mjs	8	8	0	0	0	1160мс
+tests/error_report_view.test.mjs	13	13	0	0	0	1150мс
+tests/expected.test.mjs	6	6	0	0	0	267мс
+tests/ext.test.mjs	17	17	0	0	0	543мс
+tests/ext_boot.test.mjs	6	6	0	0	0	1006мс
+tests/feed_ext.test.mjs	22	22	0	0	0	1892мс
+tests/forms.test.mjs	42	42	0	0	0	1478мс
+tests/fp10_adv.test.mjs	8	8	0	0	0	361мс
+tests/fp11_adv.test.mjs	11	10	0	0	1	2173мс
+tests/fp12_adv.test.mjs	9	9	0	0	0	3163мс
+tests/fp13_adv.test.mjs	9	9	0	0	0	1311мс
+tests/fp14_adv.test.mjs	11	11	0	0	0	3334мс
+tests/fp15_adv.test.mjs	13	13	0	0	0	1452мс
+tests/fp16_adv.test.mjs	12	12	0	0	0	1375мс
+tests/fp16_fix.test.mjs	12	12	0	0	0	1189мс
+tests/fp17_adv.test.mjs	9	9	0	0	0	3688мс
+tests/fp17_fix.test.mjs	20	20	0	0	0	3856мс
+tests/fp17_fix2.test.mjs	7	7	0	0	0	1878мс
+tests/fp17_fix3.test.mjs	4	4	0	0	0	518мс
+tests/fp18_adv.test.mjs	3	3	0	0	0	3726мс
+tests/fp19_adv.test.mjs	12	7	0	0	5	604мс
+tests/fp19_fix.test.mjs	12	12	0	0	0	821мс
+tests/fp20_adv.test.mjs	9	9	0	0	0	483мс
+tests/fp21_adv.test.mjs	9	9	0	0	0	2585мс
+tests/fp22_adv.test.mjs	9	9	0	0	0	1619мс
+tests/fp23_adv.test.mjs	13	8	0	0	5	3674мс
+tests/fp25_adv.test.mjs	10	9	0	0	1	406мс
+tests/fp25_fix.test.mjs	11	11	0	0	0	1074мс
+tests/fp26_adv.test.mjs	6	6	0	0	0	1508мс
+tests/fp27_adv.test.mjs	12	12	0	0	0	318мс
+tests/fp27_fix.test.mjs	18	17	1	0	0	670мс
+tests/fp28_adv.test.mjs	8	8	0	0	0	1707мс
+tests/fp29_adv.test.mjs	8	4	0	0	4	968мс
+tests/fp47_adv.test.mjs	6	5	0	0	1	2679мс
+tests/fx.test.mjs	18	18	0	0	0	307мс
+tests/fx_labels.test.mjs	14	14	0	0	0	1276мс
+tests/g001.golden.test.mjs	10	10	0	0	0	280мс
+tests/g001.test.mjs	22	22	0	0	0	281мс
+tests/gen_vocab_tables.test.mjs	16	16	0	0	0	1590мс
+tests/hardening.test.mjs	40	39	0	1	0	1448мс
+tests/hourly.test.mjs	23	23	0	0	0	365мс
+tests/hours_io.test.mjs	14	14	0	0	0	1123мс
+tests/imperatives.test.mjs	8	8	0	0	0	2103мс
+tests/import_main_thread.test.mjs	10	10	0	0	0	4791мс
+tests/import_model.test.mjs	21	21	0	0	0	441мс
+tests/import_race.test.mjs	8	8	0	0	0	7967мс
+tests/import_runway_boot.test.mjs	6	6	0	0	0	2789мс
+tests/import_runway_csv.test.mjs	25	25	0	0	0	897мс
+tests/import_v11.test.mjs	14	14	0	0	0	395мс
+tests/import_v11_boot.test.mjs	11	11	0	0	0	3245мс
+tests/import_wizard.test.mjs	9	9	0	0	0	2542мс
+tests/import_worker.test.mjs	18	18	0	0	0	3994мс
+tests/import_worker_model.test.mjs	2	2	0	0	0	4796мс
+tests/injection.test.mjs	14	14	0	0	0	898мс
+tests/installment.test.mjs	7	7	0	0	0	225мс
+tests/installment_earliest.test.mjs	17	17	0	0	0	2158мс
+tests/io.test.mjs	35	34	0	1	0	1590мс
+tests/io_fx_rows.test.mjs	14	14	0	0	0	228мс
+tests/journal_log.test.mjs	10	10	0	0	0	2992мс
+tests/layout_fp26.test.mjs	18	18	0	0	0	1451мс
+tests/ledger.test.mjs	24	24	0	0	0	418мс
+tests/liquidity.test.mjs	7	7	0	0	0	223мс
+tests/lock_policy.test.mjs	2	2	0	0	0	197мс
+tests/log.test.mjs	12	12	0	0	0	280мс
+tests/mc_inputs.test.mjs	11	11	0	0	0	292мс
+tests/metrics.test.mjs	19	19	0	0	0	2341мс
+tests/metrics_feed.test.mjs	31	31	0	0	0	1560мс
+tests/money.test.mjs	19	19	0	0	0	1099мс
+tests/montecarlo.test.mjs	38	38	0	0	0	1465мс
+tests/nav_focus.test.mjs	18	18	0	0	0	1186мс
+tests/no_default_rates.test.mjs	7	7	0	0	0	707мс
+tests/num_labels_coverage.test.mjs	11	11	0	0	0	4338мс
+tests/number_format_surfaces.test.mjs	12	12	0	0	0	1282мс
+tests/offline_inventory.test.mjs	7	7	0	0	0	2155мс
+tests/onboarding_median.test.mjs	18	18	0	0	0	772мс
+tests/open_quarantine.test.mjs	16	16	0	0	0	3041мс
+tests/override_idempotent.test.mjs	8	8	0	0	0	492мс
+tests/overview_masked.test.mjs	8	8	0	0	0	1855мс
+tests/people_docs.test.mjs	13	13	0	0	0	433мс
+tests/people_pack.test.mjs	9	7	2	0	0	648мс
+tests/prob_band.test.mjs	20	20	0	0	0	3229мс
+tests/promises.test.mjs	12	12	0	0	0	3052мс
+tests/proto_keys.test.mjs	10	10	0	0	0	614мс
+tests/purity.test.mjs	126	126	0	0	0	547мс
+tests/pwa.test.mjs	23	23	0	0	0	2459мс
+tests/quality_report.test.mjs	17	17	0	0	0	9775мс
+tests/quality_tools.test.mjs	12	12	0	0	0	5952мс
+tests/readonly_boot.test.mjs	7	7	0	0	0	1513мс
+tests/readonly_open.test.mjs	15	15	0	0	0	441мс
+tests/reconcile.test.mjs	28	28	0	0	0	641мс
+tests/reconcile_boot.test.mjs	4	4	0	0	0	1294мс
+tests/recurrence.test.mjs	22	22	0	0	0	842мс
+tests/reserve_backing_free.test.mjs	9	9	0	0	0	325мс
+tests/reserve_screen.test.mjs	36	36	0	0	0	3711мс
+tests/rights.test.mjs	6	6	0	0	0	303мс
+tests/s1_3_adv.test.mjs	12	12	0	0	0	2527мс
+tests/s1_4_adv.test.mjs	14	14	0	0	0	1439мс
+tests/s1_5_adv.test.mjs	17	17	0	0	0	20588мс
+tests/scenario_banner.test.mjs	6	6	0	0	0	1358мс
+tests/scenario_builder.test.mjs	19	19	0	0	0	1410мс
+tests/settings.test.mjs	36	36	0	0	0	759мс
+tests/settings_boot.test.mjs	6	6	0	0	0	1168мс
+tests/settings_defaults.test.mjs	17	17	0	0	0	563мс
+tests/showcase.test.mjs	42	42	0	0	0	1405мс
+tests/sinking.test.mjs	29	29	0	0	0	388мс
+tests/sinking_report.test.mjs	12	12	0	0	0	263мс
+tests/start_boot.test.mjs	7	7	0	0	0	3407мс
+tests/store.test.mjs	41	41	0	0	0	2785мс
+tests/tax.test.mjs	18	18	0	0	0	262мс
+tests/tax_hooks.test.mjs	11	11	0	0	0	256мс
+tests/threat_model.test.mjs	4	4	0	0	0	183мс
+tests/timeline.test.mjs	39	39	0	0	0	3387мс
+tests/tools.test.mjs	33	33	0	0	0	629мс
+tests/transfer_guard.test.mjs	8	8	0	0	0	669мс
+tests/undo_all.test.mjs	43	43	0	0	0	2795мс
+tests/undo_fix.test.mjs	24	24	0	0	0	552мс
+tests/v0.test.mjs	20	20	0	0	0	2727мс
+tests/validate_ws.test.mjs	21	21	0	0	0	4460мс
+tests/verifier.test.mjs	33	33	0	0	0	2699мс
+tests/vocab_generated.test.mjs	10	10	0	0	0	317мс
+tests/wave1_integration.test.mjs	8	8	0	0	0	1397мс
+tests/wave_edit.test.mjs	12	12	0	0	0	1496мс
+tests/waves.test.mjs	26	26	0	0	0	783мс
+tests/waves_card.test.mjs	22	22	0	0	0	1645мс
+tests/where_money.test.mjs	16	16	0	0	0	2731мс
+tests/why_dialogs_full.test.mjs	14	14	0	0	0	1670мс
+tests/why_more.test.mjs	12	12	0	0	0	1028мс
+tests/wizard.test.mjs	29	29	0	0	0	733мс
+tests/worker_contract.test.mjs	13	13	0	0	0	851мс
+tests/ws_bridge.test.mjs	18	18	0	0	0	2977мс
+tests/ws_edit.test.mjs	22	22	0	0	0	611мс

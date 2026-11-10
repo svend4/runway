@@ -1,0 +1,18 @@
+{
+  "format": "runway-golden/1",
+  "dataset": "g001",
+  "workspace_id": "ws-g001",
+  "source": "design-brief §9.4, §9.6; wiki/product/02-requirements.md REQ-109; wiki/product/11-testing-strategy.md TST-01, TST-02, TST-04",
+  "note": "Восемь ожидаемых значений канона, переписанных дословно; движок их не читает. Панель «Эталон» (demo/golden_panel.mjs) сверяет их с расчётом. Зеркало этих же значений — GOLDEN в demo/golden_panel.mjs (тест showcase.test.mjs сверяет оба).",
+  "purchase": { "date": "2026-10-12", "amount_minor": 30000, "currency": "EUR" },
+  "values": [
+    { "id": "G-001.opening", "key": "opening", "kind": "money", "expected": 400000, "tst": "TST-01", "source": "§9.4" },
+    { "id": "G-001.end_close", "key": "end_close", "kind": "money_both", "expected": 340000, "tst": "TST-01", "source": "§9.4" },
+    { "id": "G-001.q1.min_trough.plan", "key": "min_trough_plan", "kind": "money_date", "expected": { "amount_minor": 205500, "date": "2026-10-31" }, "tst": "TST-01", "source": "§9.4" },
+    { "id": "G-001.q1.min_trough.worse", "key": "min_trough_worse", "kind": "money_date", "expected": { "amount_minor": 183000, "date": "2026-11-14" }, "tst": "TST-01", "source": "§9.4" },
+    { "id": "G-001.free.min.plan", "key": "min_free_plan", "kind": "money_date", "expected": { "amount_minor": 93500, "date": "2026-11-01" }, "tst": "TST-02", "source": "§9.4" },
+    { "id": "G-001.free.min.worse", "key": "min_free_worse", "kind": "money_date", "expected": { "amount_minor": 71000, "date": "2026-11-14" }, "tst": "TST-02", "source": "§9.4" },
+    { "id": "G-001.reserve_close.end", "key": "reserve_close_end", "kind": "money", "expected": 167800, "tst": "TST-02", "source": "§9.4" },
+    { "id": "G-001.q3.treadmill.verdict", "key": "treadmill_verdict", "kind": "verdict", "expected": "FRAGILE", "tst": "TST-04", "source": "§9.6" }
+  ]
+}

@@ -1,0 +1,28 @@
+/* start.css — стили пакета FP-10: мастер «Старт» (#start), карточка «Старт» на «Обзоре» и экран «Метрики на устройстве» (#metrics).
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: у шага — слова «учтено / не учтено / задан», текущий шаг — aria-current и заливка кнопки, ошибка поля — текст рядом с полем. */
+
+.start .start-steps { list-style: none; margin: 0 0 12px; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.start .start-steps .btn { min-height: 44px; text-align: left; }
+.start .start-form { max-width: 720px; }
+.start .start-form .field input[type="text"],
+.start .start-form .field input[type="date"] { max-width: 18em; }
+.start .start-form .field select { max-width: 100%; }
+.start .field .error:empty { display: none; }
+.start input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.start .start-status { min-height: 1.5em; margin: 8px 0 0; }
+.start .start-progress { font-weight: 600; }
+.start .start-list { margin-bottom: 8px; }
+.start .start-nav { margin: 12px 0 0; }
+.start .start-chips { margin: 0 0 10px; }
+.start .start-big { font-size: 1.1rem; font-weight: 600; margin-bottom: 8px; }
+.start .start-template { margin-top: 8px; }
+.start .start-note { margin-top: 12px; }
+
+.start-card .btn { margin-top: 2px; }
+
+.metrics .mx-file {
+  margin: 8px 0; padding: 10px 12px; max-height: 24rem; overflow: auto; background: var(--surface-2); border: 1px solid var(--border); border-radius: 8px;
+  font: 0.85rem/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.metrics .field.check label { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; }

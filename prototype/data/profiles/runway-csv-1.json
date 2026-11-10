@@ -1,0 +1,15 @@
+{
+  "profile_id": "runway-csv/1",
+  "v": 1,
+  "encoding": "utf-8",
+  "delimiter": ",",
+  "skip": 0,
+  "date": { "col": "date", "fmt": "YYYY-MM-DD" },
+  "amount": { "mode": "signed", "col": "amount_minor", "unit": "minor" },
+  "currency": { "col": "currency" },
+  "desc": { "cols": ["note"], "csv_safe": true },
+  "rules": [],
+  "filter": { "col": "layer", "equals": "posted" },
+  "tag": { "col": "tag", "csv_safe": true, "optional": true },
+  "counterparty": { "col": "counterparty", "csv_safe": true, "optional": true }
+}

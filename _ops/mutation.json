@@ -1,0 +1,1589 @@
+{
+  "format": "runway-mutation/1",
+  "date": "2026-10-09",
+  "node": "v24.13.0",
+  "catalog_hash": "016802e9a9d730662dcad2d82764b2fc92e62703bc791b7321039c6547855ebf",
+  "mutants": 61,
+  "killed": 59,
+  "lock_killed": 24,
+  "survivors": [],
+  "equivalent": [
+    {
+      "id": "M09",
+      "file": "engine/money.mjs",
+      "what": "round_div_big, half_up: граница знака при ничьей (≥ → >)",
+      "why": "при n = 0 остаток 0 не даёт ничьей (0 < d/2), поэтому «n ≥ 0» и «n > 0» на достижимых входах неотличимы"
+    },
+    {
+      "id": "M13",
+      "file": "engine/money.mjs",
+      "what": "round_div, half_up: граница знака при ничьей (≥ → >)",
+      "why": "при x = 0 остаток 0 не даёт ничьей (0 < y/2), поэтому «x ≥ 0» и «x > 0» на достижимых входах неотличимы"
+    }
+  ],
+  "errors": [],
+  "baseline": [
+    {
+      "file": "tests/arith.test.mjs",
+      "tests": 5,
+      "ok": true
+    },
+    {
+      "file": "tests/money.test.mjs",
+      "tests": 19,
+      "ok": true
+    },
+    {
+      "file": "tests/adversarial/dates_money.test.mjs",
+      "tests": 49,
+      "ok": true
+    },
+    {
+      "file": "tests/dates.test.mjs",
+      "tests": 16,
+      "ok": true
+    }
+  ],
+  "results": [
+    {
+      "id": "M01",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M02",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M03",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M04",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M05",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M06",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M07",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M08",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M09",
+      "file": "engine/money.mjs",
+      "status": "survived",
+      "killed_by": null
+    },
+    {
+      "id": "M10",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M11",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M12",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M13",
+      "file": "engine/money.mjs",
+      "status": "survived",
+      "killed_by": null
+    },
+    {
+      "id": "M14",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M15",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M16",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M17",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M18",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M19",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M20",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M21",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M22",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M23",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M24",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M25",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M26",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M27",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M28",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M29",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M30",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M31",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M32",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/money.test.mjs"
+    },
+    {
+      "id": "M33",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M34",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "M35",
+      "file": "engine/money.mjs",
+      "status": "killed",
+      "killed_by": "tests/arith.test.mjs"
+    },
+    {
+      "id": "D01",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D02",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D03",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D04",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D05",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D06",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D07",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D08",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D09",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D10",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D11",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D12",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D13",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D14",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D15",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D16",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D17",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D18",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D19",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D20",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D21",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D22",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D23",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D24",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D25",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    },
+    {
+      "id": "D26",
+      "file": "engine/dates.mjs",
+      "status": "killed",
+      "killed_by": "tests/dates.test.mjs"
+    }
+  ],
+  "note": "Мутации применялись к копии во временном каталоге; рабочее дерево не менялось. Неубитые мутанты — задачи (REQ-175).",
+  "engine": {
+    "format": "runway-mutation-engine/1",
+    "date": "2026-10-28",
+    "node": "v24.13.0",
+    "catalog_hash": "e6bce9f966e284e0e21e5dcbaf004b99f8a863c44d9530698ba38d353c7e34d7",
+    "mutants": 66,
+    "killed": 65,
+    "kill_rate_pct": 100,
+    "kill_rate_all_pct": 98.5,
+    "kill_rate_min_pct": 90,
+    "by_module": {
+      "timeline": {
+        "mutants": 15,
+        "killed": 15
+      },
+      "afford": {
+        "mutants": 14,
+        "killed": 14
+      },
+      "sinking": {
+        "mutants": 9,
+        "killed": 9
+      },
+      "tax": {
+        "mutants": 9,
+        "killed": 9
+      },
+      "fx": {
+        "mutants": 7,
+        "killed": 7
+      },
+      "verifier": {
+        "mutants": 12,
+        "killed": 11
+      }
+    },
+    "survivors": [],
+    "equivalent": [
+      {
+        "id": "V07",
+        "file": "engine/verifier.mjs",
+        "what": "match_quantity: знак суммы в тексте не сверяется со знаком доказательства",
+        "why": "проверка знака избыточна: при m ≠ 0 число цифр ≥ 1, значит |m| ≥ scale, а при разных знаках |m − v| = |m| + |v| > scale / 2, так что допуск 2·|m − v| ≤ scale всё равно ложен; при v = 0 и m ≠ 0 то же (|m − 0| ≥ scale); при m = 0 проверка пропускалась и прежде"
+      }
+    ],
+    "errors": [],
+    "baseline": [
+      {
+        "file": "tests/timeline.test.mjs",
+        "pattern": "project \\(D-01|project:|argmin_first|answer_q1|runway_days|eff_date|параметры: flat_params|purchase_to_events|apply_scenario|opening_state|TST-57|TST-41|build_events|normalize_ws|outflow_90|explain_narrowest|TST-31|TST-34|TST-35|TST-36|TST-53|TST-33",
+        "tests": 38,
+        "ok": true
+      },
+      {
+        "file": "tests/properties.test.mjs",
+        "pattern": "TST-3[1-9] Свойство",
+        "tests": 9,
+        "ok": true
+      },
+      {
+        "file": "tests/g001.golden.test.mjs",
+        "tests": 10,
+        "ok": true
+      },
+      {
+        "file": "tests/engine_lock.test.mjs",
+        "pattern": "вывод analyze каждого из 500 журналов",
+        "tests": 1,
+        "ok": true
+      },
+      {
+        "file": "tests/afford.test.mjs",
+        "tests": 36,
+        "ok": true
+      },
+      {
+        "file": "tests/sinking.test.mjs",
+        "tests": 29,
+        "ok": true
+      },
+      {
+        "file": "tests/hardening.test.mjs",
+        "tests": 40,
+        "ok": true
+      },
+      {
+        "file": "tests/tax.test.mjs",
+        "tests": 18,
+        "ok": true
+      },
+      {
+        "file": "tests/fx.test.mjs",
+        "tests": 18,
+        "ok": true
+      },
+      {
+        "file": "tests/verifier.test.mjs",
+        "pattern": "TST-45|TST-47|TST-58|match_quantity|templates:|LABELS|Q3 с частью|verify_answer:|parse_command|a0_answer|answer_question|render",
+        "tests": 25,
+        "ok": true
+      },
+      {
+        "file": "tests/adversarial/verifier_io.test.mjs",
+        "tests": 148,
+        "ok": true
+      }
+    ],
+    "results": [
+      {
+        "id": "T01",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 5022,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-31",
+          "TST-32",
+          "TST-33",
+          "TST-34",
+          "TST-35",
+          "TST-36",
+          "TST-37",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "T02",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 6049,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-31",
+          "TST-32",
+          "TST-33",
+          "TST-34",
+          "TST-35",
+          "TST-36",
+          "TST-37",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "T03",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 5032,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-31",
+          "TST-32",
+          "TST-33",
+          "TST-34",
+          "TST-35",
+          "TST-36",
+          "TST-37",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "T04",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 5196,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-34",
+          "TST-35",
+          "TST-36",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "T05",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 7199,
+        "nets": [
+          "module",
+          "lock",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T06",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 7174,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T07",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 5622,
+        "nets": [
+          "module",
+          "properties",
+          "lock"
+        ],
+        "invariants": [
+          "TST-31",
+          "TST-32",
+          "TST-33",
+          "TST-34",
+          "TST-35",
+          "TST-36",
+          "TST-37",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "T08",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 8475,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T09",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 6426,
+        "nets": [
+          "module",
+          "properties",
+          "lock"
+        ],
+        "invariants": [
+          "TST-34"
+        ]
+      },
+      {
+        "id": "T10",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 7530,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T11",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 6310,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T12",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 6375,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T13",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 8010,
+        "nets": [
+          "module",
+          "lock",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T14",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 7834,
+        "nets": [
+          "module",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "T15",
+        "file": "engine/timeline.mjs",
+        "module": "timeline",
+        "status": "killed",
+        "killed_by": "tests/timeline.test.mjs",
+        "ms": 6181,
+        "nets": [
+          "module",
+          "lock",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A01",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 6104,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A02",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 7603,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A03",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 7725,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A04",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 6016,
+        "nets": [
+          "module",
+          "properties"
+        ],
+        "invariants": [
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A05",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 6332,
+        "nets": [
+          "module",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A06",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 4953,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A07",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 4846,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A08",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 5912,
+        "nets": [
+          "module",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A09",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 19404,
+        "nets": [
+          "module",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A10",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 10924,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A11",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 7038,
+        "nets": [
+          "module",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A12",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 6613,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "A13",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 5698,
+        "nets": [
+          "module",
+          "properties",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "A14",
+        "file": "engine/afford.mjs",
+        "module": "afford",
+        "status": "killed",
+        "killed_by": "tests/afford.test.mjs",
+        "ms": 6330,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S01",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 7509,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S02",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 6298,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S03",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 7388,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S04",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/hardening.test.mjs",
+        "ms": 8389,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S05",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 7234,
+        "nets": [
+          "module",
+          "lock",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S06",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 6658,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S07",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 6721,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "S08",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 6052,
+        "nets": [
+          "module",
+          "lock",
+          "golden"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "S09",
+        "file": "engine/sinking.mjs",
+        "module": "sinking",
+        "status": "killed",
+        "killed_by": "tests/sinking.test.mjs",
+        "ms": 6536,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X01",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4231,
+        "nets": [
+          "module",
+          "properties",
+          "lock",
+          "golden"
+        ],
+        "invariants": [
+          "TST-35",
+          "TST-39"
+        ]
+      },
+      {
+        "id": "X02",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4821,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X03",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4160,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X04",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4486,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X05",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4402,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X06",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4363,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X07",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4291,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X08",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4127,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "X09",
+        "file": "engine/tax.mjs",
+        "module": "tax",
+        "status": "killed",
+        "killed_by": "tests/tax.test.mjs",
+        "ms": 4281,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F01",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 4303,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F02",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 4562,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F03",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 5247,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F04",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 5127,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F05",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 5253,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F06",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 5773,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "F07",
+        "file": "engine/fx.mjs",
+        "module": "fx",
+        "status": "killed",
+        "killed_by": "tests/fx.test.mjs",
+        "ms": 15191,
+        "nets": [
+          "module",
+          "lock"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V01",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 23758,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V02",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 14770,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V03",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 13024,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V04",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 13188,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V05",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 12191,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V06",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 14468,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V07",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "survived",
+        "killed_by": null,
+        "ms": 13601,
+        "nets": [],
+        "invariants": []
+      },
+      {
+        "id": "V08",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 14315,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V09",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 12339,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V10",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 13114,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V11",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 22601,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      },
+      {
+        "id": "V12",
+        "file": "engine/verifier.mjs",
+        "module": "verifier",
+        "status": "killed",
+        "killed_by": "tests/verifier.test.mjs",
+        "ms": 24602,
+        "nets": [
+          "module"
+        ],
+        "invariants": []
+      }
+    ],
+    "note": "Мутации применялись к копии во временном каталоге (по одному мутанту, один процесс node за раз); рабочее дерево не менялось. Проверяющие: тесты модуля, property-тесты (PROP_N=40), golden G-001, замок вывода движка. Выжившие перечислены с причиной (REQ-175). Режим --nets: каждый проверяющий запущен независимо (без остановки на первом убившем), поле nets каждого мутанта — какие сети его убили (module, properties, lock, golden), invariants — какие инварианты TST-31…39 назвали property-тесты; сводка — поле nets_summary.",
+    "nets_summary": {
+      "catalog_hash": "e6bce9f966e284e0e21e5dcbaf004b99f8a863c44d9530698ba38d353c7e34d7",
+      "mutants": 66,
+      "by_net": {
+        "module": 65,
+        "properties": 16,
+        "lock": 19,
+        "golden": 23
+      },
+      "any_of_three": 32,
+      "none_of_three": [
+        "T06",
+        "T10",
+        "T11",
+        "T12",
+        "A12",
+        "A14",
+        "S02",
+        "S03",
+        "S04",
+        "X02",
+        "X03",
+        "X04",
+        "X06",
+        "X07",
+        "X08",
+        "X09",
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V07",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12"
+      ],
+      "module_only": [
+        "T06",
+        "T10",
+        "T11",
+        "T12",
+        "A12",
+        "A14",
+        "S02",
+        "S03",
+        "S04",
+        "X02",
+        "X03",
+        "X04",
+        "X06",
+        "X07",
+        "X08",
+        "X09",
+        "F01",
+        "F02",
+        "F03",
+        "F04",
+        "F05",
+        "F06",
+        "V01",
+        "V02",
+        "V03",
+        "V04",
+        "V05",
+        "V06",
+        "V08",
+        "V09",
+        "V10",
+        "V11",
+        "V12"
+      ],
+      "survived_everything": [
+        "V07"
+      ],
+      "equivalent": [
+        "V07"
+      ],
+      "by_invariant": {
+        "TST-31": 4,
+        "TST-32": 4,
+        "TST-33": 4,
+        "TST-34": 6,
+        "TST-35": 13,
+        "TST-36": 5,
+        "TST-37": 4,
+        "TST-38": 0,
+        "TST-39": 15
+      },
+      "by_module": {
+        "timeline": {
+          "mutants": 15,
+          "properties": 6,
+          "lock": 10,
+          "golden": 8,
+          "none_of_three": 4
+        },
+        "afford": {
+          "mutants": 14,
+          "properties": 8,
+          "lock": 0,
+          "golden": 11,
+          "none_of_three": 2
+        },
+        "sinking": {
+          "mutants": 9,
+          "properties": 1,
+          "lock": 6,
+          "golden": 3,
+          "none_of_three": 3
+        },
+        "tax": {
+          "mutants": 9,
+          "properties": 1,
+          "lock": 2,
+          "golden": 1,
+          "none_of_three": 7
+        },
+        "fx": {
+          "mutants": 7,
+          "properties": 0,
+          "lock": 1,
+          "golden": 0,
+          "none_of_three": 6
+        },
+        "verifier": {
+          "mutants": 12,
+          "properties": 0,
+          "lock": 0,
+          "golden": 0,
+          "none_of_three": 12
+        }
+      }
+    }
+  }
+}

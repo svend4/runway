@@ -1,0 +1,590 @@
+{
+  "workspace_id": "ws-g001",
+  "name": "G-001 «Ян»",
+  "locale": "ru",
+  "decision_currency": "EUR",
+  "format": "runway-journal/1",
+  "as_of": "2026-10-04",
+  "params": {
+    "horizon_days": 57,
+    "buffer_minor": 50000,
+    "buffer_hint_days": 7,
+    "headline_mode": "worse",
+    "worse.income_delay_days": 14,
+    "grace_days.income": 3,
+    "grace_days.expense": 0,
+    "match.window_days": 3,
+    "match.tol_bp": 500,
+    "wave.gap_days": 3,
+    "wave.max_span_days": 10,
+    "wave.threshold_minor": 3000,
+    "explain.top_k": 10,
+    "explain.share_cutoff_bp": 9000,
+    "stale.banner_days": 7,
+    "stale.block_days": 21,
+    "rounding": "half_even",
+    "ready.q1": 3,
+    "ready.q3": 4,
+    "crypto.liquidity_bp": 0
+  },
+  "accounts": [
+    {
+      "account_id": "acc_main",
+      "name": "Основной счёт",
+      "kind": "bank",
+      "liquidity": "operating",
+      "currency": "EUR",
+      "exponent": 2,
+      "liquidity_bp": 0,
+      "opened_on": "2026-01-01"
+    }
+  ],
+  "calendars": [
+    {
+      "calendar_id": "cal-main",
+      "name": "Суббота и воскресенье",
+      "weekend_dows": [
+        0,
+        6
+      ],
+      "holidays": []
+    }
+  ],
+  "anchors": [
+    {
+      "anchor_id": "anc-g001-0705",
+      "account_id": "acc_main",
+      "date": "2026-07-05",
+      "amount_minor": 208000
+    },
+    {
+      "anchor_id": "anc-g001-1004",
+      "account_id": "acc_main",
+      "date": "2026-10-04",
+      "amount_minor": 400000
+    }
+  ],
+  "facts": [
+    {
+      "event_id": "tx-g001-01",
+      "account_id": "acc_main",
+      "date": "2026-07-09",
+      "amount_minor": -2500,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "связь"
+    },
+    {
+      "event_id": "tx-g001-02",
+      "account_id": "acc_main",
+      "date": "2026-07-11",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-03",
+      "account_id": "acc_main",
+      "date": "2026-07-18",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-04",
+      "account_id": "acc_main",
+      "date": "2026-07-20",
+      "amount_minor": -20000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "ремонт"
+    },
+    {
+      "event_id": "tx-g001-05",
+      "account_id": "acc_main",
+      "date": "2026-07-25",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-06",
+      "account_id": "acc_main",
+      "date": "2026-07-27",
+      "amount_minor": -90000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "аренда"
+    },
+    {
+      "event_id": "tx-g001-07",
+      "account_id": "acc_main",
+      "date": "2026-07-27",
+      "amount_minor": -12000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "жкх"
+    },
+    {
+      "event_id": "tx-g001-08",
+      "account_id": "acc_main",
+      "date": "2026-08-01",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-09",
+      "account_id": "acc_main",
+      "date": "2026-08-05",
+      "amount_minor": 270000,
+      "currency": "EUR",
+      "kind": "income",
+      "tag": "S-HOURLY"
+    },
+    {
+      "event_id": "tx-g001-10",
+      "account_id": "acc_main",
+      "date": "2026-08-08",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-11",
+      "account_id": "acc_main",
+      "date": "2026-08-10",
+      "amount_minor": -2500,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "связь"
+    },
+    {
+      "event_id": "tx-g001-12",
+      "account_id": "acc_main",
+      "date": "2026-08-14",
+      "amount_minor": -120000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "перелёт"
+    },
+    {
+      "event_id": "tx-g001-13",
+      "account_id": "acc_main",
+      "date": "2026-08-15",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-14",
+      "account_id": "acc_main",
+      "date": "2026-08-22",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-15",
+      "account_id": "acc_main",
+      "date": "2026-08-25",
+      "amount_minor": -90000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "аренда"
+    },
+    {
+      "event_id": "tx-g001-16",
+      "account_id": "acc_main",
+      "date": "2026-08-25",
+      "amount_minor": -12000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "жкх"
+    },
+    {
+      "event_id": "tx-g001-17",
+      "account_id": "acc_main",
+      "date": "2026-08-29",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-18",
+      "account_id": "acc_main",
+      "date": "2026-09-05",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-19",
+      "account_id": "acc_main",
+      "date": "2026-09-07",
+      "amount_minor": 264000,
+      "currency": "EUR",
+      "kind": "income",
+      "tag": "S-HOURLY"
+    },
+    {
+      "event_id": "tx-g001-20",
+      "account_id": "acc_main",
+      "date": "2026-09-09",
+      "amount_minor": -2500,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "связь"
+    },
+    {
+      "event_id": "tx-g001-21",
+      "account_id": "acc_main",
+      "date": "2026-09-12",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-22",
+      "account_id": "acc_main",
+      "date": "2026-09-14",
+      "amount_minor": -46500,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "здоровье"
+    },
+    {
+      "event_id": "tx-g001-23",
+      "account_id": "acc_main",
+      "date": "2026-09-19",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-24",
+      "account_id": "acc_main",
+      "date": "2026-09-25",
+      "amount_minor": -90000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "аренда"
+    },
+    {
+      "event_id": "tx-g001-25",
+      "account_id": "acc_main",
+      "date": "2026-09-25",
+      "amount_minor": -12000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "жкх"
+    },
+    {
+      "event_id": "tx-g001-26",
+      "account_id": "acc_main",
+      "date": "2026-09-26",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    },
+    {
+      "event_id": "tx-g001-27",
+      "account_id": "acc_main",
+      "date": "2026-10-02",
+      "amount_minor": 288000,
+      "currency": "EUR",
+      "kind": "income",
+      "tag": "S-HOURLY"
+    },
+    {
+      "event_id": "tx-g001-28",
+      "account_id": "acc_main",
+      "date": "2026-10-03",
+      "amount_minor": -10000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "продукты"
+    }
+  ],
+  "rules": [
+    {
+      "rule_id": "R-RENT",
+      "version": 1,
+      "account_id": "acc_main",
+      "name": "Аренда",
+      "kind": "expense",
+      "amount": {
+        "exp_minor": -90000
+      },
+      "currency": "EUR",
+      "freq": "M",
+      "interval": 1,
+      "month_end": "clamp",
+      "weekend": "next",
+      "calendar_id": "cal-main",
+      "exdates": [],
+      "is_obligation": true,
+      "is_estimate": false,
+      "tag": "аренда",
+      "by_monthday": [
+        25
+      ],
+      "start_date": "2026-01-25"
+    },
+    {
+      "rule_id": "R-UTIL",
+      "version": 1,
+      "account_id": "acc_main",
+      "name": "ЖКХ",
+      "kind": "expense",
+      "amount": {
+        "exp_minor": -12000
+      },
+      "currency": "EUR",
+      "freq": "M",
+      "interval": 1,
+      "month_end": "clamp",
+      "weekend": "next",
+      "calendar_id": "cal-main",
+      "exdates": [],
+      "is_obligation": true,
+      "is_estimate": false,
+      "tag": "жкх",
+      "by_monthday": [
+        25
+      ],
+      "start_date": "2026-01-25"
+    },
+    {
+      "rule_id": "R-PHONE",
+      "version": 1,
+      "account_id": "acc_main",
+      "name": "Связь",
+      "kind": "expense",
+      "amount": {
+        "exp_minor": -2500
+      },
+      "currency": "EUR",
+      "freq": "M",
+      "interval": 1,
+      "month_end": "clamp",
+      "weekend": "next",
+      "calendar_id": "cal-main",
+      "exdates": [],
+      "is_obligation": true,
+      "is_estimate": false,
+      "tag": "связь",
+      "by_monthday": [
+        9
+      ],
+      "start_date": "2026-01-09"
+    },
+    {
+      "rule_id": "R-GROC",
+      "version": 1,
+      "account_id": "acc_main",
+      "name": "Продукты",
+      "kind": "expense",
+      "amount": {
+        "exp_minor": -10000
+      },
+      "currency": "EUR",
+      "freq": "W",
+      "interval": 1,
+      "month_end": "clamp",
+      "weekend": "keep",
+      "calendar_id": "cal-main",
+      "exdates": [],
+      "is_obligation": false,
+      "is_estimate": true,
+      "tag": "продукты",
+      "by_weekday": [
+        6
+      ],
+      "start_date": "2026-01-03"
+    }
+  ],
+  "overrides": [],
+  "plans": [
+    {
+      "plan_id": "P-TAX1",
+      "account_id": "acc_main",
+      "name": "Налоговый платёж",
+      "date": "2026-10-23",
+      "amount_minor": -50000,
+      "currency": "EUR",
+      "kind": "expense",
+      "tag": "налог",
+      "is_obligation": true,
+      "is_estimate": false,
+      "reserve_id": "RES-TAX"
+    }
+  ],
+  "streams": [
+    {
+      "stream_id": "S-HOURLY",
+      "account_id": "acc_main",
+      "name": "Почасовая работа",
+      "currency": "EUR",
+      "rate_minor": 3000,
+      "period": "month",
+      "cutoff": {
+        "kind": "month_end"
+      },
+      "pay_lag_days": 5,
+      "weekend": "next",
+      "calendar_id": "cal-main",
+      "hours": {
+        "min_minutes": 4800,
+        "exp_minutes": 5580,
+        "max_minutes": 6600
+      },
+      "hours_by_period": {
+        "2026-09-01": {
+          "exp_minutes": 5760,
+          "actual_minutes": 5760
+        }
+      },
+      "pace_minutes_per_day": 180,
+      "bonus": []
+    }
+  ],
+  "tax_rules": [
+    {
+      "tax_rule_id": "TR-20",
+      "version": 1,
+      "name": "Налоговый конверт 20 % (правило пользователя, не консультация)",
+      "kind": "percent_of_income",
+      "rate_bp": 2000,
+      "base": "gross",
+      "applies_to": {
+        "stream_ids": [
+          "S-HOURLY"
+        ],
+        "tags": []
+      },
+      "valid_from": "2026-01-01",
+      "valid_to": null,
+      "rounding": "half_even",
+      "reserve_id": "RES-TAX",
+      "recorded_at": "2026-01-02T10:00:00Z"
+    }
+  ],
+  "reserves": [
+    {
+      "reserve_id": "RES-TAX",
+      "kind": "tax",
+      "name": "Налоговый конверт",
+      "currency": "EUR",
+      "funded_start_minor": 150000,
+      "funded_as_of": "2026-10-04",
+      "tax_rule_id": "TR-20",
+      "backed_by_account_id": null
+    },
+    {
+      "reserve_id": "RES-INS",
+      "kind": "sinking",
+      "name": "Годовая страховка",
+      "currency": "EUR",
+      "funded_start_minor": 0,
+      "funded_as_of": "2026-10-04",
+      "target_minor": 60000,
+      "due_date": "2027-03-15",
+      "cadence": {
+        "freq": "M",
+        "day": 1
+      },
+      "mode": "refill_to_target",
+      "backed_by_account_id": null
+    }
+  ],
+  "allocations": [],
+  "rates": [],
+  "scenarios": [
+    {
+      "scenario_id": "scn-delay-14",
+      "name": "Выплата на 14 дней позже",
+      "ops": [
+        {
+          "op": "delay_income",
+          "event_ref": "S-HOURLY@2026-11-05",
+          "days": 14
+        }
+      ]
+    },
+    {
+      "scenario_id": "scn-treadmill",
+      "name": "Беговая дорожка 300,00 € на 12 октября",
+      "ops": [
+        {
+          "op": "add_purchase",
+          "parts": [
+            {
+              "date": "2026-10-12",
+              "amount_minor": 30000
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "purchases": [
+    {
+      "purchase_id": "pur-treadmill",
+      "name": "Беговая дорожка",
+      "currency": "EUR",
+      "parts": [
+        {
+          "date": "2026-10-12",
+          "amount_minor": 30000
+        }
+      ]
+    },
+    {
+      "purchase_id": "pur-treadmill-6",
+      "name": "Беговая дорожка в рассрочку 1 100,00 € (6 частей помесячно, без процентов)",
+      "currency": "EUR",
+      "parts": [
+        {
+          "date": "2026-11-01",
+          "amount_minor": 18334
+        },
+        {
+          "date": "2026-12-01",
+          "amount_minor": 18334
+        },
+        {
+          "date": "2027-01-01",
+          "amount_minor": 18333
+        },
+        {
+          "date": "2027-02-01",
+          "amount_minor": 18333
+        },
+        {
+          "date": "2027-03-01",
+          "amount_minor": 18333
+        },
+        {
+          "date": "2027-04-01",
+          "amount_minor": 18333
+        }
+      ]
+    }
+  ],
+  "debts": [],
+  "wave_overrides": [],
+  "counterparties": []
+}

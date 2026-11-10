@@ -1,0 +1,15 @@
+/* css/calendar.css — пакет FP-13: карточки «Разовый платёж» и «Календарь выходных и праздников» в разделе «Платежи». Стили встроенных форм «Перенести» и «Другая сумма» — в css/forms.css.
+   Токены цветов — из style.css (светлая и тёмная темы наследуются), своих цветов нет. Смысл не передаётся только цветом: ошибка — текст рядом с полем.
+   Без внешних адресов и шрифтов (CSP style-src 'self'). */
+
+.fp13-card { margin-top: 16px; max-width: 760px; }
+.fp13-card > h3 { margin-top: 0; }
+.fp13-cal, .fp13-plan { margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.fp13-days { border: 1px solid var(--border); border-radius: 8px; margin: 8px 0; padding: 6px 12px; }
+.fp13-days legend { font-weight: 600; padding: 0 6px; }
+.fp13-days .field.check { display: inline-block; margin-right: 14px; }
+.fp08-form textarea { width: 100%; max-width: 32em; font: inherit; }
+.fp08-form textarea[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.fp13-past { margin: 10px 0; }
+.fp13-past > summary { cursor: pointer; font-weight: 600; }
+.fp13-past > summary:focus-visible { outline: 2px solid var(--accent, currentColor); outline-offset: 2px; }

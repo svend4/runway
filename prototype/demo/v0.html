@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <!-- TST-59: только свои файлы, без inline-скриптов и стилей, без внешних шрифтов и аналитики. Страница v0 живёт отдельно от основного приложения: без мастера, хранилища и сети. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; base-uri 'none'; form-action 'none'">
+  <title>Runway v0 — могу ли я купить</title>
+  <meta name="description" content="Калькулятор v0: остаток, повторяющиеся платежи, поступления и покупка. Тот же движок, что в Runway; расчёт по введённым данным и правилам, без аккаунта.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/v0.css">
+  <script type="module" src="v0.mjs"></script>
+</head>
+<body class="v0-page">
+  <a id="v0-skip" class="skip" href="#main">К содержимому / Skip to content</a>
+  <header id="v0-title-bar" class="top">
+    <div class="brand">
+      <h1>Runway v0</h1>
+      <p class="sub">Могу ли я это купить? / Can I buy this?</p>
+    </div>
+    <div class="seg" role="group" aria-label="Язык / Language">
+      <button id="v0-lang-ru" type="button" lang="ru" aria-pressed="true">RU</button>
+      <button id="v0-lang-en" type="button" lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+  <div class="content">
+    <main id="main" tabindex="-1">
+      <p>Загрузка… / Loading…</p>
+      <noscript>
+        <p>Для калькулятора нужен JavaScript: расчёт идёт в этой странице, без сервера и без передачи данных.</p>
+        <p>The calculator needs JavaScript: the calculation runs in this page, with no server and no data sent anywhere.</p>
+      </noscript>
+    </main>
+  </div>
+</body>
+</html>

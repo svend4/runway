@@ -1,0 +1,16 @@
+/* probe.css — стили страниц проверки на устройстве bench.html, coldstart.html и compat.html (FP-23). Токены и общие элементы — из style.css (светлая и тёмная темы наследуются);
+   своих цветов нет, только var(--токен). Без внешних адресов и шрифтов (CSP style-src 'self'). Состояние «идёт замер» передаётся не цветом, а текстом строки состояния и aria-disabled. */
+
+.probe-page .content { padding-bottom: 32px; }
+.probe-page .card h3 { margin-top: 0; }
+.probe-page .probe-nav-list { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 0 0 12px; }
+.probe-page .probe-nav-list a[aria-current="page"] { font-weight: 700; text-decoration: none; }
+.probe-page select { max-width: 100%; }
+.probe-page .btn[aria-disabled="true"] { opacity: 0.6; cursor: progress; }
+.probe-page .probe-out {
+  display: block; width: 100%; box-sizing: border-box; min-height: 12em; margin: 6px 0 10px; padding: 8px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.85rem; line-height: 1.4;
+  background: var(--surface-2); color: var(--text); border: 1px solid var(--control-border); border-radius: 8px; resize: vertical;
+}
+.probe-page .probe-frame-box:empty { display: none; }
+.probe-page .probe-frame { display: block; width: 100%; height: 420px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--surface); }

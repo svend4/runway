@@ -1,0 +1,24 @@
+/* css/scenarios.css — пакет FP-07: конструктор сценариев, правки волн, «почему». Токены цветов — из style.css, своих цветов нет;
+   смысл (состояние правки, лучше/хуже, сходится/не сходится) всегда передан и текстом, цвет только подчёркивает. */
+
+.lab .field select, .lab .field input[type="text"], .lab .field input[type="date"] { max-width: 100%; }
+.lab .field input[type="text"] { min-height: 36px; }
+.lab [hidden] { display: none !important; }
+.lab-ops ol { margin: 6px 0 10px; padding-left: 22px; }
+.lab-ops li { margin-bottom: 4px; }
+.lab-preview .tbl td, .lab-preview .tbl th { white-space: normal; }
+
+.wave-edit .we-wave { padding: 10px 0; border-bottom: 1px solid var(--border); }
+.wave-edit .we-wave .field { grid-template-columns: minmax(0, 1fr); margin: 8px 0 0; }
+.wave-edit .we-wave .field select { max-width: 100%; }
+.wave-edit .we-wave .actions { margin-top: 6px; }
+.wave-threshold .field input[type="text"] { max-width: 14rem; }
+.wave-threshold tr.current th, .wave-threshold tr.current td { font-weight: 600; }
+.we-sens summary { cursor: pointer; min-height: 28px; }
+
+/* слот waves.card (S1.5): кнопки «Почему так» и «Править волну» в конце карточки волны; цвет смысла не несёт, подписи — текстом */
+.wave-card .wc-actions { margin-top: 10px; }
+
+.why-more { margin-top: 12px; }
+.why-check { margin: 8px 0; }
+.why-card .actions { margin-top: 8px; }

@@ -1,0 +1,770 @@
+[
+ {
+  "id": "FP-01",
+  "title": "Каркас записи и расширений: правка рабочей копии, мост журнал↔рабочая область, реестр экранов",
+  "wave": 1,
+  "effort": "M",
+  "depends_on": [],
+  "reqs": [
+   "REQ-012",
+   "REQ-017",
+   "REQ-094",
+   "REQ-153"
+  ],
+  "new_files": [
+   "prototype/demo/ext.mjs",
+   "prototype/demo/dom.mjs",
+   "prototype/demo/ws_edit.mjs",
+   "prototype/demo/ws_bridge.mjs",
+   "prototype/demo/ids.mjs",
+   "prototype/demo/journal_log.mjs",
+   "prototype/tests/ext.test.mjs",
+   "prototype/tests/ws_edit.test.mjs",
+   "prototype/tests/ws_bridge.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (только хуки, ≤ 40 строк)",
+   "prototype/tests/demo.test.mjs (список ожидаемых импортов app.mjs)",
+   "prototype/demo/index.html (при необходимости ссылки на css пакетов)",
+   "prototype/demo/i18n.mjs (одна точка слияния каталогов пакетов)"
+  ],
+  "acceptance": [
+   "TST-38 REQ-094: ws → журнал → ws → analyze даёт тот же inputs_hash и те же числа на g001, g001-low, g001-gap, g001-late",
+   "TST-16 REQ-012: свёртка «снимок + хвост» равна свёртке всего журнала на ≥ 10^3 случайных журналах с seed; хэш префикса не меняется после append",
+   "REQ-017: ws_edit возвращает код ошибки модели на каждую недопустимую правку (по негативному тесту на каждый из 8 кодов), в том числе ноги перевода с ненулевой суммой и ключи __proto__",
+   "REQ-153: открытие журнала на 36 500 записей со снимком ≤ 2 с на Node; без снимка замер публикуется с n и датой",
+   "TST-59: в app.mjs по-прежнему ровно один fetch и нет innerHTML; запреты (innerHTML, XMLHttpRequest, WebSocket, eval, inline-style) расширены на все demo/**/*.mjs, а не только на app.mjs и i18n.mjs; новый список импортов зафиксирован в demo.test.mjs"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "ALG-02",
+   "ALG-14",
+   "IDEA-62",
+   "IDEA-64",
+   "ADR-004",
+   "ADR-005"
+  ],
+  "why": "Без записи в рабочую область ни одна форма, ни «+», ни мастер не работают: демо только читает. Каркас даёт общий путь «правка копии → проверка → пересчёт» и точки подключения, чтобы остальные пакеты не трогали app.mjs.",
+  "scope": [
+   "ext.mjs: реестр расширений (register_view, register_section, register_banner, register_command, хуки on_recompute / on_adopt); app.mjs читает реестр, а не знает пакеты поимённо",
+   "dom.mjs: общие помощники h()/s()/dialog без innerHTML (копия контракта из app.mjs, чтобы новые модули не импортировали app.mjs)",
+   "ws_edit.mjs: чистые функции правки копии (add_fact, set_param, add_anchor, add_rule, add_plan, set_scenario…) → {ws, errors}; идентификаторы создаёт приложение; ключи __proto__/constructor отвергаются",
+   "ws_bridge.mjs: ws_to_state, state_to_ws, ws_to_journal, journal_to_ws (круг без потерь на четырёх наборах G-001)",
+   "ids.mjs + journal_log.mjs: генератор идентификаторов (порт часов/случайности), append с монотонным seq, снимки каждые ~500 записей",
+   "register_strings(ns, {ru, en}): каждый пакет держит свой каталог demo/i18n/<пакет>.mjs, i18n.mjs сливает их в одной точке; паритет RU/EN проверяется на слиянии (TST-56)"
+  ]
+ },
+ {
+  "id": "FP-02",
+  "title": "Движок: закрытие P0-хвостов и устойчивость к чужому файлу",
+  "wave": 1,
+  "effort": "L",
+  "depends_on": [],
+  "reqs": [
+   "REQ-010",
+   "REQ-014",
+   "REQ-016",
+   "REQ-017",
+   "REQ-019",
+   "REQ-055",
+   "REQ-068",
+   "REQ-069",
+   "REQ-077",
+   "REQ-091",
+   "REQ-093",
+   "REQ-095",
+   "REQ-130",
+   "REQ-131",
+   "REQ-158"
+  ],
+  "new_files": [
+   "prototype/engine/validate_ws.mjs",
+   "prototype/engine/warnings_ext.mjs",
+   "prototype/tests/hardening.test.mjs",
+   "prototype/tests/proto_keys.test.mjs",
+   "prototype/tests/validate_ws.test.mjs",
+   "prototype/tests/defaults_sync.test.mjs",
+   "prototype/tests/fixtures/journal-v1.json"
+  ],
+  "touched_files": [
+   "prototype/engine/fx.mjs",
+   "prototype/engine/timeline.mjs",
+   "prototype/engine/verifier.mjs",
+   "prototype/engine/io.mjs",
+   "prototype/engine/sinking.mjs",
+   "prototype/engine/recurrence.mjs",
+   "prototype/engine/calibration.mjs",
+   "prototype/engine/backtest.mjs",
+   "prototype/engine/ledger.mjs",
+   "prototype/tests/adversarial/semantics.test.mjs (снять todo)",
+   "prototype/tests/adversarial/verifier_io.test.mjs (снять todo)"
+  ],
+  "acceptance": [
+   "TST-27: снят todo semantics:1336, одиночная нога → расход остаётся в analyze(...).events.plan; пара operating+operating по-прежнему исключается; golden G-001 (143 ключа) без изменений",
+   "TST-45 / TST-46: снят todo verifier_io:231, :237, :227; ни одной новой ложной тревоги на шаблонах каталога RU/EN (TST-56)",
+   "TST-51 REQ-091: «12,50» при thousands=\",\" отвергается как bad_amount; «1.234,50» и «1,234.50» читаются как раньше",
+   "TST-43: id-колонки export_csv не начинаются с = + - @ TAB CR; round-trip значения не меняется",
+   "TST-32 REQ-093: state_hash до импорта равен state_hash после отката партии (опция omit imports)",
+   "REQ-158: validate_ws + analyze на ≥ 10^3 повреждённых журналов (GP_SEEDS повышается флагом) всегда возвращают результат или код REQ-017; horizon_days вне предела → E_SCHEMA быстрее 50 мс",
+   "Все 1098 прежних тестов зелёные; число todo уменьшилось с 13 минимум до 5; golden и arith.lock не изменились"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "ALG-01",
+   "ALG-02",
+   "ALG-05",
+   "ALG-08",
+   "ALG-12",
+   "ALG-14",
+   "ADR-013"
+  ],
+  "why": "Пока ввод идёт только из JSON, дефекты тихие. Как только появятся формы и импорт, они станут путями к неверным числам: одиночная нога перевода, слепые зоны верификатора, «12,50» как 1250,00, один плохой объект валит весь расчёт.",
+  "scope": [
+   "Одиночная нога перевода считается внешней и даёт служебное предупреждение (quality-backlog Q-01), нулевой остаток в чужой валюте не требует курса (Q-16)",
+   "Верификатор: другие глифы минуса и слова «минус», символы Cf, ссылочная разметка и //host (Q-02, Q-03, Q-04), числительные словами (Q-06)",
+   "Разбор сумм: группы тысяч строго по три цифры (Q-05); id-колонки CSV защищены от формул (Q-10)",
+   "Режим карантина validate_ws: один невалидный объект не валит analyze, а помечается (Q-22), диапазоны параметров (Q-12), ключи из Object.prototype (Q-07)",
+   "state_hash без imports после отката партии (Q-21), знак set_amount у Override (Q-17), номинал месяца в contribution_dates (Q-18), числа в W_RESERVE_BEHIND (Q-09)",
+   "Тесты без правки кода: facts_hash отдельно от сценариев (REQ-014), фикстура journal v1 + учебный апкастер (REQ-016), сверка литералов TIMELINE_DEFAULTS с vocab.json (REQ-019), «0 ставок по умолчанию» (REQ-068), «ключа probability нет в шаблонах v1» (REQ-055)"
+  ]
+ },
+ {
+  "id": "FP-03",
+  "title": "Настройки, буфер, запас хода и честная готовность данных",
+  "wave": 1,
+  "effort": "M",
+  "depends_on": [
+   "FP-01"
+  ],
+  "reqs": [
+   "REQ-023",
+   "REQ-024",
+   "REQ-026",
+   "REQ-029",
+   "REQ-112"
+  ],
+  "new_files": [
+   "prototype/demo/settings.mjs",
+   "prototype/demo/home_cards.mjs",
+   "prototype/demo/number_format.mjs",
+   "prototype/demo/i18n/settings.mjs",
+   "prototype/demo/css/settings.css",
+   "prototype/tests/settings.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (маршрут settings, плитки через реестр)",
+   "prototype/demo/index.html (ссылка на css)"
+  ],
+  "acceptance": [
+   "REQ-026 TST-58: буфер вводится числом (0 = «задан», пусто = «не задан»); кнопка подставляет buffer_hint, значение на G-001 совпадает с тестом движка",
+   "REQ-023: плитка запаса хода равна runway_days на тех же данных (сверка с движком на g001, low, gap)",
+   "REQ-029: плашка s < 4 строится из readiness.reasons (no_account / obligations_lt_3 / no_income_45d / no_daily_spend); для разных причин тексты разные",
+   "REQ-112: сочетание «ru + 1.234,50 €» отображается и разбирается; RU/EN паритет ключей (TST-56)",
+   "REQ-024: изменение worse.income_delay_days пересчитывает режим «если хуже», подпись сдвига видна",
+   "TST-59: нет innerHTML, нет inline-стилей; параметры пишутся только через ws_edit.set_param"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-02",
+   "ALG-11",
+   "IDEA-13",
+   "IDEA-31",
+   "ADR-006"
+  ],
+  "why": "Сообщения «Задайте буфер» и «введите курс в настройках» отправляют в экран, которого нет. Буфер — центральное число продукта (REQ-026), а подсказка buffer_hint готова в движке, но невидима.",
+  "scope": [
+   "Экран #settings: буфер с кнопкой «взять подсказку» (buffer_hint), горизонт, задержка «если хуже», параметры волн (wave.gap_days, wave.max_span_days, wave.threshold_minor), допуски сопоставления (match.window_days, match.tol_bp), формат чисел и дат",
+   "Карточки Обзора: «Запас хода в днях» (runway_days, с поступлениями / без), названия ступеней готовности и перечень недостающего из readiness.reasons",
+   "number_format.mjs: формат чисел отдельно от языка (REQ-112)"
+  ]
+ },
+ {
+  "id": "FP-04",
+  "title": "Быстрый ввод факта «+», сверка остатка одним числом и отмена",
+  "wave": 1,
+  "effort": "M",
+  "depends_on": [
+   "FP-01"
+  ],
+  "reqs": [
+   "REQ-028",
+   "REQ-063",
+   "REQ-090"
+  ],
+  "new_files": [
+   "prototype/demo/entry.mjs",
+   "prototype/demo/anchor_dialog.mjs",
+   "prototype/demo/undo.mjs",
+   "prototype/engine/transfer_guard.mjs",
+   "prototype/demo/i18n/entry.mjs",
+   "prototype/tests/entry.test.mjs",
+   "prototype/tests/transfer_guard.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (кнопка «+» в навигации через реестр)"
+  ],
+  "acceptance": [
+   "REQ-090: «12,50» даёт 1250 minor, дата = as_of, счёт запоминается; E_NOT_INTEGER и E_FUTURE_POSTED показываются текстом; медиана ввода ≤ 5 с — процессная проверка (≥ 5 человек), не автотест",
+   "REQ-028: после «сверить остаток» плашка stale/block исчезает; ≤ 3 действий от плашки до закрытия; границы 7/8 и 21/22 дня (TST-57) не меняются",
+   "REQ-063: перевод operating → savings при резерве без привязки даёт предупреждение; X12 REQ-063 в semantics.test.mjs (free 250000 → 150000) продолжает проходить",
+   "Undo: state_hash после «отменить» равен хэшу до ввода (с учётом опции из FP-02)",
+   "Ввод в чужом формате: число из набора en читается по правилам набора, а не языка интерфейса"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-02",
+   "IDEA-15",
+   "IDEA-38",
+   "IDEA-64",
+   "IDEA-91",
+   "ALG-02",
+   "ALG-13"
+  ],
+  "why": "Единственная операция с фактом в демо отсутствует: лента «только для чтения». Деградация доверия (плашки stale/block) показывается, но убрать её нечем: якорь вводится только через JSON.",
+  "scope": [
+   "entry.mjs: шторка «+» — сумма (parse_minor по формату набора), дата = as_of, счёт = последний выбранный, Enter добавляет tx.posted и вызывает пересчёт",
+   "anchor_dialog.mjs: «сверить остаток» одним числом → якорь, показ найденного дрейфа",
+   "transfer_guard.mjs (engine): предупреждение о двойном вычитании при переводе в копилку, пока резерв не привязан к счёту",
+   "undo.mjs: «Отменить / Вернуть» поверх события revert"
+  ]
+ },
+ {
+  "id": "FP-05",
+  "title": "Хранение, файл-копия, экспорт и удаление данных",
+  "wave": 1,
+  "effort": "L",
+  "depends_on": [
+   "FP-01"
+  ],
+  "reqs": [
+   "REQ-094",
+   "REQ-095",
+   "REQ-096",
+   "REQ-097",
+   "REQ-098",
+   "REQ-120",
+   "REQ-122",
+   "REQ-124",
+   "REQ-125"
+  ],
+  "new_files": [
+   "prototype/demo/store.mjs",
+   "prototype/demo/store_idb.mjs",
+   "prototype/demo/backup.mjs",
+   "prototype/demo/data_actions.mjs",
+   "prototype/demo/rights.mjs",
+   "prototype/demo/log.mjs",
+   "prototype/demo/i18n/data.mjs",
+   "prototype/tests/store.test.mjs",
+   "prototype/tests/backup.test.mjs",
+   "prototype/tests/data_actions.test.mjs",
+   "prototype/tests/rights.test.mjs",
+   "prototype/tests/log.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (boot: «Продолжить с сохранённого», секции экрана «Данные» через реестр)"
+  ],
+  "acceptance": [
+   "REQ-122: контрактные тесты порта Store проходят на in-memory и на IndexedDB-обёртке; сбой записи откатывает транзакцию целиком; восстановление из копии при пустой базе",
+   "REQ-122: два писателя по 1000 записей под Web Lock дают один state_hash (navigator.locks доступен в Node 24)",
+   "REQ-097: backup_due срабатывает на 50-й записи и на 7-й день, не срабатывает на 49-й и 6-й (значения из vocab.json)",
+   "TST-38 REQ-094: «Скачать журнал» = export_json, «Восстановить» = import_json, state_hash совпадает; демо по-прежнему читает прежний JSON рабочей области",
+   "TST-43 / TST-44 REQ-095, REQ-096: CSV журнала с защитой от формул, hledger без падения E_SCHEMA на ws-массивах (через ws_bridge); список потерь формата показан",
+   "REQ-098: eraseAll показывает «будет удалено N операций, M правил, K сценариев», выдаёт квитанцию {erased, date, counts, stores, copies_warning}, повторный вызов без ошибки, ключи localStorage и база очищены",
+   "REQ-124: лог содержит только id, n, ms, code, engine_version; запись amount_minor или описания в лог — красный тест",
+   "REQ-125: rights.report() вычисляется из состояния (есть ли копия, возраст, число записей, persisted)"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "ALG-14",
+   "IDEA-56",
+   "IDEA-61",
+   "IDEA-68",
+   "IDEA-70",
+   "ADR-005",
+   "ADR-011"
+  ],
+  "why": "Сейчас закрытие вкладки стирает всё, экспорт выдаёт формат, который движок не читает, удалить данные нельзя. Это главный риск демо и обещание «выход без боли».",
+  "scope": [
+   "store.mjs + store_idb.mjs: порт Store (load/save/append/clear), реализации IndexedDB, in-memory и запасная на localStorage; persist(); Web Lock «один писатель» и BroadcastChannel",
+   "backup.mjs: backup_due (50 записей или 7 дней), баннер «сохраните копию», учёт последней копии",
+   "data_actions.mjs: «Журнал JSON + state_hash» (runway-journal/1), CSV журнала, hledger, импорт копии с показом «что будет заменено»; eraseAll с квитанцией",
+   "rights.mjs: вычисляемый отчёт «где что лежит»; log.mjs: логи только по белому списку, отчёт об ошибке по согласию"
+  ],
+  "resume_note": "ВОЗОБНОВЛЕНИЕ: прошлый запуск оборвался на середине. На диске уже есть demo/store.mjs, demo/store_idb.mjs, tests/fake_idb.mjs, tests/store.test.mjs — проверь и дополни, ничего не удаляя. Известная проблема: тест «REQ-122 две вкладки по 1000 записей под Web Lock [memory]» ПАДАЕТ по state_hash («с порядко-независимой свёрткой тех же операций»: actual 7b727eb6…, expected 60700bc7…), а следующий за ним вариант (IndexedDB) ЗАВИСАЕТ и не завершается. Найди причину (порядок записей при конкуренции? ожидаемая свёртка в тесте? замок не освобождается в finally? очередь блокируется навсегда?) и исправь код или ожидание по канону, не ослабляя проверку «без потерь и дублей, один state_hash». Ещё не созданы: demo/backup.mjs, demo/data_actions.mjs, demo/rights.mjs, demo/log.mjs, demo/pack_fp05.mjs, demo/i18n/data.mjs, tests/backup.test.mjs, tests/data_actions.test.mjs, tests/rights.test.mjs, tests/log.test.mjs. ПРАВИЛО ТЕСТОВ (после зависания прошлой сессии): запускай тесты ТОЛЬКО так: node --test --test-timeout=120000 --test-concurrency=1 tests/<файл>.test.mjs — с таймаутом, по одному файлу, фоновых/полных прогонов не делай. Зависший тест нужно остановить и разобрать, а не ждать. Эталонные готовые пакеты для образца: demo/pack_fp03.mjs + settings.mjs (FP-03), demo/pack_fp04.mjs + entry.mjs (FP-04); они зелёные. Тест tests/ext_boot.test.mjs уже сделан терпимым к вкладкам пакетов."
+ },
+ {
+  "id": "FP-06",
+  "title": "Импорт: мастер CSV и hledger с сухим прогоном и откатом партии",
+  "wave": 1,
+  "effort": "M",
+  "depends_on": [
+   "FP-01",
+   "FP-02"
+  ],
+  "reqs": [
+   "REQ-091",
+   "REQ-092",
+   "REQ-093",
+   "REQ-099"
+  ],
+  "new_files": [
+   "prototype/demo/import_wizard.mjs",
+   "prototype/demo/import_model.mjs",
+   "prototype/data/profiles/csv-generic.json",
+   "prototype/data/profiles/csv-semicolon-dmy.json",
+   "prototype/demo/i18n/import.mjs",
+   "prototype/tests/import_wizard.test.mjs",
+   "prototype/tests/fixtures/import-152.csv"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (секция в «Данные» через реестр)"
+  ],
+  "acceptance": [
+   "TST-42 REQ-092: файл на 152 строки даёт «распознано 138 · отклонено 2 · дубликатов 12», сумма категорий равна числу строк, state_hash не меняется до «Подтвердить»",
+   "TST-43 REQ-093: повторный импорт того же файла даёт 0 новых; «Откатить» возвращает state_hash к значению до импорта (после FP-02)",
+   "REQ-091: файл > 5 МБ отклоняется до разбора; профиль с regex или исполняемым полем отвергается; описание операции выводится только через textContent",
+   "REQ-091: «12,50» при thousands=\",\" не превращается в 1250,00 (после FP-02)",
+   "REQ-099: hledger-журнал с двумя ногами импортируется через dry_run; @/@@ и более двух активных ног дают явный отказ E_SCHEMA и строку «не поддержано», а не молчаливую потерю"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-14",
+   "IDEA-33",
+   "IDEA-65",
+   "IDEA-84",
+   "ADR-011"
+  ],
+  "why": "Движок импорта полон (профиль-данные, dry_run, import_commit, import_rollback), но в интерфейсе нет ни одного шага. Ввод руками за 10 минут — главная точка отказа для людей с историей в таблицах.",
+  "scope": [
+   "import_wizard.mjs: файл (≤ 5 МБ до разбора) → разделитель → профиль/сопоставление колонок → parse_with_profile → отчёт «распознано · отклонено · дубликатов · возможных двойников» → «Подтвердить» → «Откатить партию»",
+   "import_model.mjs: чистая модель шагов, тестируется без DOM",
+   "Профили как данные (data/profiles/*.json): без regex и исполняемых полей",
+   "Вторая вкладка мастера: импорт hledger-журнала через import_hledger с тем же сухим прогоном"
+  ],
+  "resume_note": "ВОЗОБНОВЛЕНИЕ: прошлый запуск оборвался. На диске уже есть demo/import_model.mjs (≈49 КБ), data/profiles/, tests/fixtures/import-152.csv — проверь (node --check, тесты с таймаутом) и дополни. Ещё не созданы: demo/import_wizard.mjs, demo/pack_fp06.mjs, demo/i18n/import.mjs, tests/import_model.test.mjs, tests/import_wizard.test.mjs (если их нет). Зависимость FP-02 выполнена. ПРАВИЛО ТЕСТОВ (после зависания прошлой сессии): запускай тесты ТОЛЬКО так: node --test --test-timeout=120000 --test-concurrency=1 tests/<файл>.test.mjs — с таймаутом, по одному файлу, фоновых/полных прогонов не делай. Зависший тест нужно остановить и разобрать, а не ждать. Эталонные готовые пакеты для образца: demo/pack_fp03.mjs + settings.mjs (FP-03), demo/pack_fp04.mjs + entry.mjs (FP-04); они зелёные. Тест tests/ext_boot.test.mjs уже сделан терпимым к вкладкам пакетов."
+ },
+ {
+  "id": "FP-07",
+  "title": "Сценарии, правки волн и «почему» у каждого числа",
+  "wave": 1,
+  "effort": "M",
+  "depends_on": [
+   "FP-01"
+  ],
+  "reqs": [
+   "REQ-036",
+   "REQ-049",
+   "REQ-051",
+   "REQ-104"
+  ],
+  "new_files": [
+   "prototype/demo/scenario_builder.mjs",
+   "prototype/demo/wave_edit.mjs",
+   "prototype/demo/why_more.mjs",
+   "prototype/engine/scenario_ext.mjs",
+   "prototype/engine/wave_sweep.mjs",
+   "prototype/demo/i18n/scenarios.mjs",
+   "prototype/tests/scenario_builder.test.mjs",
+   "prototype/tests/wave_edit.test.mjs",
+   "prototype/tests/why_more.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (хук scenario_ops, кнопки в view_waves, show_why)"
+  ],
+  "acceptance": [
+   "TST-33 REQ-049: пять новых операций строят ops и проходят apply_scenario; сохранённый сценарий входит в экспорт; сохранение и удаление не меняет facts_hash (после FP-02)",
+   "TST-37 REQ-036: merge/split/pin пишут wave_override.set; устаревшая правка даёт W_OVERRIDE_STALE; одна правка идемпотентна",
+   "REQ-104: сумма строк цепочки «почему» вместе с «Остальное» равна просадке (сейчас 200000 против 217000 на G-001-low); «почему» есть у волны и у вердикта plan",
+   "REQ-051: чип «курс ±N bp» даёт тот же результат, что scenario_fx_shock; операция hours работает только через scenario_ext",
+   "TST-58: каждый новый блок имеет текстовую альтернативу цвету и подпись для скринридера"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-02",
+   "ALG-03",
+   "IDEA-09",
+   "IDEA-20",
+   "IDEA-23",
+   "IDEA-29",
+   "IDEA-45"
+  ],
+  "why": "Движок знает 7 операций сценария и правки волн (merge/split/pin), демо — только 2 операции и ни одной правки. Принцип «любое число → почему в одно действие» выполнен лишь для узкой точки.",
+  "scope": [
+   "scenario_builder.mjs: shift_flow, set_amount, remove_flow, add_flow, fx_shock, сдвиг выбранного поступления; «Сохранить в набор» → ws.scenarios",
+   "wave_edit.mjs: «объединить / разделить / закрепить», «почему вместе?» (gap_days, max_span_days), порог θ; wave_sweep.mjs (engine): таблица чувствительности",
+   "why_more.mjs: «почему» у карточки волны, у «можно потратить» и у вердикта «по плану»; строка «Остальное» в цепочке",
+   "scenario_ext.mjs (engine): операция hours как расширение, не снимающее op_not_in_v1 по умолчанию"
+  ],
+  "resume_note": "Стартует впервые (прошлый запуск не успел начать). ПРАВИЛО ТЕСТОВ (после зависания прошлой сессии): запускай тесты ТОЛЬКО так: node --test --test-timeout=120000 --test-concurrency=1 tests/<файл>.test.mjs — с таймаутом, по одному файлу, фоновых/полных прогонов не делай. Зависший тест нужно остановить и разобрать, а не ждать. Эталонные готовые пакеты для образца: demo/pack_fp03.mjs + settings.mjs (FP-03), demo/pack_fp04.mjs + entry.mjs (FP-04); они зелёные. Тест tests/ext_boot.test.mjs уже сделан терпимым к вкладкам пакетов."
+ },
+ {
+  "id": "FP-08",
+  "title": "Формы данных: правила, часы, налог, накопления, курсы, счета, рассрочка",
+  "wave": 1,
+  "effort": "L",
+  "depends_on": [
+   "FP-01",
+   "FP-02",
+   "FP-03"
+  ],
+  "reqs": [
+   "REQ-018",
+   "REQ-032",
+   "REQ-044",
+   "REQ-064",
+   "REQ-067",
+   "REQ-069",
+   "REQ-070",
+   "REQ-071",
+   "REQ-075",
+   "REQ-078",
+   "REQ-079",
+   "REQ-080",
+   "REQ-108",
+   "REQ-191",
+   "REQ-192"
+  ],
+  "new_files": [
+   "prototype/demo/forms.mjs",
+   "prototype/demo/form_rule.mjs",
+   "prototype/demo/form_hours.mjs",
+   "prototype/demo/form_tax.mjs",
+   "prototype/demo/form_sinking.mjs",
+   "prototype/demo/form_fx.mjs",
+   "prototype/demo/form_accounts.mjs",
+   "prototype/demo/form_installment.mjs",
+   "prototype/engine/tax_hooks.mjs",
+   "prototype/engine/sinking_report.mjs",
+   "prototype/engine/liquidity.mjs",
+   "prototype/engine/installment.mjs",
+   "prototype/demo/i18n/forms.mjs",
+   "prototype/tests/forms.test.mjs",
+   "prototype/tests/tax_hooks.test.mjs",
+   "prototype/tests/sinking_report.test.mjs",
+   "prototype/tests/liquidity.test.mjs",
+   "prototype/tests/installment.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (секции экранов «Резервы», «Данные», карточки через реестр)"
+  ],
+  "acceptance": [
+   "TST-23 / TST-24 REQ-064: проведённый доход порождает allocation.recorded по правилу на дату факта; на G-001 выплата 2 790,00 € при ставке 20 % даёт 558,00 € в конверт",
+   "REQ-075 / REQ-108: диапазон часов 80 / 93 / 110 даёт доход 2 400 / 2 790 / 3 300; «недоработка 8 ч» показывает 240,00 €",
+   "REQ-018: «запас» = Σ savings + Σ asset·bp/10^4 (пример 145000) отдельно от operating; crypto по умолчанию не ликвидна (REQ-080)",
+   "REQ-069 / REQ-070 / REQ-071: W_RESERVE_BEHIND несёт число и сумму; plan_status показывает «цель достигнута» и «до срока нет дат взноса»",
+   "REQ-192 TST-30: рассрочка с процентами из DebtPlan даёт части [20706 × 5, 20705] через check_purchase",
+   "REQ-067: плашка правила содержит дату «не подтверждено с …»; при status = disabled числа конверта заменены текстом",
+   "REQ-032: действие «пропустить вхождение» пишет override skip; вхождение не попадает в ряд; inputs_hash детерминирован",
+   "Каждая форма отвергает невалидный ввод кодом E_* без повтора введённого текста; все ключи создаёт приложение"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-01",
+   "ALG-05",
+   "ALG-06",
+   "ALG-07",
+   "ALG-08",
+   "ALG-09",
+   "IDEA-05",
+   "IDEA-14",
+   "IDEA-16",
+   "IDEA-18",
+   "IDEA-19",
+   "IDEA-21",
+   "IDEA-40",
+   "IDEA-42",
+   "IDEA-50"
+  ],
+  "why": "Это «пишущий» слой, которого нет совсем: пользователь без правки JSON не может внести ни регулярный платёж, ни часы, ни налоговое правило. Каждая форма опирается на готовые validate_* и предпросмотр движка.",
+  "scope": [
+   "forms.mjs: общий набор полей и проверок; form_rule.mjs (предпросмотр ближайших дат через expand_rule, «пропустить вхождение»)",
+   "form_hours.mjs: поток «ставка × часы» (диапазон дохода), «отработано N часов», карточка «недоработка» (shortfall)",
+   "form_tax.mjs: правило с предпросмотром конверта, «подтвердить правило», дата в плашке W_RULE_STALE; tax_hooks.mjs (engine): on_posted_income / on_posted_payment",
+   "form_sinking.mjs + sinking_report.mjs (engine): план взносов, «N взносов на сумму X», пакетное «подтвердить за период», plan_status",
+   "form_fx.mjs: курс на дату, подпись «курс и возраст», обмен двумя ногами; form_accounts.mjs + liquidity.mjs (engine): счета по ликвидности и «запас»",
+   "form_installment.mjs + installment.mjs (engine): рассрочка по частям и с процентами"
+  ],
+  "resume_note": "ПРАВИЛО ТЕСТОВ (машина слабая: 7,8 ГБ RAM, занято 93%, 4 процессора; параллельные тесты дважды подвесили систему): node --test --test-timeout=120000 --test-concurrency=1 tests/<файл>.test.mjs — по одному файлу, без полного набора и без фоновых прогонов. Эталоны готовых пакетов: demo/pack_fp03.mjs+settings.mjs (настройки, буфер, плашки), pack_fp04.mjs+entry.mjs (ввод), pack_fp05..07, pack_fp09. Используй settings.mjs/number_format.mjs FP-03 и ws_edit/ws_bridge FP-01; запросы к общим файлам (app.mjs, i18n.mjs, index.html, style.css, tests/demo.test.mjs) — только через _ops/impl/hook-requests-FP08.md (применит интегратор)."
+ },
+ {
+  "id": "FP-09",
+  "title": "Витрины на готовом движке: долги, «в магазине», лестница сумм, эталон G-001, обещания, отчёт, клавиши",
+  "wave": 1,
+  "effort": "L",
+  "depends_on": [
+   "FP-01"
+  ],
+  "reqs": [
+   "REQ-052",
+   "REQ-082",
+   "REQ-083",
+   "REQ-109",
+   "REQ-131",
+   "REQ-132",
+   "REQ-178",
+   "REQ-184"
+  ],
+  "new_files": [
+   "prototype/demo/debts.mjs",
+   "prototype/demo/store_mode.mjs",
+   "prototype/demo/ladder.mjs",
+   "prototype/demo/golden_panel.mjs",
+   "prototype/data/golden-g001.json",
+   "prototype/demo/promises.mjs",
+   "prototype/demo/promises.json",
+   "prototype/demo/report.mjs",
+   "prototype/demo/hotkeys.mjs",
+   "prototype/demo/payload_preview.mjs",
+   "prototype/demo/i18n/showcase.mjs",
+   "prototype/tests/showcase.test.mjs",
+   "prototype/tests/promises.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (новые маршруты через реестр)",
+   "prototype/demo/style.css (только print-блок, если понадобится)"
+  ],
+  "acceptance": [
+   "TST-01 / TST-02 / TST-04 REQ-109: панель «Эталон» показывает восемь значений канона и вычисленные, все отметки «совпало»",
+   "UP-02: лестница на G-001 даёт границы 210,00 / 435,00 / 935,00 € из max_amount с буфером и без",
+   "REQ-184 / REQ-178: каждая строка promises.json имеет level и test; node tools/lint_vocab.mjs --registry принимает файл; level hypothesis в интерфейсе → ошибка линтера",
+   "TST-29 / TST-30 REQ-082: график аннуитета, сумма платежей и переплата совпадают с движком; prepay shorten и lower_payment",
+   "REQ-052: «в магазине» отвечает с теми же числами, что buy_run на as_of; замер времени расчёта печатается",
+   "REQ-131: недоверенный текст показывается только по кнопке, ≤ 80 символов, с меткой untrusted; REQ-132: чип показывает режим и дату узкой точки",
+   "TST-56: запрещённые формулировки отсутствуют в новых строках RU и EN"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "ALG-04",
+   "ALG-09",
+   "ALG-11",
+   "IDEA-22",
+   "IDEA-35",
+   "IDEA-53",
+   "IDEA-57",
+   "IDEA-58",
+   "IDEA-92"
+  ],
+  "why": "Семь независимых небольших экранов поверх уже протестированных функций. Они дешевле всего показывают отличие от аналога: воспроизводимый пример, честный реестр обещаний, график долга, ответ в магазине за секунду.",
+  "scope": [
+   "debts.mjs: график аннуитета, «что если досрочно» (prepay), сверка с банком (reanchor и допуск debt.drift_tol_bp), предупреждение за горизонтом",
+   "store_mode.mjs: «в магазине» — одно поле суммы → вердикт и «можно потратить сегодня»; ladder.mjs: лестница сумм",
+   "golden_panel.mjs + data/golden-g001.json: восемь значений канона против вычисленных",
+   "promises.mjs + promises.json: страница «обещаем / не обещаем» с уровнем доказанности и ссылкой на тест",
+   "report.mjs: лист для печати (две режимы, таблица значений, версия движка, inputs_hash); hotkeys.mjs: переходы с клавиатуры",
+   "payload_preview.mjs: «что ушло бы в облачный режим» (только предпросмотр, отправки нет); показ недоверенного текста по кнопке до 80 символов"
+  ],
+  "resume_note": "ВОЗОБНОВЛЕНИЕ: прошлый запуск оборвался из-за нехватки памяти на машине (RAM 92%, 4 процессора) — НЕ запускай параллельно несколько тестовых процессов. На диске уже есть почти все файлы FP-09: demo/debts.mjs, store_mode.mjs, ladder.mjs, golden_panel.mjs, promises.mjs, promises.json, report.mjs, hotkeys.mjs, payload_preview.mjs, pack_fp09.mjs, i18n/showcase.mjs, css/showcase.css, data/golden-g001.json. Не хватает: tests/showcase.test.mjs и tests/promises.test.mjs. Проверь существующее (node --check; свои тесты по одному файлу с таймаутом), допиши недостающие тесты и закрой критерии приёмки, ничего не удаляя. ПРАВИЛО ТЕСТОВ: node --test --test-timeout=120000 --test-concurrency=1 tests/<файл>.test.mjs; полный набор и фоновые прогоны не запускай. Эталоны готовых пакетов: demo/pack_fp03.mjs, pack_fp04.mjs, pack_fp05.mjs, pack_fp06.mjs, pack_fp07.mjs."
+ },
+ {
+  "id": "FP-10",
+  "title": "Мастер «Старт», калькулятор v0, шаблоны-скелеты и метрики на устройстве",
+  "wave": 2,
+  "effort": "L",
+  "depends_on": [
+   "FP-03",
+   "FP-04",
+   "FP-05",
+   "FP-08"
+  ],
+  "reqs": [
+   "REQ-029",
+   "REQ-110",
+   "REQ-180",
+   "REQ-185"
+  ],
+  "new_files": [
+   "prototype/demo/wizard.mjs",
+   "prototype/demo/v0.html",
+   "prototype/demo/v0.mjs",
+   "prototype/data/g001-empty.json",
+   "prototype/data/templates/freelancer-skeleton.json",
+   "prototype/demo/metrics.mjs",
+   "prototype/demo/i18n/start.mjs",
+   "prototype/tests/wizard.test.mjs",
+   "prototype/tests/v0.test.mjs",
+   "prototype/tests/metrics.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (маршруты start и metrics через реестр)",
+   "prototype/demo/i18n.mjs (DATASETS: набор g001-empty)"
+  ],
+  "acceptance": [
+   "REQ-110: четыре шага и буфер; прогноз виден при s ≥ 3; время шагов пишется в локальный журнал; фраза «за N минут» без измерения запрещена линтером (TST-56)",
+   "REQ-180: v0 на тех же числах, что G-001, даёт те же вердикт, минимум, раннюю дату и максимум; ограничения 12 повторов и 3 поступления проверяются",
+   "REQ-185: пакет runway-metrics/1 не содержит сумм и календарных дат (тест схемы); показывается целиком до скачивания; удаляется вместе с данными (eraseAll из FP-05)",
+   "ov.empty достижим из демо через g001-empty и покрыт тестом отрисовки",
+   "Шаблоны не содержат предзаполненных rate_bp (тест REQ-068 из FP-02)"
+  ],
+  "owner_hint": "ui",
+  "refs": [
+   "IDEA-31",
+   "IDEA-34",
+   "IDEA-54",
+   "IDEA-96",
+   "ADR-015"
+  ],
+  "why": "Путь «первые минуты» и страница v0 — способ впервые измерить, понятен ли продукт чужому человеку. Измерять нечем, пока нет ни мастера, ни локальных метрик.",
+  "scope": [
+   "wizard.mjs: экран #start — счёт, не менее трёх обязательств, ближайший доход, повседневные траты, буфер; прогноз появляется при s ≥ 3; журнал времени шагов",
+   "v0.html + v0.mjs: калькулятор Q3 без мастера (остаток, ≤ 12 повторов, ≤ 3 поступления с привычной задержкой, покупка); состояние — файл JSON",
+   "data/g001-empty.json и data/templates/*.json: набор с s < 3 и скелеты шаблонов без ставок (со сроком годности)",
+   "metrics.mjs: локальные счётчики, пакет runway-metrics/1 с показом файла целиком до скачивания"
+  ]
+ },
+ {
+  "id": "FP-11",
+  "title": "Сверка план↔факт, качество прогноза и вероятностная полоса (по согласию)",
+  "wave": 2,
+  "effort": "L",
+  "depends_on": [
+   "FP-02",
+   "FP-04",
+   "FP-05"
+  ],
+  "reqs": [
+   "REQ-031",
+   "REQ-032",
+   "REQ-053",
+   "REQ-054",
+   "REQ-055",
+   "REQ-106",
+   "REQ-176",
+   "REQ-188"
+  ],
+  "new_files": [
+   "prototype/demo/reconcile.mjs",
+   "prototype/demo/quality.mjs",
+   "prototype/demo/prob_band.mjs",
+   "prototype/demo/prob_buy.mjs",
+   "prototype/engine/mc_inputs.mjs",
+   "prototype/engine/band_adapter.mjs",
+   "prototype/engine/expected.mjs",
+   "prototype/tools/backtest_report.mjs",
+   "prototype/tools/anonymize.mjs",
+   "prototype/demo/i18n/reconcile.mjs",
+   "prototype/tests/reconcile.test.mjs",
+   "prototype/tests/quality_report.test.mjs",
+   "prototype/tests/anonymize.test.mjs",
+   "prototype/tests/prob_band.test.mjs"
+  ],
+  "touched_files": [
+   "prototype/demo/app.mjs (вкладки «Сверка» и «Качество» через реестр)"
+  ],
+  "acceptance": [
+   "TST-40 / TST-41 REQ-031: на наборе late просроченный платёж показан как «Просрочено: ожидали …»; действия пишут match.set; очередь пустеет после разбора",
+   "TST-55 REQ-176: tools/backtest_report.mjs печатает FRR, cry-wolf, n, дату на data/synthetic-journals; release_gate читает отчёт; anonymize_journal сдвигает даты кратно 7 и умножает суммы на k в [0,5; 2] без изменения структуры",
+   "TST-49 REQ-054 / REQ-055: полоса выключена по умолчанию; при n < 20 текст «в k из n»; при отсутствии истории — отказ; ни в одном шаблоне v1 нет ключа probability",
+   "REQ-053: ряд expected — отображаемая оценка; режим по умолчанию по-прежнему mode_not_in_v1",
+   "REQ-188: отчёт по ≥ 10 журналам фиксирует число волн, долю волн из одного платежа и чувствительность к g±1 и S±3 в vocab-совместимом файле"
+  ],
+  "owner_hint": "engine",
+  "refs": [
+   "ALG-10",
+   "ALG-13",
+   "IDEA-02",
+   "IDEA-24",
+   "IDEA-25",
+   "IDEA-27",
+   "IDEA-28",
+   "IDEA-94",
+   "IDEA-95",
+   "ADR-008",
+   "ADR-015"
+  ],
+  "why": "Калибровка, backtest и Монте-Карло реализованы и протестированы, но недоступны человеку: ни очереди сверки, ни отчёта о качестве, ни полосы. Часть про вероятности требует решения владельца (ADR-015: в v1 вероятностей нет).",
+  "scope": [
+   "reconcile.mjs: очередь «подтвердить / привязать к плану / не относится / пропустить / отменить», подпись «Просрочено: ожидали …», показ всех фактов с пагинацией",
+   "quality.mjs + tools/backtest_report.mjs: FRR, cry-wolf, n, дата замера на синтетике (с пометкой «синтетика»); карточка «Привычки платежей» только при n ≥ 10; tools/anonymize.mjs",
+   "mc_inputs.mjs + band_adapter.mjs (engine): fx_obs_from_rates, адаптер коридора; expected.mjs: ряд expected как отображаемая оценка без снятия E_SCHEMA",
+   "prob_band.mjs + prob_buy.mjs: полоса P10/P50/P90 и «при уверенности α максимум X» — выключены по умолчанию, с явным согласием (после решения владельца)"
+  ]
+ },
+ {
+  "id": "FP-12",
+  "title": "Платформа и инфраструктура качества: PWA, Worker, воспроизводимая сборка, замеры, фаззинг",
+  "wave": 2,
+  "effort": "L",
+  "depends_on": [
+   "FP-05",
+   "FP-09",
+   "FP-10"
+  ],
+  "reqs": [
+   "REQ-096",
+   "REQ-114",
+   "REQ-117",
+   "REQ-120",
+   "REQ-126",
+   "REQ-150",
+   "REQ-152",
+   "REQ-153",
+   "REQ-154",
+   "REQ-155",
+   "REQ-157",
+   "REQ-158",
+   "REQ-166",
+   "REQ-167",
+   "REQ-171",
+   "REQ-172",
+   "REQ-173",
+   "REQ-175",
+   "REQ-177",
+   "REQ-186",
+   "REQ-187"
+  ],
+  "new_files": [
+   "prototype/demo/manifest.webmanifest",
+   "prototype/demo/sw.js",
+   "prototype/demo/pwa.mjs",
+   "prototype/demo/calc_worker.mjs",
+   "prototype/demo/worker_client.mjs",
+   "prototype/demo/about.mjs",
+   "prototype/tools/build_manifest.mjs",
+   "prototype/tools/bench.mjs",
+   "prototype/tools/verify.mjs",
+   "prototype/tools/contrast.mjs",
+   "prototype/tools/mutate.mjs",
+   "prototype/SPEC-format.md",
+   "prototype/jsconfig.json",
+   "prototype/tests/pwa.test.mjs",
+   "prototype/tests/worker_contract.test.mjs",
+   "prototype/tests/offline_inventory.test.mjs",
+   "_ops/bench.json (результат замера)"
+  ],
+  "touched_files": [
+   "prototype/demo/index.html (manifest, CSP)",
+   "prototype/serve.mjs (CSP, MIME .webmanifest)",
+   "prototype/package.json (скрипты)",
+   "prototype/tests/demo.test.mjs (проверка CSP)"
+  ],
+  "acceptance": [
+   "REQ-120: инвентарь сетевых вызовов после загрузки равен 0 в сценариях Q1, Q3, импорт и экспорт; список файлов оболочки совпадает с манифестом хэшей",
+   "REQ-150 / TST-54: p95 пересчёта ≤ 100 мс в Node с n и датой в _ops/bench.json; блокировка главного потока ≤ 50 мс при расчёте в Worker",
+   "REQ-154: двойная сборка даёт один и тот же манифест sha256; хэш сборки виден в «О программе»",
+   "REQ-171 / REQ-172: property-инварианты на ≥ 10^3 журналах с seed; замок на 500 журналов с политикой «правка arith.lock ⇒ повышение ENGINE_VERSION»",
+   "REQ-175: ≥ 30 мутантов ядра, каждый даёт красный тест; список неубитых ведётся",
+   "REQ-166 / REQ-167: контраст токенов обеих тем ≥ порога WCAG 2.2 AA проверяется скриптом; клавиатурный проход всех экранов",
+   "REQ-187: фикстура каждой версии формата импортируется с заявленным state_hash"
+  ],
+  "owner_hint": "infra",
+  "refs": [
+   "IDEA-51",
+   "IDEA-82",
+   "IDEA-89",
+   "IDEA-98",
+   "IDEA-99",
+   "UP-24",
+   "UP-32",
+   "ADR-005"
+  ],
+  "why": "Кэш сервис-воркера должен знать окончательный список файлов, поэтому пакет идёт после экранов. Закрывает «открыть без сети», «замер p50/p95», «хэш сборки» и хвосты тестирования, на которые опираются критерии релиза.",
+  "scope": [
+   "manifest.webmanifest, sw.js (кэш оболочки по хэшу файлов, обновление в ожидании), pwa.mjs, правки CSP (manifest-src, worker-src) и MIME в serve.mjs",
+   "calc_worker.mjs + worker_client.mjs: analyze в Web Worker, контракт сообщений проверяется в Node",
+   "tools/build_manifest.mjs, диалог «О программе» с хэшем сборки; SPEC-format.md, tools/verify.mjs, фикстуры формата",
+   "tools/bench.mjs (p50/p95, 36 500 записей, холодный старт), tools/contrast.mjs, tools/mutate.mjs (≥ 30 мутаций), jsconfig.json + typecheck, ночные прогоны фаззинга 10^5 и arith.lock на 500 журналах",
+   "Запуск оракула hledger через Docker, если бинаря нет; чек-лист совместимости устройств и релиза"
+  ]
+ }
+]

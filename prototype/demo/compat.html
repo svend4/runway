@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <!-- TST-59: только свои файлы, без inline-скриптов и стилей, без внешних шрифтов и аналитики. Страница самопроверки без сети (connect-src 'none'); worker-src 'self' нужен для пробы модульного воркера расчёта. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; worker-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Runway — совместимость устройства</title>
+  <meta name="description" content="Самопроверка устройства для Runway: IndexedDB, persist(), Web Locks, сервис-воркер, Worker, BroadcastChannel, File System Access; таблица для чек-листа. Без аккаунта и без сети.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/probe.css">
+  <script type="module" src="compat_page.mjs"></script>
+</head>
+<body class="probe-page">
+  <a id="cp-skip" class="skip" href="#main">К содержимому / Skip to content</a>
+  <header id="cp-title-bar" class="top">
+    <div class="brand">
+      <h1>Runway — совместимость устройства / device compatibility</h1>
+      <p class="sub">Проверка на устройстве / Device check</p>
+    </div>
+    <div class="seg" role="group" aria-label="Язык / Language">
+      <button id="cp-lang-ru" type="button" lang="ru" aria-pressed="true">RU</button>
+      <button id="cp-lang-en" type="button" lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+  <div class="content">
+    <main id="main" tabindex="-1">
+      <p>Загрузка… / Loading…</p>
+      <noscript>
+        <p>Для самопроверки нужен JavaScript: она идёт в этой странице, на этом устройстве, без передачи данных.</p>
+        <p>The self-check needs JavaScript: it runs in this page, on this device, with no data sent anywhere.</p>
+      </noscript>
+    </main>
+  </div>
+</body>
+</html>

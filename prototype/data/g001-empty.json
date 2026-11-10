@@ -1,0 +1,56 @@
+{
+  "workspace_id": "ws-g001-empty",
+  "name": "G-001 «с нуля»",
+  "locale": "ru",
+  "decision_currency": "EUR",
+  "format": "runway-journal/1",
+  "as_of": "2026-10-04",
+  "params": {
+    "horizon_days": 57,
+    "buffer_minor": null,
+    "buffer_hint_days": 7,
+    "headline_mode": "worse",
+    "worse.income_delay_days": 14,
+    "grace_days.income": 3,
+    "grace_days.expense": 0,
+    "match.window_days": 3,
+    "match.tol_bp": 500,
+    "wave.gap_days": 3,
+    "wave.max_span_days": 10,
+    "explain.top_k": 10,
+    "explain.share_cutoff_bp": 9000,
+    "stale.banner_days": 7,
+    "stale.block_days": 21,
+    "rounding": "half_even",
+    "ready.q1": 3,
+    "ready.q3": 4,
+    "crypto.liquidity_bp": 0
+  },
+  "accounts": [],
+  "calendars": [
+    {
+      "calendar_id": "cal-main",
+      "name": "Суббота и воскресенье",
+      "weekend_dows": [
+        0,
+        6
+      ],
+      "holidays": []
+    }
+  ],
+  "anchors": [],
+  "facts": [],
+  "rules": [],
+  "overrides": [],
+  "plans": [],
+  "streams": [],
+  "tax_rules": [],
+  "reserves": [],
+  "allocations": [],
+  "rates": [],
+  "scenarios": [],
+  "purchases": [],
+  "debts": [],
+  "wave_overrides": [],
+  "counterparties": []
+}

@@ -1,0 +1,95 @@
+{
+  "slug": "ynab",
+  "name": "YNAB и семейство конвертов (Goodbudget, Buckets, EveryDollar)",
+  "category": "envelope",
+  "checked": "2026-10-04",
+  "price":"YNAB: $109/год или $14.99/мес, триал 34 дня, шеринг до 6 человек, студентам 365 дней триала (ynab.com/pricing, 2026-10-04). Goodbudget: Free (10+10 конвертов, 1 счёт, 2 устройства) / Premium $10/мес или $80/год, безлимит конвертов и счетов, 5 устройств (goodbudget.com/signup). Buckets: разово $64 (budgetwithbuckets.com). EveryDollar: Free / Premium $79.99/год или $17.99/мес (ramseysolutions.com).",
+  "status_note": "YNAB жив: последняя запись release notes 2026-09-25 (ynab.com/whats-new); в API и UI 'budget' переименован в 'plan'; API v1.87.0. Buckets: последний релиз v0.80.0 от 2025-05-15, последний push в репозиторий 2025-09-22 (GitHub API); лицензия в репозитории не объявлена (license=null), сайт open source не заявляет — не подтверждено. Goodbudget и EveryDollar: даты последних релизов не проверены.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "YNAB: проекции остатка по датам нет (не назначает будущий доход, нет календаря/обзора будущих месяцев). Уровень partial даёт EveryDollar Premium: Paycheck Planning показывает хронологию доходов и расходов внутри месяца с подсветкой нехватки."
+    },
+    "can_i_afford": {
+      "level": "none",
+      "note": "What-if покупки на траектории не найдено ни у одного продукта группы. YNAB отвечает только через Available в категории 'сейчас'; Loan Planner — what-if лишь для долгов. У EveryDollar в справке упомянут Safe to Spend (текущий лимит), на загруженной странице не подтверждён."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "YNAB: scheduled transactions с 12 частотами (от daily до every other year), до даты не влияют на план, видны в деталях категории только текущего месяца; суммы 'нужно к волне' нет. EveryDollar Premium: платежи ставятся по датам в календарь месяца."
+    },
+    "sinking_funds": {
+      "level": "full",
+      "note": "YNAB Targets (weekly/monthly/yearly/custom; режимы Set aside another / Refill up to / Have a balance of), жёлтая подсветка недофинансирования; EveryDollar даёт sinking funds в обоих тарифах. Goodbudget — дополнительные конверты, но отдельного расчёта не найдено."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "Налоговых правил и авторасчёта в изученных материалах (2026-10-04) не найдено ни у одного продукта группы; только ручная категория 'Налоги' и ручное назначение доли при поступлении (вывод, отдельным источником не проверено). Не консультация."
+    },
+    "multi_currency": {
+      "level": "partial",
+      "note": "YNAB: нативной мультивалютности нет — официальная рекомендация: отдельный plan на каждую валюту, все счета plan в одной валюте, перевод между валютами через категорию Currency Transfer и ручной курс. Сторонние решения строятся на API."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "YNAB предлагает методику для нерегулярного дохода (бюджет только из реально полученных денег, буфер на месяц вперёд), но ставок, часов и инвойсов нет. Buckets позиционируется для переменного дохода (по стороннему обзору, не проверено)."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "YNAB, Goodbudget, EveryDollar — облако; YNAB: шифрование в передаче и хранилище, E2E не заявлено, хостинг Heroku/AWS, ручной ввод без агрегаторов возможен. Buckets по заявлению сайта хранит данные на компьютере, банковский синк через SimpleFIN опционален (заявление не проверено)."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "YNAB: Direct Import (США/Канада и 17 стран Европы по справке, включая UK и Испанию; поисковая выдача добавляет Швецию, 18-я страна не подтверждена; Plaid/MX), файловый импорт с CSV-конвертером (с 2026-09-14), экспорт plan и register в два CSV (только веб), API с bulk-созданием транзакций и import_id для дедупликации. Конкретный список форматов файлового импорта (OFX/QIF) не подтверждён."
+    },
+    "ai_assistant": {
+      "level": "none",
+      "note": "Официального AI-ассистента у YNAB нет: в release notes июнь-сентябрь 2026 AI-функций не найдено, сторонний источник прямо пишет об отсутствии. Есть сторонние (community) MCP-обёртки над API. У остальных продуктов группы не проверялось."
+    },
+    "openness": {
+      "level": "partial",
+      "note": "YNAB: публичный API (OpenAPI-спека, PAT и OAuth, лимит 200 запросов/час), ядро закрыто (вывод — прямого заявления не найдено). Buckets: репозиторий на GitHub, но лицензия не подтверждена. Goodbudget/EveryDollar: закрытые SaaS."
+    }
+  },
+  "borrow": [
+    "Target 'к дате' с автоматической ежемесячной суммой: ceil((цель - баланс) / месяцев до даты) в minor units + статус 'недофинансировано', если баланс ниже графика",
+    "Два режима пополнения резерва (Set aside another vs Refill up to) как поле refill_mode",
+    "Жизненный цикл плановой операции planned -> due -> approved с сопоставлением с фактом из импорта",
+    "Метрика буфера в духе Age of Money: 'дней жизни на текущем остатке' (вывод)",
+    "Идемпотентный импорт: import_id из суммы, даты и порядкового номера; delta-синк API через last_knowledge_of_server",
+    "Платёж по кредитке как автоматический резерв (категория Credit Card Payment) для долгов и рассрочек",
+    "CSV-конвертер с профилями колонок и правилами нормализации получателей и автокатегоризации",
+    "Календарь доходов и расходов с красными зонами нехватки (EveryDollar Paycheck Planning) как отправная точка визуализации волн, но с прогнозом на много месяцев"
+  ],
+  "avoid": [
+    "Прогноз и scheduled только в рамках текущего месяца, без суммы 'нужно к волне'",
+    "Мультивалютность через отдельные планы на каждую валюту; нужен курс на операцию и счета в разных валютах",
+    "Запрет учитывать будущий доход: для фрилансера ожидаемое поступление должно быть в прогнозе с пометкой 'ожидается' (вывод)",
+    "Облачный-only без E2E и привязка банковского синка к внешним агрегаторам (хрупкие подключения: в 2026 добавлены in-app сбросы при сбоях)",
+    "Отсутствие бесплатного уровня и высокий порог входа (2-4 недели привыкания по независимому обзору)"
+  ],
+  "sources": [
+    "https://www.ynab.com/pricing",
+    "https://www.ynab.com/whats-new",
+    "https://www.ynab.com/release-notes",
+    "https://www.ynab.com/security",
+    "https://support.ynab.com/en_us/how-to-use-targets-rk5kkI9ks.md",
+    "https://support.ynab.com/en_us/scheduled-transactions-a-guide-BygrAIFA9.md",
+    "https://support.ynab.com/en_us/assigning-future-income-an-overview-BJsTo0jCq",
+    "https://support.ynab.com/en_us/using-multiple-currencies-in-ynab-a-guide-SyBF6PHno.md",
+    "https://support.ynab.com/en_us/direct-import-in-europe-Syae1z_A9.md",
+    "https://support.ynab.com/en_us/how-to-export-plan-data-Sy_CouWA9.md",
+    "https://api.ynab.com/",
+    "https://api.ynab.com/papi/open_api_spec.yaml",
+    "https://envelopebudgeting.com/articles/ynab-review",
+    "https://freenance.io/products/ynab-review-2026-budgeting-app-worth-it-european-investors/",
+    "https://www.goodbudget.com/signup",
+    "https://www.budgetwithbuckets.com/",
+    "https://github.com/buckets/application",
+    "https://api.github.com/repos/buckets/application/releases/latest",
+    "https://www.ynab.com/ynab-loan-planner/",
+    "https://www.usecarly.com/blog/chatgpt-ynab-integration/",
+    "https://www.ramseysolutions.com/ramseyplus/everydollar",
+    "https://www.ramseysolutions.com/ramseyplus/everydollar/updates/paycheck-planning"
+  ]
+}

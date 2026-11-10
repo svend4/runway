@@ -1,0 +1,214 @@
+{
+ "date": "2026-11-09",
+ "generated": "2026-11-09T16:44:54.199Z",
+ "node": "v24.13.0",
+ "machine_zone": "Europe/Berlin",
+ "preload": "prototype/tools/clock_shift_preload.mjs",
+ "profile_order": [
+  "base",
+  "shift_far",
+  "shift_past",
+  "midnight_east",
+  "midnight_west"
+ ],
+ "base_red": 1,
+ "unexplained_total": 0,
+ "profiles": {
+  "base": {
+   "title": "без сдвига: часы и пояс машины (предзагрузка подключена, ничего не меняет)",
+   "env": {},
+   "mode": "fast",
+   "skipped": null,
+   "probe": {
+    "ok": true,
+    "fatal": false,
+    "zone_skip": false,
+    "zone": "Europe/Berlin",
+    "system_zone": "Europe/Berlin",
+    "shift_ms": -2,
+    "want_shift_ms": 0,
+    "off_min": -60,
+    "want_off_min": -60,
+    "native": true,
+    "why": null
+   },
+   "files": 172,
+   "done": 172,
+   "finished": true,
+   "tests": 2902,
+   "pass": 2873,
+   "fail": 2,
+   "red": [
+    "tests/fp30_adv.test.mjs"
+   ],
+   "timed_out": [],
+   "timed_out_first": [],
+   "retried_ok": [],
+   "red_not_in_base": [],
+   "known_explained": [],
+   "unexplained": [],
+   "details": {},
+   "verdict": "красных 1 (эталон, не сравнивается)",
+   "note": "Прогон 2026-11-09 (свежий и повтор): красный один файл — tests/fp30_adv.test.mjs (ADV-2, ADV-3: вики и отчёт прогона не знают файлов FP-49; синхронизирует FP-51, открытый вопрос). Нагрузочных красных в этом прогоне нет."
+  },
+  "shift_far": {
+   "title": "сдвиг часов +400 суток (RUNWAY_CLOCK_SHIFT_MS)",
+   "env": {
+    "RUNWAY_CLOCK_SHIFT_MS": "34560000000"
+   },
+   "mode": "fast",
+   "skipped": null,
+   "probe": {
+    "ok": true,
+    "fatal": false,
+    "zone_skip": false,
+    "zone": "Europe/Berlin",
+    "system_zone": "Europe/Berlin",
+    "shift_ms": 34559999997,
+    "want_shift_ms": 34560000000,
+    "off_min": -60,
+    "want_off_min": -60,
+    "native": false,
+    "why": null
+   },
+   "files": 172,
+   "done": 172,
+   "finished": true,
+   "tests": 2902,
+   "pass": 2873,
+   "fail": 2,
+   "red": [
+    "tests/fp30_adv.test.mjs"
+   ],
+   "timed_out": [],
+   "timed_out_first": [],
+   "retried_ok": [],
+   "red_not_in_base": [],
+   "known_explained": [],
+   "unexplained": [],
+   "details": {},
+   "verdict": "красных сверх base нет",
+   "note": "Датозависимых сбоев нет (прогон 2026-11-09): только tests/fp30_adv.test.mjs, как в base. Сверка «измерение старше 90 дней» в tests/num_labels_coverage.test.mjs идёт по опорной дате --today 2026-10-28, а не по часам машины (исправлено в FP-50)."
+  },
+  "shift_past": {
+   "title": "местное время 2026-10-23 12:00 в поясе машины (RUNWAY_CLOCK_LOCAL)",
+   "env": {
+    "RUNWAY_CLOCK_LOCAL": "2026-10-23 12:00"
+   },
+   "mode": "fast",
+   "skipped": null,
+   "probe": {
+    "ok": true,
+    "fatal": false,
+    "zone_skip": false,
+    "zone": "Europe/Berlin",
+    "system_zone": "Europe/Berlin",
+    "shift_ms": -1492037057,
+    "want_shift_ms": -1492037161,
+    "off_min": -120,
+    "want_off_min": -120,
+    "native": false,
+    "why": null
+   },
+   "files": 172,
+   "done": 172,
+   "finished": true,
+   "tests": 2902,
+   "pass": 2873,
+   "fail": 2,
+   "red": [
+    "tests/fp30_adv.test.mjs"
+   ],
+   "timed_out": [],
+   "timed_out_first": [],
+   "retried_ok": [],
+   "red_not_in_base": [],
+   "known_explained": [],
+   "unexplained": [],
+   "details": {},
+   "verdict": "красных сверх base нет",
+   "note": "Красных сверх base нет (прогон 2026-11-09): только tests/fp30_adv.test.mjs, как в base. Открытый вопрос: профиль задуман как «сегодня раньше даты расчёта G-001», но as_of G-001 — 2026-10-04, а 2026-10-23 позже него; сценарий «сегодня раньше as_of» этим профилем не покрыт."
+  },
+  "midnight_east": {
+   "title": "пояс Pacific/Kiritimati (UTC+14), местное время 00:30 сегодняшней местной даты пояса",
+   "env": {
+    "RUNWAY_CLOCK_TZ": "Pacific/Kiritimati",
+    "RUNWAY_CLOCK_LOCAL": "00:30"
+   },
+   "mode": "fast",
+   "skipped": null,
+   "probe": {
+    "ok": true,
+    "fatal": false,
+    "zone_skip": false,
+    "zone": "Pacific/Kiritimati",
+    "system_zone": "Europe/Berlin",
+    "shift_ms": -21864981,
+    "want_shift_ms": -21865092,
+    "off_min": -840,
+    "want_off_min": -840,
+    "native": false,
+    "why": null
+   },
+   "files": 172,
+   "done": 172,
+   "finished": true,
+   "tests": 2902,
+   "pass": 2873,
+   "fail": 2,
+   "red": [
+    "tests/fp30_adv.test.mjs"
+   ],
+   "timed_out": [],
+   "timed_out_first": [],
+   "retried_ok": [],
+   "red_not_in_base": [],
+   "known_explained": [],
+   "unexplained": [],
+   "details": {},
+   "verdict": "красных сверх base нет",
+   "note": "Красных сверх base нет (прогон 2026-11-09): только tests/fp30_adv.test.mjs, как в base. Дефект tools/lint_vocab.mjs («сегодня» — UTC-дата) найден чтением кода, матрица его не показала; исправлен, тест «FP-50 lint_vocab…» в tests/clock_matrix.test.mjs красен на старом коде. tests/fp18_adv.test.mjs краснел при нагрузке из-за фиксированных окон ожидания; исправлено ожиданием по состоянию экрана, повторы: 5 из 5 зелёные."
+  },
+  "midnight_west": {
+   "title": "пояс Pacific/Pago_Pago (UTC−11), местное время 23:30 сегодняшней местной даты пояса",
+   "env": {
+    "RUNWAY_CLOCK_TZ": "Pacific/Pago_Pago",
+    "RUNWAY_CLOCK_LOCAL": "23:30"
+   },
+   "mode": "fast",
+   "skipped": null,
+   "probe": {
+    "ok": true,
+    "fatal": false,
+    "zone_skip": false,
+    "zone": "Pacific/Pago_Pago",
+    "system_zone": "Europe/Berlin",
+    "shift_ms": 64132678,
+    "want_shift_ms": 64132582,
+    "off_min": 660,
+    "want_off_min": 660,
+    "native": false,
+    "why": null
+   },
+   "files": 172,
+   "done": 172,
+   "finished": true,
+   "tests": 2902,
+   "pass": 2873,
+   "fail": 2,
+   "red": [
+    "tests/fp30_adv.test.mjs"
+   ],
+   "timed_out": [],
+   "timed_out_first": [],
+   "retried_ok": [],
+   "red_not_in_base": [],
+   "known_explained": [],
+   "unexplained": [],
+   "details": {},
+   "verdict": "красных сверх base нет",
+   "note": "Красных сверх base нет (прогон 2026-11-09): только tests/fp30_adv.test.mjs, как в base. tests/fp18_adv.test.mjs — см. midnight_east: после исправления 5 из 5 повторов зелёные."
+  }
+ },
+ "known": []
+}

@@ -1,0 +1,15 @@
+/* css/entry.css — пакет FP-04: шторка «+», сверка остатка, кнопки отмены в навигации. Токены цветов — из style.css, своих цветов нет. */
+
+.nav .nav-action .btn { min-height: 36px; padding: 4px 10px; white-space: nowrap; }
+.nav .undo-group { display: inline-flex; gap: 4px; }
+.undo-btn:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.entry-form input[type="text"] { width: 100%; font-size: 1.25rem; }
+.entry-form .seg { margin-bottom: 8px; }
+.entry-form [hidden] { display: none !important; }
+.entry-form .error:empty { display: none; }
+.entry-form .actions { margin-top: 12px; }
+.entry-more { margin: 10px 0; }
+.entry-more > summary { cursor: pointer; min-height: 28px; }
+.guard-box ul { margin: 6px 0 10px; }
+.pending-guard .banner { margin-bottom: 10px; }

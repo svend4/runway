@@ -1,0 +1,104 @@
+{
+  "slug": "spreadsheets",
+  "name": "Таблицы: Excel, Google Sheets, Tiller и шаблоны cash flow",
+  "category": "spreadsheet",
+  "checked": "2026-10-04",
+  "price": "Google Sheets: бесплатно для личного использования (workspace.google.com/products/sheets, 2026-10-04). Excel: часть Microsoft 365, цена не подтверждена первичным источником. Tiller: $99/год после 30 дней триала (tiller.com/pricing, 2026-10-04); повышение с $79 действует с 2026-08-01 для продлений с августа (community.tiller.com, пост от 2026-06-17); месячного тарифа нет, по FAQ только годовой (прежнее «$12.95/мес» не подтверждено и снято); банки только США (tiller.com/faqs). Шаблоны 13-week и bills: от бесплатных (Numeric, Digital Adaption) до платных на Gumroad/LiveFlow.",
+  "status_note": "Tiller жив и обновляется: листинг Tiller Money Feeds в Google Workspace Marketplace обновлён 2026-09-21, «134 000+» по данным листинга (метрика users или reviews не ясна, не подтверждено); Plaid добавлен как второй агрегатор к Yodlee (пост 2026-05-21); финансируется подписками (заявление компании). Money in Excel (Microsoft) закрыт 2023-06-30. Шаблон Tiller Daily Projected Balances датирован 2018-04-01, актуальность не подтверждена.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Прогноз строится вручную: остаток = прошлый + приходы - расходы (tiller.com/cash-flow-planning-spreadsheets). Шаблон Tiller 2018 даёт дневной прогноз до года по фиксированным ежемесячным и годовым статьям, но стартовый остаток вводится вручную и переменные расходы не учитываются. Foundation-шаблон Tiller прогноза не содержит."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Штатного what-if покупки на траектории нет; community-шаблон Tiller Cash Flow Forecast даёт переключаемые «события жизни» на горизонте лет, но не покупку на дату. Excel даёт Scenarios (до 32 значений), Data Tables (не более 2 переменных), Goal Seek (1 переменная) по документации Microsoft; на практике (вывод) пользователь вставляет строку покупки и смотрит минимум остатка вручную."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "13-week шаблоны (Numeric) показывают недельные столбцы и строку минимального остатка, подсвечивая провальные недели. Community-шаблон Tiller для Excel (Expense Setup, Expense Transactions, Override, Calendar) генерирует будущие даты повторов динамическими массивами; пользователи сообщали #VALUE! на LAMBDA. Суммы 'нужно к волне' нет (вывод)."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "Готовые шаблоны sinking funds (цель, ежемесячный взнос, ожидаемая дата готовности, до 12 корзин в типичных продажных шаблонах) и Yearly Budget в Tiller; расчёт взноса и недофинансирования делается формулами пользователя, автоматизма нет."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "Шаблоны для фрилансеров (например SpreadsheetPoint: Income Log + Tax Tracker) считают квартальную оценку налога по введённым пользователем ставкам; отложенная сумма при поступлении и налоговые правила по датам не подтверждены. Не консультация."
+    },
+    "multi_currency": {
+      "level": "partial",
+      "note": "Google Sheets: GOOGLEFINANCE('CURRENCY:USDEUR') с задержкой до 20 минут, есть выборка по датам, но не все пары. Excel: тип данных Currencies только для Microsoft 365, данные 'as-is'. Курса на каждую операцию как сущности нет (вывод); у Tiller мультивалютность не подтверждена."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "Проверенный шаблон фрилансера (SpreadsheetPoint) ведёт инвойсы со статусами и разделяет Amount Invoiced и Amount Received, но не поддерживает почасовые ставки и несколько валют. Ставки и часы можно построить формулами самостоятельно (вывод)."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "Локальный файл .xlsx не требует облака и агрегаторов (вывод); Google Sheets хранит данные в облаке Google; Tiller требует банковских агрегаторов Plaid/Yodlee для автофидов, но имеет CSV importer и ручные счета; заявляет, что не продаёт данные. Self-host отсутствует."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Sheets скачивается в XLSX, PDF, CSV, TSV, ODS, HTML (по вторичным источникам; страница support.google.com/docs/answer/49114 перечня не даёт), открывает XLS, XLSX, CSV, ODS, TSV; есть REST Sheets API. Tiller имеет CSV importer для неподдерживаемых банков. Транзакции Tiller лежат в плоской таблице, lock-in минимален."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Gemini в Google Sheets (формулы, анализ, с апреля 2026 сборка таблиц) требует платный план: Workspace с Gemini или Google AI Pro/Ultra; для бесплатного личного аккаунта недоступен (support.google.com/docs/answer/14356410, workspaceupdates 2026-04). У Excel есть Copilot (Microsoft 365, по вторичным источникам, не подтверждено первичным). Ответы LLM не привязаны к детерминированному движку прогноза (вывод)."
+    },
+    "openness": {
+      "level": "partial",
+      "note": "Формулы, структура и расширения (Apps Script, надстройки, LAMBDA) открыты пользователю, API Sheets публичен; сами Excel, Sheets и Tiller закрытые продукты, у Tiller шаблоны официальные и community."
+    }
+  },
+  "borrow": [
+    "Строка минимального остатка (min cash) на счёт и алерт, когда проекция опускается ниже порога",
+    "Вкладка Variance: backtest прогноза против факта по периодам с метрикой точности",
+    "Таблица Override: исключения и ручные правки отдельных вхождений правила повтора (EXDATE-подобно) без изменения самого правила",
+    "Автосопоставление плановой операции с фактической транзакцией по тегу или правилу (Expense Tags в community-шаблоне Tiller)",
+    "Сценарии как набор переключаемых событий (activate/deactivate) без лимита Excel в 32 значения",
+    "Снимки остатков (Balance History) как точки сверки и начальные остатки при импорте",
+    "Колонки происхождения записи (Source, Import Tag, Categorized By) как provenance каждой записи: ручная, импорт, правило",
+    "Мастер миграции из таблиц: распознавание типа листа (журнал, bills, 13-week сетка, категория x месяц, sinking funds, Income Log), un-pivot сеток в плановые операции с date_precision=week, идемпотентность по Transaction ID или хэшу, сухой прогон с отчётом распознано/пропущено",
+    "Round-trip: полный экспорт в CSV/XLSX с таблицей прогноза по датам, чтобы пользователю можно было проверить расчёт в привычной таблице"
+  ],
+  "avoid": [
+    "Хранить правила повторов как формулы EDATE/LAMBDA вместо данных с тестами",
+    "Обязательный ручной Fill (Excel-версия Tiller) и привязка к одному агрегатору: Tiller не поддерживает банки ЕС/UK, поддержка Канады снята в 2024-03, Money in Excel закрыт",
+    "Прогноз без переменных расходов (шаблон Tiller 2018 их не учитывает)",
+    "Курс на сегодня вместо курса на дату операции: GOOGLEFINANCE даёт текущий курс с задержкой, воспроизводимости нет (вывод)",
+    "Смешение данных и логики в ячейках без аудита: по исследованиям Panko ошибки в таблицах распространены (arXiv 0802.3457)"
+  ],
+  "sources": [
+    "https://tiller.com/pricing/",
+    "https://community.tiller.com/t/update-to-tillers-annual-price-starting-in-august-2026/34853",
+    "https://workspace.google.com/marketplace/app/tiller_money_feeds/417666986289",
+    "https://tiller.com/",
+    "https://tiller.com/faqs/",
+    "https://tiller.com/bank-connections-plaid-yodlee-data-cleanup/",
+    "https://tiller.com/cash-flow-planning-spreadsheets",
+    "https://tiller.com/blog-2018-3-31-visualize-your-daily-projected-balances-in-a-google-sheet/",
+    "https://tiller.com/community-solutions/cash-flow-forecast-spreadsheet/",
+    "https://help.tiller.com/en/articles/1589064-what-happens-after-i-cancel-my-tiller-subscription",
+    "https://support.google.com/docs/answer/14356410",
+    "https://workspaceupdates.googleblog.com/2026/04/build-and-edit-complex-spreadsheets-with-Gemini-in-Google-Sheets.html",
+    "https://help.tiller.com/en/articles/432681-transactions-sheet-columns",
+    "https://help.tiller.com/en/articles/3250724-what-is-the-tiller-foundation-template",
+    "https://help.tiller.com/en/articles/6025610-using-the-tiller-foundation-template-for-microsoft-excel",
+    "https://help.tiller.com/en/articles/432693-tiller-supported-financial-institutions-and-accounts",
+    "https://community.tiller.com/t/expense-forecasting-and-seeing-upcoming-expenses-on-a-calendar-updated-4-15-24/25118",
+    "https://machow2.com/tiller-review/",
+    "https://www.numeric.io/template/13-week-cash-flow-template",
+    "https://support.microsoft.com/en-us/office/introduction-to-what-if-analysis-22bffa5f-e891-4acc-bf7a-e4645c446fb4",
+    "https://support.microsoft.com/en-us/Excel/get-a-currency-exchange-rate",
+    "https://support.microsoft.com/en-US/Excel/end-of-support-for-money-in-excel-wolfram-data-types-and-partner-offers",
+    "https://support.google.com/docs/answer/3093281",
+    "https://support.google.com/drive/answer/37603",
+    "https://support.google.com/docs/answer/49114",
+    "https://workspace.google.com/products/sheets/",
+    "https://developers.google.com/workspace/sheets/api/guides/concepts",
+    "https://spreadsheetpoint.com/?p=25094",
+    "https://spreadsheetpoint.com/convert-currency-google-sheets/",
+    "https://arxiv.org/abs/0802.3457"
+  ]
+}

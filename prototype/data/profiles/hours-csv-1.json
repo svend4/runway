@@ -1,0 +1,11 @@
+{
+  "profile_id": "hours-csv/1",
+  "v": 1,
+  "kind": "hours",
+  "encoding": "utf-8",
+  "delimiter": ",",
+  "skip": 0,
+  "date": { "col": "date", "fmt": "YYYY-MM-DD" },
+  "hours": { "col": "hours", "unit": "hours", "decimal": "." },
+  "stream": { "col": "stream" }
+}

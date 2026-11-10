@@ -1,0 +1,22 @@
+/* css/import.css — пакет FP-06: мастер импорта CSV и hledger. Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов (CSP style-src 'self').
+   Смысл не передаётся только цветом: шаг отмечен словами «Шаг N», отказ — текстом в плашке, решение по двойнику — подписью кнопки. */
+
+.import-wizard .import-tabs { margin: 8px 0 12px; }
+.import-wizard .import-steps { list-style: none; display: flex; flex-wrap: wrap; gap: 6px; padding: 0; margin: 0 0 12px; }
+.import-wizard .import-steps li { padding: 2px 10px; border: 1px solid var(--border); border-radius: 999px; font-size: 0.9rem; color: var(--muted); }
+.import-wizard .import-steps li.now { border-color: var(--accent); color: var(--text); font-weight: 600; }
+.import-wizard .import-steps li.past::before { content: "\2713\00a0"; }
+.import-wizard .import-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: flex-end; }
+.import-wizard .import-row .field { flex: 1 1 200px; }
+.import-wizard select, .import-wizard textarea { max-width: 100%; }
+.import-wizard textarea { width: 100%; min-height: 4.5em; padding: 6px 10px; border: 1px solid var(--control-border); border-radius: 8px; background: var(--surface); font: inherit; color: inherit; }
+.import-wizard input[type="file"] { max-width: 100%; }
+.import-wizard .import-rep-line { font-size: 1.15rem; font-weight: 600; margin: 4px 0; }
+.import-wizard .import-desc { overflow-wrap: anywhere; max-width: 28em; }
+.import-wizard .import-sample td { white-space: nowrap; max-width: 18em; overflow: hidden; text-overflow: ellipsis; }
+.import-wizard .import-unsupported { margin: 6px 0 12px; padding-left: 1.2em; }
+.import-wizard details { margin: 8px 0; }
+.import-wizard details > summary { cursor: pointer; min-height: 28px; font-weight: 600; }
+.import-wizard .actions { margin-top: 12px; }
+.import-wizard button:disabled { opacity: 0.55; cursor: not-allowed; }
+.import-batches .import-batch-id { overflow-wrap: anywhere; font-family: ui-monospace, Consolas, monospace; font-size: 0.9em; }

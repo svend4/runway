@@ -1,0 +1,14 @@
+/* css/reserveui.css — пакет FP-15: карточки резервов, срок годности правил и диалог «Как посчитано» на экране «Резервы».
+   Только отступы и границы на токенах style.css (светлая и тёмная темы наследуются), своих цветов нет. Смысл не передаётся цветом: состояние правила — слова,
+   предупреждение — текст в плашке с кнопкой. Без внешних адресов и шрифтов (CSP style-src 'self'). */
+
+.fp15-card h3 { margin-top: 0; }
+.fp15-reserve { margin-bottom: 14px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+.fp15-reserve:last-of-type { margin-bottom: 0; padding-bottom: 0; border-bottom: 0; }
+.fp15-reserve h4 { margin: 0 0 6px; }
+.fp15-flag { margin: 8px 0; }
+.fp15-flag .row { margin-top: 6px; }
+.fp15-rule { margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.fp15-rule .banner { margin: 6px 0; }
+.fp15-alloc { margin: 8px 0; padding: 6px 10px; border: 1px dashed var(--border); border-radius: 8px; }
+.fp15-alloc h4 { margin: 0 0 4px; }

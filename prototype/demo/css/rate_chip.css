@@ -1,0 +1,10 @@
+/* css/rate_chip.css — пакет FP-16: подпись курса и его возраста у пересчитанной суммы.
+   Только отступы, размер и границы на токенах style.css (светлая и тёмная темы наследуются), своих цветов нет. Смысл не передаётся цветом: устаревший курс
+   отмечен словами «курс устарел» в тексте подписи, класс rate-stale лишь добавляет пунктирную границу. Без внешних адресов и шрифтов (CSP style-src 'self'). */
+
+.rate-chip { display: block; margin-top: 2px; font-size: 0.85em; color: var(--muted); font-variant-numeric: tabular-nums; }
+.rate-chip.rate-stale { padding-left: 6px; border-left: 2px dashed var(--border); }
+.rate-note { margin: 8px 0 0; }
+.rate-sigs { margin: 6px 0 0; padding: 0; list-style: none; }
+.rate-sigs li { margin: 2px 0; color: var(--muted); font-size: 0.9em; }
+.rate-sigs li.rate-stale { padding-left: 6px; border-left: 2px dashed var(--border); }

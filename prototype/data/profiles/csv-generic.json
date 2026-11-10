@@ -1,0 +1,12 @@
+{
+  "profile_id": "csv-generic",
+  "v": 1,
+  "encoding": "utf-8",
+  "delimiter": ",",
+  "skip": 0,
+  "date": { "col": "Date", "fmt": "YYYY-MM-DD" },
+  "amount": { "mode": "signed", "col": "Amount", "decimal": ".", "thousands": "," },
+  "currency": { "col": "Currency" },
+  "desc": { "cols": ["Description"] },
+  "rules": []
+}

@@ -1,0 +1,118 @@
+{
+  "slug": "firefly-iii",
+  "name": "Firefly III",
+  "category": "open-source",
+  "checked": "2026-10-04",
+  "price": "Бесплатно, лицензия AGPL-3.0 (github.com/firefly-iii/firefly-iii, 2026-10-04); платных тарифов нет, официального облака нет (README проекта: сервис не предлагается). Managed-хостинг только у третьих лиц, например DINAO от 9,90 EUR/мес (1 vCPU, 2 ГБ RAM; старшие планы до 79,90 EUR) (dinao.com/en/conteneur/firefly-iii, 2026-10-04). Банковская синхронизация — сторонние провайдеры со своими условиями (цены не подтверждены).",
+  "status_note": "Жив и активен: последний стабильный релиз v6.7.7 (на странице релиза 03 окт, в changelog 2026-10-04 — источники расходятся на день), до него v6.7.6 (28.09.2026), v6.7.5, v6.7.4, v6.7.3 (18.09.2026) — релизы каждые несколько дней, в основном багфиксы. Один основной мейнтейнер (James Cole), ~24,8 тыс. звёзд, ~159 открытых issues, PHP >= 8.5 (с v6.5.0), донаты (Patreon, GitHub Sponsors, Ko-fi, Liberapay). Заметные версии (по changelog): v6.5.0 (2026-02-20) — то же, что 6.4.23, но только на PHP 8.5+; v6.6.0/6.6.1 (2026-04-19) — инвалидированы все OAuth-токены и клиенты; v6.7.1 (2026-09-15, v6.7.0 заменён им) — переход Twig на Blade, новые формы транзакций, expression engine выключен по умолчанию, в известных проблемах — юзабилити нового макета. Позиция проекта: «No AI, no cloud», прогноз и планирование заявлены как вне целей.",
+  "support": {
+    "forecast_by_date": {
+      "level": "none",
+      "note": "Docs «Missing features» прямо отказывают в прогнозе и «взгляде в будущее»; запросы #1544 (2018), #1795 (2018), #3361 (2020) закрыты без реализации, Discussion #8811 (2024–2026) открыта без ответа мейнтейнера. Внешние обходы: сторонний read-only ff3e (11 звёзд, проецирует recurring и сверяет с фактом), скрипты через API, cron с --date; ежедневной проекции остатка в ядре нет."
+    },
+    "can_i_afford": {
+      "level": "none",
+      "note": "What-if и метрики самой узкой точки в docs нет, функция исключена вместе с прогнозом. Обход (вывод): вручную внести гипотетическую будущую операцию и смотреть график — так делал автор запроса #1544."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Recurring по cron создаёт реальные транзакции в срок (день/неделя/день месяца/n-й день недели/год, skip, откат на короткий месяц, 4 варианта для выходных), без динамических сумм и split; subscriptions хранят мин./макс. сумму и ожидаемую дату. Страница recurring в исходниках выводит список будущих вхождений (с пометкой «fired»), subscriptions показываются на главной как ожидаемые траты; свёртки по волнам и календаря в docs нет (не подтверждено)."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "Piggy banks — метка внутри asset-счёта (с v6.2.17 возможна привязка к нескольким счетам): баланс счёта не меняется, пополнение кнопками +/- или привязкой перевода. В модели и API есть start_date, target_date, left_to_save и save_per_month (по исходникам PiggyBank.php/PiggyBankTransformer.php; в docs не описаны), т.е. расчёт «сколько откладывать в месяц» есть, но автоматических регулярных взносов и учёта годовых счетов как графика нет (годовые счета можно вести как subscriptions)."
+    },
+    "tax_envelope": {
+      "level": "none",
+      "note": "Налоговых правил и откладывания налога при поступлении дохода нет; rules умеют менять поля и добавлять в piggy bank только у переводов, создавать транзакции не умеют (для этого — webhooks наружу). Есть лишь отчёт expense/revenue для сопоставления налоговых платежей и возвратов."
+    },
+    "multi_currency": {
+      "level": "full",
+      "note": "Валюта у каждого asset-счёта, при расхождении вводятся обе суммы (foreign amount), у каждой административной единицы есть primary currency, графики и API отдают пересчёт в primary (pc_*). Ограничения по docs: курсы вручную или из Azure-хранилища проекта, только для встроенных валют, исторические не скачиваются; по умолчанию курс 1,0."
+    },
+    "hourly_income": {
+      "level": "none",
+      "note": "Docs «Missing features»: бизнес-учёт, payroll и инвойсы не в приоритете; ставок, часов и учёта нерегулярного дохода в изученных страницах не найдено."
+    },
+    "privacy_local_first": {
+      "level": "full",
+      "note": "Self-host (Docker, MySQL/MariaDB или PostgreSQL), данные в вашей БД, по docs не обращается к внешним серверам без явного разрешения (курсы, проверка обновлений через GitHub, агрегаторы — по включению). E2E-шифрования и офлайн-режима в docs не найдено; нужен собственный сервер и cron."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Отдельное приложение Data Importer: CSV, CAMT.052/053, провайдеры GoCardless (docs: сворачивает продукт), Spectre, Enable Banking, SimpleFIN, FinTS, Lunch Flow и др.; REST JSON API с OAuth2 и personal access tokens; экспорт в CSV (транзакции, счета, бюджеты, recurring, правила, piggy banks), но импортировать обратно нельзя и бэкапом это не считается."
+    },
+    "ai_assistant": {
+      "level": "none",
+      "note": "Встроенного ассистента нет; README декларирует «No AI, no cloud»; отказ от AI-контента в документации (не подтверждено). Сторонние AI-обвязки поверх API по выдаче поиска существуют, но не проверялись (не подтверждено)."
+    },
+    "openness": {
+      "level": "full",
+      "note": "AGPL-3.0 (копилефт: переносить код в закрытый продукт нельзя — вывод), документированный Swagger-API с diff-файлами версий с v6.4.0, webhooks с подписью HMAC-SHA256, expression engine на Symfony ExpressionLanguage в действиях правил, экосистема сторонних клиентов (Waterfly III) и импортёров."
+    }
+  },
+  "borrow": [
+    "Хранить повторения как правила и порождать виртуальные плановые события в памяти, а не материализовать транзакции по cron в срок: Firefly так не умеет, и пользователи годами просят прогноз и костыльно создают операции заранее через cron --date.",
+    "Статусная машина планового вхождения expected → matched → overdue с авто-сопоставлением факта по сумме и описанию (идея ff3e и привязки subscriptions через правило).",
+    "У плановой операции поля amount_min, amount_max и expected (как min/max в subscriptions): центр для базового прогноза, коридор для сценариев неопределённости.",
+    "Варианты выходных для повторения: skip / предыдущий рабочий / следующий рабочий / как есть, откат на последний день короткого месяца, skip every X, плюс календарь праздников как данные.",
+    "Мультивалютная операция хранит обе суммы (курс операции выводится), а любой API-ответ отдаёт нативную и пересчитанную в базовую валюту суммы (аналог pc_*).",
+    "Аллокации в духе piggy banks как метка без движения денег: «безопасно потратить» вычитает аллокации, баланс счёта остаётся фактическим.",
+    "Правила (триггеры + действия, strict/non-strict, флаги stop processing) с обязательным dry-run предпросмотром и применением к уже введённым операциям.",
+    "Webhooks с подписью t=<timestamp>,v1=<HMAC-SHA256> и версионированием схемы API; OpenAPI/Swagger с diff-файлами между релизами.",
+    "Импортёр банков как отдельный процесс: ключи агрегаторов не попадают в ядро (так сделано в Data Importer).",
+    "Экспорт, который Runway сам читает обратно без потерь, и явное предупреждение про бэкап.",
+    "История запросов на прогноз (#1544, #1795, #3361, #8811) как доказательство спроса на Q1 для обоснования продукта."
+  ],
+  "avoid": [
+    "Исключать прогноз из целей продукта и предлагать «электронные таблицы лучше».",
+    "Требовать cron/самостоятельную настройку для базовых функций; создавать авто-бюджеты только в момент запуска без догоняющего пересчёта.",
+    "Recurring без динамических сумм и split-операций.",
+    "Односторонний экспорт, который нельзя импортировать обратно.",
+    "Зависеть от одного агрегатора банковских данных (у Firefly GoCardless сворачивает продукт).",
+    "Месяц строго с 1-го по последнее число без календаря расчётных периодов и 4-недельных циклов.",
+    "Навязывать новичку двойную запись и типы счетов как обязательную пользовательскую модель (вывод).",
+    "Мультипользовательский режим с полностью изолированными данными, если нужна семейная работа."
+  ],
+  "sources": [
+    "https://www.firefly-iii.org/",
+    "https://docs.firefly-iii.org/",
+    "https://github.com/firefly-iii/firefly-iii",
+    "https://github.com/firefly-iii/firefly-iii/releases",
+    "https://raw.githubusercontent.com/firefly-iii/firefly-iii/main/changelog.md",
+    "https://docs.firefly-iii.org/explanation/more-information/what-its-not/",
+    "https://docs.firefly-iii.org/explanation/firefly-iii/about/introduction/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/finances/recurring/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/finances/subscriptions/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/finances/budgets/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/finances/piggy-banks/",
+    "https://docs.firefly-iii.org/explanation/financial-concepts/piggy-banks/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/features/rules/",
+    "https://docs.firefly-iii.org/references/firefly-iii/rule-expressions/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/features/currencies/",
+    "https://docs.firefly-iii.org/explanation/financial-concepts/exchange-rates/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/finances/reports/",
+    "https://docs.firefly-iii.org/references/firefly-iii/api/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/features/api/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/features/webhooks/",
+    "https://docs.firefly-iii.org/tutorials/firefly-iii/exporting-data/",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/installation/docker/",
+    "https://docs.firefly-iii.org/how-to/data-importer/installation/docker/",
+    "https://docs.firefly-iii.org/tutorials/data-importer/gocardless/",
+    "https://docs.firefly-iii.org/references/data-importer/third-party-tools/",
+    "https://github.com/firefly-iii/data-importer",
+    "https://github.com/orgs/firefly-iii/discussions/8759",
+    "https://github.com/orgs/firefly-iii/discussions/8811",
+    "https://github.com/firefly-iii/firefly-iii/issues/1544",
+    "https://github.com/firefly-iii/firefly-iii/issues/1795",
+    "https://github.com/firefly-iii/firefly-iii/issues/3361",
+    "https://github.com/4242labs/ff3e",
+    "https://selfhosting.sh/best/personal-finance/",
+    "https://beancount.io/blog/2026/07/26/firefly-iii-vs-actual-budget-self-hosted-open-source-budgeting-guide",
+    "https://raw.githubusercontent.com/firefly-iii/firefly-iii/main/app/Models/PiggyBank.php",
+    "https://raw.githubusercontent.com/firefly-iii/firefly-iii/main/app/Transformers/PiggyBankTransformer.php",
+    "https://docs.firefly-iii.org/how-to/firefly-iii/features/multi-user/",
+    "https://dinao.com/en/conteneur/firefly-iii",
+    "https://f-droid.org/packages/com.dreautall.waterflyiii/"
+  ]
+}

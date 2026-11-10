@@ -1,0 +1,104 @@
+{
+  "slug": "freelancer-tax-tools",
+  "name": "Налоги фрилансеров: Profit First, tax jar, Hurdlr, QuickBooks Solopreneur, Found, Keeper, Quipu, Holded, Declarando, Contasimple",
+  "category": "freelancer-tax",
+  "checked": "2026-10-04",
+  "price": "Hurdlr: Free; Premium $9.99/мес или $100/год; Pro $200/год, только годовая оплата (frontdeskreview.com; дата обзора в источниках расходится: июнь 2026 / 2026-09-27; на hurdlr.com/pricing суммы не показаны). QuickBooks Solopreneur: $20/мес или $215/год (quickbooks.intuit.com, 2026-10-04); страница продукта: Free; Lite $10 первые 3 мес, затем $20/мес; Simple Start $19, затем $38/мес — вероятно, «$20» = Lite (вывод). Found: Free; Plus $35/мес ($315/год); Pro $80/мес ($720/год) (found.com/pricing, 2026-10-04). Wave: Free; Pro $19/мес (waveapps.com/pricing, 2026-10-04). Keeper: Standard $199/год; Premium $399/год (с квартальными платежами); Business $1199/год; только учёт $20/мес (keepertax.com/pricing, 2026-10-04). Quipu: €17 / €30 / €59 в мес, НДС не указан, промо -50% на 3 мес. (getquipu.com/es/servicios-profesionales, 2026-10-04). Holded: (не подтверждено) — toolradar.com даёт €7.50 / €14.50 / €29.50 в мес, guiafiscal.es (партнёрская) пишет €15–199 (5 тарифов), модели 303/130 с Basic €29; официальная страница не открылась. Declarando (+ IVA): Verifactu Plus €9.90; Básico €29.90 / €49.90; Pro €39.90 / €69.90; Premium €49.90 / €99.90 в мес — две цены на тариф, какая годовая, страница не поясняет (declarando.es/precios, 2026-10-04; не подтверждено). Contasimple: Free (12 док./год; модели 303/130 на платных, на Free 30-дневный доступ); €10.95 и €15.95 в мес при годовой оплате, €12.95 и €19.95 поквартально; без IVA (contasimple.com/precios, 2026-10-04). Billin переименован в TS Facturas (TeamSystem, billin.net): €6.6 / €14 / €23 в мес при годовой оплате, €8 / €17 / €28 помесячно (billin.net/precios, 2026-10-04). Profit First и tax jar — методы, не продукты.",
+  "status_note": "Все продукты живы на 2026-10-04 по найденным страницам. QuickBooks Self-Employed: Intuit пишет, что действующие подписчики могут остаться или мигрировать на Solopreneur; независимый обзор (2025-05-28) называет Self-Employed закрытым и датирует Solopreneur февралём 2024. Verifactu перенесён на 2027-01-01 (юрлица на налоге на прибыль) и 2027-07-01 (остальные, включая autónomos) по Grant Thornton от 2025-12-03. Billin переименован в TS Facturas после перехода в TeamSystem (billin.net, 2026-10-04). Holded не подтверждён первичной страницей, цены в источниках противоречат друг другу. Keeper подтверждён страницей цен (2026-10-04). Оценка квартальных налогов подтверждена для QuickBooks Self-Employed, для Solopreneur — нет (не подтверждено). Налоговые правила приведены как утверждения источников, не как консультация.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Прогнозируется налоговое обязательство, а не остаток по датам: Hurdlr считает квартальный платёж по проекции дохода текущего года, QuickBooks Self-Employed пересчитывает оценку после каждой категоризации (для Solopreneur не подтверждено). Quipu Premium заявляет treasury-панель и «escenarios y previsiones ilimitadas» (заявление тарифной страницы, поведение не проверено)."
+    },
+    "can_i_afford": {
+      "level": "claimed",
+      "note": "Declarando заявляет, что покажет, как покупка или инвестиция повлияет на налог/декларацию (главная страница); это влияние на налог, а не на самую узкую точку остатка, и проверить нельзя без регистрации."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Налоги ведутся как датированные квартальные обязательства: Испания 1–20 апреля/июля/октября и 1–30 января, США 15 апреля, 15 июня, 15 сентября, 15 января (калькулятор Keeper); у Hurdlr есть напоминания об оплате. Общей картины всех платежей и суммы «к волне» нет."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "Конверты Tax и Profit в Profit First и «Taxes Pocket» у Found работают как резервы под налог; амортизации годовых неналоговых трат в найденных источниках нет."
+    },
+    "tax_envelope": {
+      "level": "full",
+      "note": "Found автоматически откладывает налог в Taxes Pocket на всех планах (квартальные федеральные платежи из приложения — только Plus/Pro); Profit First задаёт процент Tax на каждое поступление; Contasimple (платные планы) и Quipu (по стороннему сравнению) называют модели 303 и 130, Declarando заявляет подачу квартальных налогов (модели не названы); Hurdlr и QuickBooks только оценивают налог и не переводят деньги, Keeper Premium включает квартальные платежи."
+    },
+    "multi_currency": {
+      "level": "unknown",
+      "note": "Мультивалютность не упомянута ни на одной проверенной странице (Found — только USD, Hurdlr, Quipu, Declarando, Contasimple, Solopreneur, Wave); отсутствие упоминания не доказывает отсутствие функции. Цены Wave даны в USD и CAD, испанские сервисы работают в EUR."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "Hurdlr Pro, QuickBooks Solopreneur, Wave и Quipu дают счета и учёт дохода; почасовая ставка и норма часов в источниках не подтверждены."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "Данные в облаке вендора, self-host не найден (вывод). Hurdlr Free (без банковской синхронизации; ввод вручную) и Contasimple Free позволяют вводить данные вручную; Found — банковский продукт, Quipu Solution+ подключает банки; политики приватности не изучались."
+    },
+    "import_export": {
+      "level": "partial",
+      "note": "Quipu Solution и выше заявляет интеграции и API; банковская синхронизация у Hurdlr Premium, Quipu Solution, Wave Pro. Форматы экспорта и CSV/OFX-импорт в источниках не раскрыты. Contasimple: экспорт в Excel (на Free ограничен 12 месяцами) и формат a3ASESOR на всех планах."
+    },
+    "ai_assistant": {
+      "level": "claimed",
+      "note": "Quipu перечисляет «Genius AI» (Starter) и «Genius AI PRO» (Solution) в тарифах без описания; опирается ли он на детерминированный расчёт, неизвестно. Declarando даёт человека-«ментора», не AI."
+    },
+    "openness": {
+      "level": "none",
+      "note": "Hurdlr, QuickBooks, Found, Keeper, Wave, Quipu, Holded, Declarando, Contasimple — коммерческие закрытые сервисы (вывод, лицензии не искались); открыт только публикуемый метод Profit First как идея."
+    }
+  },
+  "borrow": [
+    "Налоговый конверт при поступлении: событие дохода порождает виртуальный перевод income × rate_bp / 10000 в конверт, а не расход; видно как «зарезервировано» и вычитается из safe-to-spend (по образцу Found Taxes Pocket и Profit First).",
+    "Налоговые правила как версионируемые данные пользователя: TaxRule{kind, rate_bp, valid_from, valid_to, due_windows[]}; без зашитых ставок и годов; везде оговорка «расчёт по введённым правилам, не консультация».",
+    "Два режима правил: FLAT_ON_INCOME (Profit First, tax jar) и CUM_PROFIT_ADVANCE по накопленной с начала года прибыли (формула 130: max(0, rate × прибыль_YTD − прошлые платежи − удержания)); пересчёт после каждой операции, как у QuickBooks и Hurdlr.",
+    "IVA как обязательство, а не доход: счёт делится на нетто и IVA-долг; vat_due = собрано − уплачено за квартал, отрицательный итог переносится на следующий.",
+    "Налоговый платёж как событие в окне дат (1–20 апр/июл/окт, 1–30 янв): попадает в прогноз остатка и в «волну» квартала; сумма «к волне» складывается с остальными платежами.",
+    "Показ диапазона, а не одной цифры: низ/база/верх сценария дохода для налога; расчёт на целых minor units с заданным правилом округления."
+  ],
+  "avoid": [
+    "Зашитая в код ставка, год или юрисдикция; налоговая логика без дат действия правил.",
+    "Резерв без связи с прогнозом баланса: процент откладывается, но не вычитается из доступных денег и не виден рядом с другими платежами.",
+    "Гарантии экономии налога и «рекомендации по оптимизации» (маркетинг Declarando) — это налоговые советы, которые Runway давать не должен.",
+    "Только федеральный уровень без явной пометки о пробелах (QuickBooks не считает штат); скрытые допущения в оценке.",
+    "Нерегулярные налоги и платежи, разнесённые по разным инструментам (IVA отдельно от IRPF), и float для денег."
+  ],
+  "sources": [
+    "https://university.hurdlr.com/en/articles/1072702-how-are-my-taxes-calculated-by-hurdlr",
+    "https://university.hurdlr.com/en/articles/1773164-what-are-estimated-taxes-and-quarterly-payments-can-i-file-my-quarterly-taxes-through-hurdlr",
+    "https://university.hurdlr.com/en/articles/6476136-navigate-the-taxes-dashboard",
+    "https://www.hurdlr.com/pricing",
+    "https://frontdeskreview.com/software/mileage-tracking/hurdlr/",
+    "https://quickbooks.intuit.com/r/product-update/quickbooks-self-employed-vs-quickbooks-solopreneur",
+    "https://quickbooks.intuit.com/solopreneur/",
+    "https://quickbooks.intuit.com/community/getting-the-most-out-of-quickbooks-11/quick-answers-a-mini-guide-to-estimated-quarterly-taxes-287460",
+    "https://fitsmallbusiness.com/quickbooks-solopreneur-review/",
+    "https://found.com/pricing",
+    "https://www.keepertax.com/quarterly-tax-calculator/texas",
+    "https://www.waveapps.com/pricing",
+    "https://beancount.io/blog/2026/01/21/profit-first-method-complete-guide",
+    "https://mikemichalowicz.com/mastering-profit-first-master-your-percentage-allocations/",
+    "https://getquipu.com/es/servicios-profesionales",
+    "https://getquipu.com/ca/impostos-models-tributaris",
+    "https://getquipu.com/blog/declaracion-trimestral-impuestos-octubre/",
+    "https://getquipu.com/blog/que-modelos-debo-presentar-como-autonomo/",
+    "https://www.declarando.es/precios",
+    "https://www.declarando.es/",
+    "https://www.contasimple.com/precios",
+    "https://www.contasimple.com/",
+    "https://www.billeo.es/modelo-130",
+    "https://sede.agenciatributaria.gob.es/Sede/procedimientos/G601.shtml",
+    "https://blog.xolo.io/es/calendario-fiscal-autonomos-2026",
+    "https://taxdown.es/blog/como-rellenar-modelo-303",
+    "https://guiafiscal.es/comparativas/holded-vs-quipu/",
+    "https://guiafiscal.es/comparativas/quipu-vs-billin/",
+    "https://toolradar.com/tools/holded/pricing",
+    "https://www.grantthornton.es/en/insights/tax/verifactu-postpones-its-entry-into-force-to-2027/",
+    "https://www.keepertax.com/pricing",
+    "https://www.billin.net/",
+    "https://www.billin.net/precios/"
+  ]
+}

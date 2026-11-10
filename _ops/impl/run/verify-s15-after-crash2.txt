@@ -1,0 +1,5 @@
+tests/waves_card.test.mjs tests=22 pass=22 fail=0
+tests/ext_boot.test.mjs tests=6 pass=6 fail=0
+tests/wave1_integration.test.mjs tests=8 pass=8 fail=0
+tests/nav_focus.test.mjs tests=18 pass=18 fail=0
+DONE

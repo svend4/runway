@@ -1,0 +1,1751 @@
+{
+  "format": "runway-backtest-report/1",
+  "source": "tools/backtest_report.mjs на data/synthetic-journals; СИНТЕТИКА, не данные пользователей: гейт — демонстрация метрики, не свидетельство о качестве на реальных людях",
+  "synthetic": true,
+  "date": "2026-10-09",
+  "engine_version": "0.1.0",
+  "corpus_sha256": "ea13fa89715f600e06b8bab143b2903fdb75119151768e5549729664fefaa75d",
+  "params": {
+    "backtest.h_days": 30,
+    "backtest.min_window_days": 14,
+    "calib.min_origins": 3,
+    "wave.gap_days": 3,
+    "wave.max_span_days": 10
+  },
+  "backtest": {
+    "t0": "2026-03-01",
+    "h": 14
+  },
+  "n_journals": 22,
+  "corpora": {
+    "regular": {
+      "n_journals": 12,
+      "frr": {
+        "k": 1,
+        "n": 117,
+        "bp": 85
+      },
+      "cry_wolf": {
+        "k": 7,
+        "n": 18,
+        "bp": 3889
+      },
+      "gate": {
+        "pass": true,
+        "reasons": [],
+        "n_journals": 12,
+        "k1": 1,
+        "n1": 117,
+        "k2": 7,
+        "n2": 18,
+        "frr_bp": 85,
+        "cry_wolf_bp": 3889
+      },
+      "journals": [
+        {
+          "id": "reg01",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 11,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 3,
+            "n": 14
+          },
+          "mae_minor": 34908,
+          "bias_minor": 27701,
+          "skill_pm": 808,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -453,
+            "mae_bp": 454
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 3
+        },
+        {
+          "id": "reg02",
+          "n_origins": 15,
+          "frr": {
+            "k": 0,
+            "n": 5,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 1,
+            "n": 4,
+            "bp": 2500
+          },
+          "coverage": {
+            "k": 3,
+            "n": 15
+          },
+          "mae_minor": 166635,
+          "bias_minor": 47264,
+          "skill_pm": -187,
+          "min_error": {
+            "n": 15,
+            "mean_bp": 8118,
+            "mae_bp": 12306
+          },
+          "insufficient": 0,
+          "n_tight": 3,
+          "censored": 2
+        },
+        {
+          "id": "reg03",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 11,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 1,
+            "n": 14
+          },
+          "mae_minor": 201315,
+          "bias_minor": 46715,
+          "skill_pm": -349,
+          "min_error": {
+            "n": 14,
+            "mean_bp": 1460,
+            "mae_bp": 2477
+          },
+          "insufficient": 0,
+          "n_tight": 1,
+          "censored": 2
+        },
+        {
+          "id": "reg04",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 4,
+            "n": 14
+          },
+          "mae_minor": 70260,
+          "bias_minor": 63468,
+          "skill_pm": 622,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -701,
+            "mae_bp": 706
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg05",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 10,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 2,
+            "n": 2,
+            "bp": 10000
+          },
+          "coverage": {
+            "k": 0,
+            "n": 14
+          },
+          "mae_minor": 255072,
+          "bias_minor": 55240,
+          "skill_pm": -923,
+          "min_error": {
+            "n": 14,
+            "mean_bp": 49396,
+            "mae_bp": 50705
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg06",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 2,
+            "n": 14
+          },
+          "mae_minor": 63763,
+          "bias_minor": 55412,
+          "skill_pm": 701,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -593,
+            "mae_bp": 597
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg07",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 4,
+            "n": 14
+          },
+          "mae_minor": 68285,
+          "bias_minor": 31786,
+          "skill_pm": 634,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -322,
+            "mae_bp": 457
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg08",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 1,
+            "bp": 10000
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 8,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 4,
+            "n": 14
+          },
+          "mae_minor": 176078,
+          "bias_minor": 54877,
+          "skill_pm": -42,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -2088,
+            "mae_bp": 5170
+          },
+          "insufficient": 0,
+          "n_tight": 3,
+          "censored": 2
+        },
+        {
+          "id": "reg09",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 1,
+            "n": 14
+          },
+          "mae_minor": 115563,
+          "bias_minor": 23899,
+          "skill_pm": 468,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -297,
+            "mae_bp": 536
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg10",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 8,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 4,
+            "n": 4,
+            "bp": 10000
+          },
+          "coverage": {
+            "k": 4,
+            "n": 14
+          },
+          "mae_minor": 131842,
+          "bias_minor": 70174,
+          "skill_pm": 144,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -734,
+            "mae_bp": 1134
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg11",
+          "n_origins": 15,
+          "frr": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 4,
+            "n": 15
+          },
+          "mae_minor": 20692,
+          "bias_minor": 7460,
+          "skill_pm": 888,
+          "min_error": {
+            "n": 15,
+            "mean_bp": -284,
+            "mae_bp": 287
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "reg12",
+          "n_origins": 15,
+          "frr": {
+            "k": 0,
+            "n": 11,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "coverage": {
+            "k": 3,
+            "n": 15
+          },
+          "mae_minor": 138544,
+          "bias_minor": 53671,
+          "skill_pm": 230,
+          "min_error": {
+            "n": 15,
+            "mean_bp": 3470,
+            "mae_bp": 4999
+          },
+          "insufficient": 0,
+          "n_tight": 1,
+          "censored": 2
+        }
+      ]
+    },
+    "stress": {
+      "n_journals": 10,
+      "frr": {
+        "k": 7,
+        "n": 32,
+        "bp": 2188
+      },
+      "cry_wolf": {
+        "k": 3,
+        "n": 72,
+        "bp": 417
+      },
+      "gate": {
+        "pass": false,
+        "reasons": [
+          "frr_above_5pct"
+        ],
+        "n_journals": 10,
+        "k1": 7,
+        "n1": 32,
+        "k2": 3,
+        "n2": 72,
+        "frr_bp": 2188,
+        "cry_wolf_bp": 417
+      },
+      "journals": [
+        {
+          "id": "str01",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 11,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 2,
+            "n": 14
+          },
+          "mae_minor": 120038,
+          "bias_minor": 28666,
+          "skill_pm": 400,
+          "min_error": {
+            "n": 14,
+            "mean_bp": 465,
+            "mae_bp": 3814
+          },
+          "insufficient": 0,
+          "n_tight": 1,
+          "censored": 2
+        },
+        {
+          "id": "str02",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 1,
+            "bp": 0
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 11,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 2,
+            "n": 14
+          },
+          "mae_minor": 95503,
+          "bias_minor": -9238,
+          "skill_pm": 458,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -699,
+            "mae_bp": 1169
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "str03",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 5,
+            "bp": 2000
+          },
+          "cry_wolf": {
+            "k": 2,
+            "n": 7,
+            "bp": 2857
+          },
+          "coverage": {
+            "k": 1,
+            "n": 14
+          },
+          "mae_minor": 113453,
+          "bias_minor": 5361,
+          "skill_pm": 258,
+          "min_error": {
+            "n": 14,
+            "mean_bp": 8612,
+            "mae_bp": 10258
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "str04",
+          "n_origins": 14,
+          "frr": {
+            "k": 2,
+            "n": 7,
+            "bp": 2857
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 3,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 3,
+            "n": 14
+          },
+          "mae_minor": 134162,
+          "bias_minor": 9610,
+          "skill_pm": 337,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -3265,
+            "mae_bp": 4240
+          },
+          "insufficient": 0,
+          "n_tight": 2,
+          "censored": 2
+        },
+        {
+          "id": "str05",
+          "n_origins": 15,
+          "frr": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 12,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 2,
+            "n": 15
+          },
+          "mae_minor": 133285,
+          "bias_minor": 60239,
+          "skill_pm": 236,
+          "min_error": {
+            "n": 15,
+            "mean_bp": -4296,
+            "mae_bp": 4300
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "str06",
+          "n_origins": 14,
+          "frr": {
+            "k": 0,
+            "n": 0,
+            "bp": null
+          },
+          "cry_wolf": {
+            "k": 1,
+            "n": 11,
+            "bp": 909
+          },
+          "coverage": {
+            "k": 4,
+            "n": 14
+          },
+          "mae_minor": 51025,
+          "bias_minor": 21177,
+          "skill_pm": 704,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -1767,
+            "mae_bp": 5153
+          },
+          "insufficient": 0,
+          "n_tight": 1,
+          "censored": 2
+        },
+        {
+          "id": "str07",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 8,
+            "bp": 1250
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 1,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 1,
+            "n": 14
+          },
+          "mae_minor": 108515,
+          "bias_minor": -14404,
+          "skill_pm": 526,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -467,
+            "mae_bp": 654
+          },
+          "insufficient": 0,
+          "n_tight": 3,
+          "censored": 2
+        },
+        {
+          "id": "str08",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 2,
+            "bp": 5000
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 2,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 2,
+            "n": 14
+          },
+          "mae_minor": 106585,
+          "bias_minor": 27672,
+          "skill_pm": 277,
+          "min_error": {
+            "n": 14,
+            "mean_bp": 614,
+            "mae_bp": 5384
+          },
+          "insufficient": 0,
+          "n_tight": 8,
+          "censored": 2
+        },
+        {
+          "id": "str09",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 2,
+            "bp": 5000
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 10,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 2,
+            "n": 14
+          },
+          "mae_minor": 112040,
+          "bias_minor": 35064,
+          "skill_pm": 453,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -2051,
+            "mae_bp": 2129
+          },
+          "insufficient": 0,
+          "n_tight": 0,
+          "censored": 2
+        },
+        {
+          "id": "str10",
+          "n_origins": 14,
+          "frr": {
+            "k": 1,
+            "n": 7,
+            "bp": 1429
+          },
+          "cry_wolf": {
+            "k": 0,
+            "n": 4,
+            "bp": 0
+          },
+          "coverage": {
+            "k": 5,
+            "n": 14
+          },
+          "mae_minor": 66082,
+          "bias_minor": 31129,
+          "skill_pm": 610,
+          "min_error": {
+            "n": 14,
+            "mean_bp": -984,
+            "mae_bp": 985
+          },
+          "insufficient": 0,
+          "n_tight": 1,
+          "censored": 2
+        }
+      ]
+    }
+  },
+  "waves": {
+    "origin": "2026-06-01",
+    "horizon_days": 120,
+    "deltas": {
+      "gap_days": 1,
+      "max_span_days": 3
+    },
+    "corpora": {
+      "regular": {
+        "n_journals": 12,
+        "summary": {
+          "n_journals": 12,
+          "waves": 96,
+          "single": 48,
+          "single_share_bp": 5000,
+          "changed": {
+            "gap_days-1": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "gap_days+1": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "max_span_days-3": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "max_span_days+3": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            }
+          }
+        },
+        "journals": [
+          {
+            "id": "reg01",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg02",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3263,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg03",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg04",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3132,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg05",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg06",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3443,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg07",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg08",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3059,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg09",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg10",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg11",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "reg12",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3453,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          }
+        ]
+      },
+      "stress": {
+        "n_journals": 10,
+        "summary": {
+          "n_journals": 10,
+          "waves": 80,
+          "single": 40,
+          "single_share_bp": 5000,
+          "changed": {
+            "gap_days-1": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "gap_days+1": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "max_span_days-3": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            },
+            "max_span_days+3": {
+              "changed_waves": 0,
+              "changed_share_bp": 0
+            }
+          }
+        },
+        "journals": [
+          {
+            "id": "str01",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3134,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str02",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str03",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str04",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str05",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3268,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str06",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3289,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str07",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str08",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str09",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3402,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          },
+          {
+            "id": "str10",
+            "waves": 8,
+            "single": 4,
+            "single_share_bp": 5000,
+            "payments": 12,
+            "theta_minor": 3000,
+            "gap_days": 3,
+            "max_span_days": 10,
+            "sensitivity": {
+              "gap_days-1": {
+                "gap_days": 2,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "gap_days+1": {
+                "gap_days": 4,
+                "max_span_days": 10,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days-3": {
+                "gap_days": 3,
+                "max_span_days": 7,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              },
+              "max_span_days+3": {
+                "gap_days": 3,
+                "max_span_days": 13,
+                "waves": 8,
+                "delta_waves": 0,
+                "changed_waves": 0,
+                "changed_share_bp": 0
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "note": "Пороги FRR ≤ 5 %, cry-wolf ≤ 50 % и окна — гипотезы до замера на журналах добровольцев (C-055); чувствительность волн на синтетике не доказывает выбор параметров (REQ-188 ждёт ≥ 10 реальных журналов)."
+}

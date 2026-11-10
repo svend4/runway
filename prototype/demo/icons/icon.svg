@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Runway">
+  <rect width="512" height="512" rx="96" fill="#1f5fbf"/>
+  <path d="M96 344 L192 248 L272 296 L416 152" fill="none" stroke="#ffffff" stroke-width="40" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M104 416 H408" fill="none" stroke="#ffffff" stroke-width="24" stroke-linecap="round" stroke-dasharray="2 46"/>
+</svg>

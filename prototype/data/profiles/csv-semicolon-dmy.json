@@ -1,0 +1,12 @@
+{
+  "profile_id": "csv-semicolon-dmy",
+  "v": 1,
+  "encoding": "utf-8",
+  "delimiter": ";",
+  "skip": 0,
+  "date": { "col": "Date", "fmt": "DD/MM/YYYY" },
+  "amount": { "mode": "signed", "col": "Amount", "decimal": ",", "thousands": "." },
+  "currency": { "col": "Currency" },
+  "desc": { "cols": ["Description"] },
+  "rules": []
+}

@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <!-- TST-59: только свои файлы, без inline-скриптов и стилей, без внешних шрифтов и аналитики. Страница замера холодного старта открывает приложение во вложенном окне того же источника (frame-src 'self'); сети у неё нет (connect-src 'none'). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'none'; frame-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Runway — холодный старт</title>
+  <meta name="description" content="Замер времени от начала навигации до отрисовки «Обзора» при запуске Runway из кэша на этом устройстве. Расчёт по введённым данным и правилам, без аккаунта.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/probe.css">
+  <script type="module" src="coldstart_page.mjs"></script>
+</head>
+<body class="probe-page">
+  <a id="cs-skip" class="skip" href="#main">К содержимому / Skip to content</a>
+  <header id="cs-title-bar" class="top">
+    <div class="brand">
+      <h1>Runway — холодный старт / cold start</h1>
+      <p class="sub">Проверка на устройстве / Device check</p>
+    </div>
+    <div class="seg" role="group" aria-label="Язык / Language">
+      <button id="cs-lang-ru" type="button" lang="ru" aria-pressed="true">RU</button>
+      <button id="cs-lang-en" type="button" lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+  <div class="content">
+    <main id="main" tabindex="-1">
+      <p>Загрузка… / Loading…</p>
+      <noscript>
+        <p>Для замера нужен JavaScript: страница открывает приложение во вложенном окне и читает его время загрузки, ничего не отправляя.</p>
+        <p>The measurement needs JavaScript: the page opens the app in a nested frame and reads its load time, sending nothing anywhere.</p>
+      </noscript>
+    </main>
+    <div id="cs-frame-box" class="probe-frame-box"></div>
+  </div>
+</body>
+</html>

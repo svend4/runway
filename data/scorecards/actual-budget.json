@@ -1,0 +1,103 @@
+{
+  "slug": "actual-budget",
+  "name": "Actual Budget",
+  "category": "open-source",
+  "checked": "2026-10-04",
+  "price": "Приложение бесплатно (MIT). Self-host (Docker, CLI) бесплатно; managed-хостинг PikaPods/Fly.io — по docs «небольшая плата», часть идёт проекту, сумма не указана (не подтверждено). Bank sync — сторонние провайдеры; SimpleFIN примерно US$15/год только по независимому обзору getfinny.app (не подтверждено первоисточником). GoCardless не принимает новые аккаунты (docs bank-sync, 2026-10-04).",
+  "status_note": "Жив и активен: релиз 26.10.0 от 2026-10-02, до него 26.9.0 (2026-09-01), 26.8.1 (2026-08-07, хотфикс), 26.8.0 (2026-08-02), 26.7.0 (2026-07-02) — ежемесячные релизы с календарным версионированием. MIT, около 29,3 тыс. звёзд на GitHub. Волонтёрский проект («community driven»); основатель в 2025 заявил о временном отходе от руководства, команда продолжает (roadmap 2025); каналы финансирования не проверены. Balance Forecast, автоматизации бюджета, Monte Carlo (с 26.9.0, про пенсионные накопления) и Sankey остаются experimental.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Отчёт Balance Forecast (experimental): стартовый остаток из проведённых операций плюс симуляция вхождений расписаний, баланс по дням или месяцам, фильтры по счетам. Режим Tracking Budget — помесячно, не привязан к счетам, горизонт до 12 месяцев; с 26.7.0 учитывает будущие записи бюджета без расписаний. Точность целиком зависит от введённых расписаний."
+    },
+    "can_i_afford": {
+      "level": "none",
+      "note": "Docs: отчёт помогает заметить нехватку средств по графику, но самую низкую точку не выделяет и what-if сверх правки расписаний не имеет. Возможный обход — добавить гипотетическое расписание и смотреть график (вывод, не проверено)."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Schedules зрелые: интервалы вроде каждые 2 месяца, несколько дат, Last day, сдвиг при выходных (праздники не учитываются), автопроводка или ручное подтверждение, приблизительная сумма (допуск около 7,5 %). Агрегации «сколько нужно к каждой волне» в docs нет (вывод)."
+    },
+    "sinking_funds": {
+      "level": "full",
+      "note": "Конверты с переносом остатка плюс автоматизации Save by Date (by), Refill to Cap (up to), Cover Schedule, From History, Whatever is Left; docs: Save by Date фактически работает как sinking fund (прямого термина нет). Автоматизации бюджета при этом experimental."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "Налоговых правил нет. Есть шаблон «процент от дохода» (например, 10 % от Paycheck) — ручной аналог налогового конверта без правил по датам."
+    },
+    "multi_currency": {
+      "level": "none",
+      "note": "Docs: приложение currency agnostic и мультивалютность не поддерживает. Обход через experimental rule action templating: два правила на каждый валютный счёт, курсы вводятся вручную. Работа сообщества над шагами с полями валют и таблицей курсов не завершена; с 26.1.0 лишь добавлено отображение символа валюты, в 26.9.0 — ещё четыре валюты (отображение, не конвертация); в 26.10.0 нативной поддержки нет."
+    },
+    "hourly_income": {
+      "level": "unknown",
+      "note": "В изученных страницах (главная, schedules, автоматизации, отчёты, release notes 26.7–26.10) ставок, часов и инвойсов не найдено; вероятно, нет (вывод, не подтверждено)."
+    },
+    "privacy_local_first": {
+      "level": "full",
+      "note": "Файл бюджета хранится локально, работа офлайн; синхронизация через собственный сервер; E2E опционально (потеря пароля без локальной копии — потеря данных). Оговорка: секреты bank sync лежат на сервере вне E2E, поэтому нужен self-host."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Импорт CSV с маппингом, OFX/QFX, QIF, CAMT, дедупликация по ID/дате/сумме/плательщику; bank sync через Akahu, Enable Banking, SimpleFIN, Pluggy.ai (запуск вручную); API и CLI, в 26.8.0 добавлены функции import/export бюджета. Экспорт транзакций в CSV из docs не подтверждён."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Встроенного ассистента нет (в docs не найдено); оценка partial — только за сторонние (не часть продукта) инструменты. Сторонние MCP-серверы (agigante80: 82 инструмента, MIT; s-stefanov: аналитика и отчёты) и actual-ai для LLM-категоризации с пометкой «угадано» в заметках. MCP-серверы читают исторические данные и CRUD, предиктивного прогноза не дают."
+    },
+    "openness": {
+      "level": "full",
+      "note": "MIT, монорепозиторий на TypeScript/Node.js, пакеты @actual-app/api и @actual-app/cli, язык запросов ActualQL; плагинная система заявлена в roadmap 2025 (статус не подтверждён). API только на Node.js, HTTP-эндпоинтов нет; браузерная сборка API — experimental."
+    }
+  },
+  "borrow": [
+    "Строить прогноз как развёртку правил повторения в вхождения по дням (переводы — две ноги), как в Balance Forecast, но выводить метрику самой узкой точки и свёртку по волнам, которых у Actual нет.",
+    "Поле tolerance_pct в правиле повторения: сопоставление факта с планом в допуске, как «приблизительная сумма» около 7,5 % в schedules.",
+    "Догоняющее проведение: при открытии после паузы создавать все пропущенные вхождения, а не только последнее (так сделано в 26.7.0).",
+    "Шаблоны by и up to для sinking funds как детерминированные функции: взнос = (цель минус остаток) / оставшиеся периоды.",
+    "Дедупликация импорта: ключ по ID операции (OFX/FITID), иначе по дате+сумме+контрагенту; импортированное приоритетнее ручного; флаг «не восстанавливать удалённые».",
+    "Пометка «угадано AI» в заметке для любых правок от LLM и стабильные коды ошибок API (26.8.0) как основа заземлённого ассистента.",
+    "Флаги experimental с напоминанием о бэкапе для незрелых функций.",
+    "Опциональный E2E, но с хранением токенов банков внутри зашифрованного периметра (в Actual они вне E2E)."
+  ],
+  "avoid": [
+    "Держать главную функцию (прогноз) за флагом experimental.",
+    "Мультивалютность через ручные правила и вручную введённые курсы.",
+    "Хранить секреты банковской синхронизации вне E2E-шифрования.",
+    "DSL-директивы в свободном тексте заметок (Actual мигрирует с note-шаблонов на UI-автоматизации).",
+    "Не учитывать праздники в сдвиге дат: вынести календарь выходных в данные.",
+    "Оставлять мобильный клиент вторичным при задаче «внести трату быстро»."
+  ],
+  "sources": [
+    "https://actualbudget.org/",
+    "https://actualbudget.org/docs/experimental/balance-forecast-report/",
+    "https://actualbudget.org/docs/schedules/",
+    "https://actualbudget.org/docs/experimental/goal-templates/",
+    "https://actualbudget.org/docs/experimental/budget-automation/",
+    "https://actualbudget.org/docs/experimental/",
+    "https://actualbudget.org/docs/budgeting/multi-currency",
+    "https://github.com/tlesicka/actual-budget-multicurrency-todo",
+    "https://actualbudget.org/docs/reports/",
+    "https://actualbudget.org/docs/api/",
+    "https://actualbudget.org/docs/api/actual-ql/",
+    "https://actualbudget.org/docs/advanced/bank-sync/",
+    "https://actualbudget.org/docs/getting-started/sync/",
+    "https://actualbudget.org/docs/transactions/importing/",
+    "https://actualbudget.org/docs/config/oauth-auth/",
+    "https://actualbudget.org/docs/install/",
+    "https://actualbudget.org/blog",
+    "https://actualbudget.org/blog/release-26.1.0/",
+    "https://actualbudget.org/blog/release-26.7.0",
+    "https://actualbudget.org/blog/release-26.8.0",
+    "https://actualbudget.org/blog/release-26.9.0",
+    "https://actualbudget.org/blog/release-26.10.0",
+    "https://github.com/actualbudget/actual/releases",
+    "https://actualbudget.org/blog/roadmap-for-2025",
+    "https://github.com/actualbudget/actual",
+    "https://github.com/agigante80/actual-mcp-server",
+    "https://github.com/s-stefanov/actual-mcp",
+    "https://github.com/sakowicz/actual-ai",
+    "https://getfinny.app/blog/actual-budget-review-2026"
+  ]
+}

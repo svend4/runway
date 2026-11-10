@@ -1,0 +1,53 @@
+#!/bin/sh
+# pre-commit для Runway (FP-25, REQ-114): перед коммитом гоняет проверку слов — запрещённые формулировки (design-brief §10), императивы в строках
+# интерфейса (REQ-046), реестр обещаний (REQ-178) и сверку таблиц вердиктов и режимов в вики со словарём engine/vocab.json.
+# Это ровно `npm run lint:words` из prototype/ (lint_vocab с --registry + gen_vocab_tables --check). Правок в файлах хук не делает.
+#
+# Подключение (вручную; хук сам настроек git не меняет). ВАЖНО: git принимает ОДИН путь core.hooksPath. Runway лежит внутри монорепозитория (корень — 01/),
+# и там путь уже задан: `.githooks` с хуком NEXUS design-wiki gate. Поэтому НЕ заменять его на каталог runway — NEXUS-гейт тихо перестанет работать.
+# Сначала посмотреть: git config --get core.hooksPath
+#   • путь уже задан (как в монорепо) — подключать цепочкой: в корневой .githooks/pre-commit сразу после строки с `root=$(git rev-parse --show-toplevel)`
+#     и ДО строки со `staged=` (ниже у NEXUS-хука есть ранний выход `exit 0`) добавить вызов этого файла:
+#       [ -f "$root/301/runway/.githooks/pre-commit" ] && { sh "$root/301/runway/.githooks/pre-commit" || exit $?; }
+#     Хук Runway сам пропускает коммиты без файлов runway/, остальные проекты монорепо он не замедляет;
+#   • путь не задан (Runway выделен в отдельный репозиторий) — можно: git config core.hooksPath .githooks  и  chmod +x .githooks/pre-commit  (Git Bash / Linux / macOS);
+#   • ничего не менять — запускать вручную перед коммитом: npm run lint:words  (из prototype/).
+# Отключить на один коммит: git commit --no-verify  (или RUNWAY_HOOK_SKIP=1 git commit …).
+# Проверять и тогда, когда файлы Runway не менялись: RUNWAY_HOOK_ALWAYS=1.
+# Без зависимостей: нужны только sh и node (npm используется, если есть; иначе обе проверки запускаются прямо через node).
+
+[ "${RUNWAY_HOOK_SKIP:-}" = "1" ] && exit 0
+
+HERE=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd) || exit 1
+RUNWAY_DIR=$(CDPATH= cd -- "$HERE/.." && pwd) || exit 1
+
+# Если коммит не трогает файлы Runway — проверять нечего (репозиторий может быть шире проекта).
+if [ "${RUNWAY_HOOK_ALWAYS:-}" != "1" ] && command -v git >/dev/null 2>&1; then
+  if ! git diff --cached --name-only 2>/dev/null | grep -Eq '(^|/)runway/'; then
+    exit 0
+  fi
+fi
+
+if ! command -v node >/dev/null 2>&1; then
+  echo "pre-commit (Runway): node не найден в PATH — проверку слов выполнить нельзя, коммит остановлен." >&2
+  echo "Нужен Node 24 или новее; обойти хук осознанно можно так: git commit --no-verify" >&2
+  exit 1
+fi
+
+cd "$RUNWAY_DIR/prototype" || exit 1
+
+echo "pre-commit (Runway): проверка слов (npm run lint:words)…"
+if command -v npm >/dev/null 2>&1; then
+  npm run --silent lint:words
+else
+  node ../tools/lint_vocab.mjs --registry demo/promises.json && node tools/gen_vocab_tables.mjs --check
+fi
+status=$?
+
+if [ "$status" -ne 0 ]; then
+  echo "" >&2
+  echo "pre-commit (Runway): проверка слов не пройдена — коммит остановлен (код $status)." >&2
+  echo "Что смотреть: отчёт выше; предупреждения разобраны в tools/lint_vocab_ignore.json, таблицы словаря — node prototype/tools/gen_vocab_tables.mjs." >&2
+  exit "$status"
+fi
+exit 0

@@ -1,0 +1,8 @@
+[
+  {
+    "id": "REQ-077",
+    "claimed": "implemented",
+    "correct_status": "partial",
+    "why": "Критерий приёмки REQ-077 (wiki/product/02-requirements.md) прямо включает третье условие: «каждое пересчитанное число подписано курсом и датой курса (REQ-079)». Сам аудитор в REQ-079 (gaps, п.2) признаёт, что подпись курса есть только в конвертере и разделе «Курсы» (demo/form_fx.mjs convert_with_signature, rate_signature), а суммы в ленте, «почему» и волнах курс не показывают (rate_used/orig_amount_minor в demo читает только scenario_builder.mjs). Числовая часть (convert_minor 200000 -> 185000, E_NO_RATE, обратная пара, валюта решения) подтверждена: tests/fx.test.mjs:40,109, tests/adversarial/semantics.test.mjs:1148,1164,1253, tests/timeline.test.mjs:439, tests/forms.test.mjs:516. Это Must·v1: честный статус partial (подпись курса в прогнозе не сделана), либо в evidence надо явно пометить, что третье условие критерия перенесено в REQ-079."
+  }
+]

@@ -1,0 +1,105 @@
+{
+  "slug": "ai-assistants-in-finance",
+  "name": "AI-ассистенты в финансовых приложениях и MCP-серверы бюджета (Monarch, Copilot, Rocket Money, Cleo, Emma; MCP для YNAB/Actual/Firefly III/Lunch Money/hledger)",
+  "category": "ai",
+  "checked": "2026-10-04",
+  "price": "Monarch Core $14.99/мес или $99.99/год (ассистент входит в Core) — суммы Core по вторичным источникам (getfinny, Sacra, Penny Hoarder), офиц. страница сумм не показывает; Monarch Plus $199/год, только годовой — подтверждено первоисточником monarch.com/blog/monarch-plus (запуск 2026-04-20); триал 7 дней. Copilot Money $95/год (copilot.money, 2026-10-04), $13/мес — только вторичные источники (toolradar, mezzi, getfinny; не подтверждено первоисточником). Rocket Money: Free + Premium, сумма на офиц. странице не указана (не подтверждено). Cleo: сайт вернул 403, цены не подтверждены. Emma: тарифы Basic/Plus/Pro/Ultimate, суммы не найдены. MCP-серверы: бесплатно, MIT (ключи LLM-провайдера оплачивает пользователь).",
+  "status_note": "Группа живая. MCP-серверы (даты последнего push по api.github.com, 2026-10-04): YNAB MCP (calebl) 2026-10-02, 148 звёзд; Actual MCP (s-stefanov) 2026-10-02, 246 звёзд; Lunch Money MCP (akutishevsky, неофициальный, на alpha-API v2) 2026-08-03, 109 звёзд; hledger-mcp (iiAtlas) 2026-02-28, 65 звёзд; Firefly III MCP (etnperlong) push 2025-06-12 — более 15 месяцев без обновлений, 86 звёзд. Monarch: основан 2018, Series B $75M в 2025-05 (sacra.com). Rocket Money — дочерняя компания Rocket Companies (NYSE: RKT). Все пять MCP-репозиториев — под лицензией MIT; официального MCP у YNAB и Lunch Money не найдено (только community). Не подтверждены: «Copilot Intelligence» как отдельный продукт (страница 404), Cleo (403), AI-функции Emma. Copilot Money: iPhone/iPad/Mac + web (с 2025-12, вторичный источник), Android нет.",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Monarch Plus (запуск 2026-04-20, первоисточник monarch.com/blog/monarch-plus): Forecasting проецирует net worth и cash flow по реальным данным и событиям жизни. «Минимальный баланс к дате X» в описании не заявлен (не подтверждено). Cash-flow инструменты Actual MCP и hledger-mcp дают отчёты по факту, проекции по датам не найдено."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Только Monarch Plus: на таймлайн прогноза можно добавлять события (в т.ч. крупные покупки) и видеть обновлённую проекцию — это UI-инструмент, а не ответ ассистента, и вердикта «можно/нельзя» нет. У остальных продуктов группы не описано. Паттерн tool calling позволил бы добавить такой инструмент (вывод)."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Видны повторяющиеся платежи: детект подписок у Copilot, recurring-инструменты с системными подсказками в Lunch Money MCP, bills в Firefly III MCP, scheduled transactions в YNAB MCP. Группировки в «волны» и расчёта «сколько нужно к волне» не найдено."
+    },
+    "sinking_funds": {
+      "level": "partial",
+      "note": "YNAB MCP умеет перекладывать деньги между категориями и распределять в недофинансированные (конверты); амортизационного расчёта редких трат нет."
+    },
+    "tax_envelope": {
+      "level": "unknown",
+      "note": "Налоговых правил и конвертов в ассистентах группы не найдено; любой налоговый расчёт в Runway — по введённым пользователем правилам, не консультация."
+    },
+    "multi_currency": {
+      "level": "unknown",
+      "note": "Lunch Money MCP управляет крипто-позициями (manual/synced); мультивалютность операций у ассистентов не проверена."
+    },
+    "hourly_income": {
+      "level": "unknown",
+      "note": "Ставки, часы и инвойсы в ассистентах группы не найдены."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "Локальный stdio-режим и self-host бэкенды (Actual, Firefly III, hledger) сохраняют данные у пользователя; YNAB-сервер держит токен в переменной окружения вне контекста модели. Но результаты tool-вызовов уходят провайдеру LLM, если модель не локальная (вывод); у Monarch банковские подключения обязательны (getfinny)."
+    },
+    "import_export": {
+      "level": "partial",
+      "note": "MCP-серверы дают CRUD транзакций; hledger-mcp имеет import и dry-run с .bak-копиями; у YNAB API лимит 200 запросов/час. Экспорт у Monarch/Copilot не проверен."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "По спецификации MCP 2026-07-28 сервер MUST соответствовать outputSchema, клиент SHOULD валидировать. MCP — это вызов детерминированных инструментов (JSON Schema, опционально outputSchema), но числа в итоговом тексте пишет модель, а верификация чисел нигде не документирована. Monarch показывает исходные транзакции (getfinny). Structured outputs гарантируют форму, не точность чисел."
+    },
+    "openness": {
+      "level": "partial",
+      "note": "Все пять рассмотренных MCP-серверов под MIT и расширяемы; сами ассистенты Monarch, Copilot, Rocket Money закрыты. Actual (бэкенд) — открыт."
+    }
+  },
+  "borrow": [
+    "Число пишет только детерминированный движок: LLM возвращает структурированные утверждения-шаблоны со ссылками на вызовы (например «{c1.min_balance}»), числа в текст подставляет рендерер, а не модель.",
+    "Verifier после генерации: каждое число в итоговом тексте обязано входить во множество значений tool-результатов (с допуском на форматирование) и каждая ссылка на вызов должна существовать; иначе один повтор или честное «не удалось подтвердить расчёт».",
+    "Citations на вызовы движка: чип «из расчёта #call_id» раскрывает параметры, сценарий, версию движка, inputs_hash и дату узкой точки (аналог Citations API для документов, но по вызовам).",
+    "Read-only по умолчанию; запись — только как черновик с подтверждением пользователя, dry-run и откат (по образцу YNAB_READ_ONLY, --enable-write в Actual MCP и --read-only/.bak/dry-run в hledger-mcp).",
+    "Описания транзакций — недоверенные данные: изолировать в блок данных, у ассистента нет исходящей сети и рендера внешних ссылок/картинок (разрыв «смертельной тройки»), план вызовов фиксировать до чтения недоверенного контента (идея CaMeL).",
+    "Локальный режим: stdio-сервер, секреты вне контекста модели, опция локальной LLM; всегда пометка «ответ ИИ, числа из расчёта #N» (прозрачность по Art. 50 AI Act).",
+    "Золотой набор тестов ассистента: вопросы Q1-Q3 с эталонными ответами движка и проверка, что ни одно число в ответе не расходится с tool-результатом."
+  ],
+  "avoid": [
+    "Числа, сгенерированные моделью, и обещание «без галлюцинаций» без публичной проверки (у Budget Guru это только заявление лендинга).",
+    "Инструменты записи без read-only режима по умолчанию; публичный MCP-endpoint без bearer-токена; секреты API в контексте LLM.",
+    "Совмещение в ассистенте всех трёх элементов: приватные данные, недоверенный контент (описания транзакций), канал внешней отправки.",
+    "Доверять аннотациям tool от неизвестных серверов: спецификация MCP считает их недоверенными.",
+    "Ассистент как единственный путь к числу или к человеку/поддержке: всегда есть таблица и график (CFPB 2023 предупреждает о чат-ботах, закрывающих доступ к живой поддержке).",
+    "Оценочные советы «что купить/сделать» и скоринг кредитоспособности (Annex III 5(b) AI Act относит оценку кредитоспособности физлиц к high-risk (кроме выявления мошенничества; срок после Digital Omnibus — 2027-12-02); это справка, не юридический вывод)."
+  ],
+  "sources": [
+    "https://getfinny.app/blog/monarch-money-pricing-2026",
+    "https://getfinny.app/blog/monarch-money-review-2026",
+    "https://sacra.com/c/monarch-money/",
+    "https://www.monarch.com/pricing",
+    "https://www.copilot.money/",
+    "https://toolradar.com/guides/best-ai-budgeting-apps",
+    "https://www.rocketmoney.com/",
+    "https://emma-app.com/",
+    "https://www.ynab.com/pricing",
+    "https://api.ynab.com/",
+    "https://github.com/calebl/ynab-mcp-server",
+    "https://github.com/s-stefanov/actual-mcp",
+    "https://github.com/etnperlong/firefly-iii-mcp",
+    "https://github.com/iiAtlas/hledger-mcp",
+    "https://github.com/akutishevsky/lunchmoney-mcp",
+    "https://github.com/modelcontextprotocol/servers",
+    "https://modelcontextprotocol.io/specification/2025-06-18/server/tools",
+    "https://modelcontextprotocol.io/specification/2025-06-18/basic/security_best_practices",
+    "https://genai.owasp.org/llmrisk/llm01-prompt-injection/",
+    "https://simonwillison.net/2025/Jun/16/the-lethal-trifecta/",
+    "https://arxiv.org/abs/2503.18813",
+    "https://arxiv.org/abs/2211.12588",
+    "https://arxiv.org/abs/2311.11944",
+    "https://platform.claude.com/docs/en/build-with-claude/structured-outputs",
+    "https://platform.claude.com/docs/en/build-with-claude/citations",
+    "https://www.consumerfinance.gov/data-research/research-reports/chatbots-in-consumer-finance/",
+    "https://artificialintelligenceact.eu/annex/3/",
+    "https://artificialintelligenceact.eu/article/50/",
+    "https://artificialintelligenceact.eu/implementation-timeline/",
+    "https://www.monarch.com/blog/monarch-plus",
+    "https://modelcontextprotocol.io/specification/2026-07-28/server/tools",
+    "https://www.gibsondunn.com/eu-ai-act-omnibus-agreement-postponed-high-risk-deadlines-and-other-key-changes/"
+  ]
+}

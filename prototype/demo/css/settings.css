@@ -1,0 +1,25 @@
+/* settings.css — стили пакета FP-03: экран «Настройки» и карточки «Запас хода» / «Готовность данных».
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: недобранные шаги готовности — значок и слова «не учтено», ошибки поля — текст рядом с полем. */
+
+.settings .fp03-form { max-width: 720px; }
+.settings .fp03-form .field input[type="text"] { max-width: 18em; }
+.settings .fp03-form select { max-width: 100%; }
+.settings .fp03-form .row { margin-top: 4px; }
+.settings .fp03-status { min-height: 1.5em; margin: 8px 0 0; }
+.settings .fp03-preview { padding: 6px 10px; border: 1px dashed var(--border); border-radius: 8px; background: var(--surface-2); }
+.settings .field .error:empty { display: none; }
+.settings input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+
+.fp03-big { font-size: 1.1rem; font-weight: 600; margin-bottom: 10px; }
+.fp03-runway .tbl { margin-bottom: 8px; }
+.fp03-ready ul.plain li { display: flex; gap: 6px; align-items: baseline; }
+.fp03-ready .banner ul { margin: 4px 0 0; }
+.fp03-glyph { display: inline-block; min-width: 1.2em; text-align: center; font-weight: 700; }
+.fp03-ready .link { font-size: 0.95em; }
+
+/* FP-17: «по умолчанию N» под полем и таблица всех параметров. Таблица шире телефона прокручивается внутри карточки, страница не уезжает вбок. */
+.settings .fp17-default { margin: 2px 0 0; }
+.settings .fp17-default p { margin: 0; }
+.settings .fp17-defaults { overflow-x: auto; }
+.settings .fp17-defaults .tbl { min-width: 560px; }

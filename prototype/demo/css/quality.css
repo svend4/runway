@@ -1,0 +1,26 @@
+/* quality.css — стили пакета FP-11: экран «Качество прогноза» (#quality), эксперимент с согласием, коридор P10–P90 и карточка коридора на «Обзоре».
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: «Синтетика» и «Эксперимент, не обещание» — слова в рамке, коридор дублируется таблицей, у графика есть текстовое описание. */
+
+.quality .qx-synth, .qx-badge { margin: 0 0 8px; }
+.qx-badge { display: inline-block; padding: 2px 10px; border: 2px solid var(--fragile); border-radius: 999px; background: var(--fragile-bg); color: var(--fragile); font-weight: 700; }
+.quality .qx-table td.num, .quality .qx-table th.num { text-align: right; white-space: nowrap; }
+.quality .qx-defs { margin: 10px 0; }
+.quality .qx-defs dt { font-weight: 700; margin-top: 6px; }
+.quality .qx-defs dd { margin: 0 0 4px; }
+.quality .qx-kinds { border: 1px solid var(--border); border-radius: 8px; margin: 8px 0; padding: 6px 12px; }
+.quality .qx-kinds legend { font-weight: 600; padding: 0 6px; }
+.quality .field.check label { display: inline-flex; gap: 8px; align-items: center; }
+.quality .field select, .quality .field input[type="text"], .quality .field input[type="date"] { max-width: 100%; }
+.quality .field .error:empty { display: none; }
+.quality input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.quality .qx-result { margin-top: 12px; outline-offset: 4px; }
+.quality .qx-notes { margin: 8px 0; }
+.quality .qx-expected { font-weight: 600; }
+
+.qx-band-svg { display: block; width: 100%; max-width: 640px; height: auto; margin: 8px 0; }
+.qx-band-svg .qx-area { fill: var(--plan); fill-opacity: 0.22; stroke: var(--plan); stroke-width: 1; stroke-dasharray: 4 3; }
+.qx-band-svg .qx-mid { stroke: var(--plan); stroke-width: 2; }
+.qx-band-svg .qx-zero { stroke: var(--no); stroke-width: 1; stroke-dasharray: 2 3; }
+
+.qx-card .btn { margin-top: 2px; }

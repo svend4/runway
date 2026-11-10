@@ -1,0 +1,74 @@
+{
+  "format": "runway-bench/1",
+  "note": "Замер на ЭТОЙ машине (не на эталонном телефоне): цифры — гипотезы-бюджеты ADR-014, а не обещания продукту. Дата — аргумент запуска.",
+  "date": "2026-10-09",
+  "node": "v24.13.0",
+  "platform": "win32 x64",
+  "cpus": 4,
+  "cpu_model": "Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz",
+  "free_mem_mb": 1329,
+  "total_mem_mb": 8033,
+  "engine_version": "0.1.0",
+  "budget": {
+    "recompute_p95_ms": 100,
+    "blocking_ms": 50,
+    "journal_open_ms": 2000
+  },
+  "recompute": {
+    "workspace": "make_bench_ws(4): 20 правил, горизонт 180 дней, ≈ 10³ событий",
+    "n": 90,
+    "events": 1084,
+    "analyze": {
+      "n": 90,
+      "p50_ms": 10.57,
+      "p95_ms": 17.34,
+      "min_ms": 7.38,
+      "max_ms": 22.63
+    },
+    "recompute_q3": {
+      "n": 90,
+      "p50_ms": 10.79,
+      "p95_ms": 16.37,
+      "min_ms": 8.18,
+      "max_ms": 28.99
+    }
+  },
+  "blocking": {
+    "runs": 20,
+    "in_thread": {
+      "max_ms": 29.44,
+      "p99_ms": 29.44,
+      "mean_ms": 12.22,
+      "compute_p50_ms": 16.46
+    },
+    "worker": {
+      "max_ms": 21.82,
+      "p99_ms": 20.04,
+      "mean_ms": 8.93,
+      "round_trip_p50_ms": 28.02,
+      "round_trip_p95_ms": 47.68
+    },
+    "note": "задержка цикла событий (monitorEventLoopDelay, разрешение 1 мс) — модель блокировки интерфейса; в браузере интерфейс блокируют ещё копирование сообщений и отрисовка"
+  },
+  "journal": {
+    "n": 36500,
+    "reps": 3,
+    "bytes_with_snapshot": 13429028,
+    "bytes_per_event": 243.31,
+    "with_snapshot_ms": {
+      "best": 116.33,
+      "worst": 236.78,
+      "used_snapshot": true
+    },
+    "without_snapshot_ms": {
+      "best": 286.56,
+      "worst": 397.71,
+      "used_snapshot": false
+    }
+  },
+  "within_budget": {
+    "recompute_p95": true,
+    "blocking_worker": true,
+    "journal_open": true
+  }
+}

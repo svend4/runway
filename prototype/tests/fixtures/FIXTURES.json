@@ -1,0 +1,22 @@
+{
+  "format": "runway-fixtures/1",
+  "note": "Фикстуры формата файла-копии (REQ-187). Для каждой: формат, число записей и state_hash свёртки журнала. Хэш journal-v1.json записан при создании фикстуры (golden, tests/hardening.test.mjs, REQ-016) и не пересчитывается из вывода проверяемого кода. Новая версия формата добавляет новую фикстуру и апкастер, прежние остаются.",
+  "fixtures": [
+    {
+      "file": "journal-v1.json",
+      "format": "runway-journal/1",
+      "events": 14,
+      "state_hash": "f4b11682044eb911add5a6223c88c67b0f07c504321081ac1bfcdfc8ad4dde88"
+    }
+  ],
+  "draft_fixtures": [
+    {
+      "file": "journal-v2-draft.json",
+      "format": "runway-journal/2",
+      "events": 16,
+      "readable_events": 14,
+      "state_hash": "f4b11682044eb911add5a6223c88c67b0f07c504321081ac1bfcdfc8ad4dde88",
+      "note": "Учебная фикстура следующей версии (FP-17, REQ-016): journal-v1 плюс запись неизвестного типа и запись tx.posted со схемой v = 2. Открывается только для просмотра (engine/io_readonly.mjs open_readonly), import_json её отвергает; state_hash — по 14 читаемым записям и равен golden версии 1. В `fixtures` не входит: tools/verify.mjs импортирует только фикстуры известных форматов."
+    }
+  ]
+}

@@ -1,0 +1,399 @@
+{
+ "phase": "B",
+ "results": [
+  {
+   "fp": "FP-03",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\number_format.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\home_cards.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\settings.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp03.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\settings.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\settings.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\settings.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\settings_boot.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP03.md"
+   ],
+   "tests_total": 42,
+   "tests_pass": 42,
+   "acceptance": [
+    {
+     "criterion": "REQ-026 TST-58: буфер вводится числом (0 = «задан», пусто = «не задан»); кнопка подставляет buffer_hint, значение на G-001 совпадает с тестом движка",
+     "status": "met",
+     "evidence": "settings.mjs: parse_field, plan_section_edits, buffer_section (кнопка «Взять подсказку» подставляет значение в поле, «Сохранить» пишет через set_param). settings.test.mjs: «буфер вводится числом…», «запись буфера: 0 → задан, пусто → не задан (W_BUFFER_UNSET, no_buffer)», «подсказка buffer_hint: G-001 = 49000 = round_div(7·630000, 90) = buffer_hint движка», «экран: Взять подсказку → 490,00 → buffer_minor 49000». settings_boot.test.mjs: запись в настоящем app.mjs. Все зелёные."
+    },
+    {
+     "criterion": "REQ-023: плитка запаса хода равна runway_days на тех же данных (сверка с движком на g001, low, gap)",
+     "status": "met",
+     "evidence": "home_cards.mjs: runway_model/runway_card (runway_days движка, оба режима, с поступлениями и без). settings.test.mjs: три теста «REQ-023 TST-09 плитка запаса хода = runway_days движка на g001/low/gap» (плюс независимый поиск первого trough<0) и «канон»: G-001 — «за горизонтом», G-001-gap — 2026-10-26, 22 дня; карточка показывает те же числа. Дополнительно: при s < ready.q1 карточка не показывает числа (иначе пустые данные дали бы «хватает на весь горизонт»)."
+    },
+    {
+     "criterion": "REQ-029: плашка s < 4 строится из readiness.reasons (no_account / obligations_lt_3 / no_income_45d / no_daily_spend); для разных причин тексты разные",
+     "status": "partial",
+     "evidence": "Карточка ready_card (home_cards.mjs) строит плашку «Не учтено» из readiness.reasons, по тексту на причину (rd_miss_*), показывает ступень s, четыре условия, статус прогноза, причины отказа гейта (gate) и буфер со ссылкой на #settings. Тесты: три случая на реальных данных (no_daily_spend, no_income_45d, obligations_lt_3 → s=3, RU и EN), s=0 со всеми четырьмя причинами, четыре разных текста, при s=4 плашки нет — зелёные. Partial: на «Обзоре» при s < 3 приложение до слота overview.cards возвращает ov.empty, а шапка app.mjs по-прежнему показывает фиксированную плашку «Не учтено: повседневные траты» при любой причине. Это общие файлы — запросы 2 и 3 в hook-requests-FP03.md. Пока они не приняты, полная плашка всегда доступна на экране «Настройки»."
+    },
+    {
+     "criterion": "REQ-112: сочетание «ru + 1.234,50 €» отображается и разбирается; RU/EN паритет ключей (TST-56)",
+     "status": "partial",
+     "evidence": "number_format.mjs: ws.number_format = {decimal?, thousands?, date?}, make_nf_fmt, parse_amount_text, правка set_number_format. settings.test.mjs: 123450 → «1.234,50 €» и обратно в 123450; в данных остаются целые minor и ISO; без настройки make_nf_fmt равен make_fmt (ru/en); круг «показать → разобрать» на 3000 случайных суммах × 5 пресетов × 2 языка; TST-56 паритет каталога settings (RU/EN, плейсхолдеры, нет мёртвых ключей) — зелёные. Partial: fmt() в app.mjs пока берёт формат от языка, поэтому настройка действует на экране «Настройки» и в карточках FP-03, а на остальных экранах — после правки общего файла (запрос 1 в hook-requests-FP03.md: хук fmt). Ассистент A0 и верификатор остаются на формате языка, это сказано в тексте экрана."
+    },
+    {
+     "criterion": "REQ-024: изменение worse.income_delay_days пересчитывает режим «если хуже», подпись сдвига видна",
+     "status": "met",
+     "evidence": "settings.mjs: worse_model, horizon_section (подпись сдвига; «сдвиг сценария + сдвиг режима = итог» при активном сценарии delay_income). settings.test.mjs: «REQ-024 TST-35»: 14 → узкая точка 183000 (14 ноября); 0 → ряды worse = plan; 21 → trough_worse ≤ trough_plan на каждом i; «C-009»: delay_income 7 + 14 = 21. settings_boot.test.mjs: то же в настоящем app.mjs."
+    },
+    {
+     "criterion": "TST-59: нет innerHTML, нет inline-стилей; параметры пишутся только через ws_edit.set_param",
+     "status": "met",
+     "evidence": "settings.test.mjs «TST-59 FP-03»: статический обход всех файлов пакета (нет innerHTML, style, eval, fetch, import(), строк-обработчиков, внешних адресов; CSS без url()); в settings.mjs единственная запись — apply_edit(type:'set_param') → один ctx.set_ws; результат формы равен ровно apply_edit(set_param); узлы только через dom.mjs. Для формата показа — отдельная правка set_number_format (это поле рабочей области, не параметр). demo.test.mjs проходит все проверки TST-59 на файлах пакета."
+    }
+   ],
+   "notes": [
+    "Изменений поведения существующего кода нет: общие файлы (app.mjs, i18n.mjs, index.html, style.css, ext.mjs, ws_edit.mjs, demo.test.mjs) не правились; ничего не удалено и не переименовано.",
+    "Создан pack_fp03.mjs (в new_files бэклога его нет, но манифест и README_ext его требуют). index.html не правился: стили подключает ext.ensure_css('css/settings.css'). Дополнительно создан tests/settings_boot.test.mjs — прогон в настоящем app.mjs на заглушке DOM (6 тестов).",
+    "Экран #settings (order 85, после «Данные») содержит пять форм: буфер, горизонт и «если хуже», волны (gap, span, порог с умолчанием движка), допуски сопоставления (окно по дате, допуск по сумме в % → bp без float), формат чисел и дат; в конце — карточка готовности. В «Обзор» через слот overview.cards добавлены карточки «Запас хода в днях» (оба режима, с поступлениями и без) и «Готовность данных» (ступень s, четыре условия, «Не учтено: …» по readiness.reasons, статус прогноза и гейта вердикта, буфер со ссылкой на #settings).",
+    "Запись группы полей: цикл apply_edit → один ctx.set_ws (один пересчёт и одна запись журнала); при отказе проверки или пересчёта данные не меняются, причина показана в форме. Правка set_number_format регистрируется пакетом с защитой от повторной регистрации.",
+    "Решение, принятое мной: Workspace.number_format = {decimal?, thousands?, date?}; decimal и thousands только парой; date ∈ auto|iso|dmy|mdy; пусто = «по языку»; в журнале хранится через ws:meta (круг ws → журнал → ws проверен); недопустимое значение из чужого файла безопасно — показ возвращается к формату языка. Канон описывает поле только словами «отдельная настройка» — форму нужно внести в design-brief §3.1 и в validate_ws (запрос 5).",
+    "Названия ступеней готовности по-русски («пусто», «каркас», «рабочая», «почти полная», «полная») придуманы в этом пакете: канон даёт только английские идентификаторы.",
+    "Найдено в чужом коде: PARAM_SPECS['wave.threshold_minor'] допускает min 0, а канон требует θ ≥ 1 — запись 0 отвергает только пересчёт страницы (данные не меняются, форма показывает причину; есть тест). Нужен min: 1 в ws_edit.mjs (запрос 5).",
+    "Известные падения в тестах, не относящиеся к FP-03: (1) tests/ext_boot.test.mjs — список ссылок навигации сравнивается точно, и с pack_fp03 (и любым другим пакетом) получает лишний '#settings'; остальные 21 тест файла проходят (запрос 4). (2) tests/demo.test.mjs — TST-56 «нет мёртвых ключей» падает на entry.err_E_BAD_DATE: это каталог FP-04, не мой; моё пространство settings проверено отдельно (ни одного неиспользуемого и ни одного отсутствующего ключа).",
+    "Общий прогон связанных файлов (settings, settings_boot, demo, purity, ext, ext_boot, ws_edit): 193 теста, 191 зелёных, 2 упавших — оба из пункта выше. node tools/lint_vocab.mjs: 0 ошибок (63 предупреждения в вики, ни одного в файлах пакета). Весь набор node --test я не запускал, это делает интегратор.",
+    "Все остальные запросы к общим файлам (хук fmt, слот карточек при s < ready.q1, плашка banner.not_ready, обновление README и tst-coverage) — в C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP03.md."
+   ],
+   "hook_requests": [
+    "app.mjs/ext.mjs: добавить хук 'fmt' (первый ответ побеждает) и использовать его в fmt() приложения, чтобы ws.number_format действовал на всех экранах (REQ-112); после этого в pack_fp03.mjs регистрируется хук одной строкой (текст в запросе 1)",
+    "app.mjs view_overview: при readiness.score < ready.q1 выводить слот overview.cards до return, чтобы карточка «Готовность данных» была видна именно при s < 3 (REQ-029)",
+    "app.mjs/i18n.mjs: плашка banner.not_ready («Не учтено: повседневные траты») и текст gate.readiness называют одну причину при любом s < 4; заменить перечнем по readiness.reasons либо убрать (ключи settings.rd_miss_*, settings.gt_readiness готовы)",
+    "tests/ext_boot.test.mjs: сравнение навигации должно допускать экраны пакетов (с pack_fp03 после '#data' появляется '#settings')",
+    "Координатор: внести форму number_format в design-brief §3.1 и 04-data-model, учесть в validate_ws; поставить min: 1 для wave.threshold_minor в PARAM_SPECS (ws_edit.mjs); обновить prototype/README.md, 15-prototype-guide.md и _ops/tst-coverage.json (TST-09/12/35/51/56/57/58/59, REQ-012/017/023/024/025/026/029/112); в бэклоге FP-03 добавить pack_fp03.mjs и settings_boot.test.mjs в new_files"
+   ]
+  },
+  {
+   "fp": "FP-04",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\transfer_guard.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\entry.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\anchor_dialog.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\undo.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp04.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\entry.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\entry.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\entry.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\entry_boot.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\transfer_guard.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP04.md"
+   ],
+   "tests_total": 146,
+   "tests_pass": 146,
+   "acceptance": [
+    {
+     "criterion": "REQ-090: «12,50» даёт 1250 minor, дата = as_of, счёт запоминается; E_NOT_INTEGER и E_FUTURE_POSTED показываются текстом; медиана ввода ≤ 5 с — процессная проверка",
+     "status": "partial",
+     "evidence": "Автоматическая часть выполнена и запущена. tests/entry.test.mjs: TST-58 REQ-090 «12,50»→1250 по формату ru и «12.50» по en, чужой разделитель → E_NOT_INTEGER; факт add_fact {account_id, date = as_of, amount_minor −1250}; счёт запоминается (create_entry_memory, default_account_id), закрытый счёт не предлагается; тексты E_NOT_INTEGER («Не похоже на сумму. Пишите так: 1 234,50.») и E_FUTURE_POSTED показаны в шторке, данные не меняются; шторка = 3 поля (сумма, счёт, дата) и 3 действия (открыть «+», набрать, Enter); то же в настоящем app.mjs (tests/entry_boot.test.mjs). Остаётся процессная проверка «медиана ≤ 5 с на ≥ 5 людях» — не автотест, не выполнена (отмечено в hook-requests-FP04.md §5)."
+    },
+    {
+     "criterion": "REQ-028: после «сверить остаток» плашка stale/block исчезает; ≤ 3 действий от плашки до закрытия; границы 7/8 и 21/22 дня (TST-57) не меняются",
+     "status": "met",
+     "evidence": "tests/entry.test.mjs: «TST-57 REQ-028 границы свежести»: возраст 7→fresh, 8→banner, 21→banner, 22→block (движок не тронут, calibration.mjs/timeline.mjs без правок); «после сверки плашка исчезает»: banner (9 дн.) и block (22 дн.) → anchor_open → anchor_input → anchor_confirm (ANCHOR_ACTIONS = 3) → anchor_status.level = fresh, opening = названное число; найденный дрейф показан до подтверждения и равен opening_state.drift движка на 40 случайных областях; tests/entry_boot.test.mjs: в настоящем app.mjs плашка block «Данных мало для вердикта» исчезает со страницы за 3 действия. Оговорка: кнопка стоит в навигации, а не внутри плашки (нужен слот banner.actions — hook-requests-FP04.md §2)."
+    },
+    {
+     "criterion": "REQ-063: перевод operating → savings при резерве без привязки даёт предупреждение; X12 REQ-063 в semantics.test.mjs (free 250000 → 150000) продолжает проходить",
+     "status": "met",
+     "evidence": "tests/transfer_guard.test.mjs (8 тестов) и tests/entry.test.mjs (шторка, карточка): перевод 100000 с acc_main на acc_sav при RES-TAX.funded 150000 → warn=true, предложение Allocation −100000 source=manual; free 250000 → 150000 без согласия → 250000 после (funded 50000); отказ запоминается (журнал draft.proposed + память), запрос по тому же переводу не повторяется; свойство на 30 случайных суммах; причины «нет предупреждения» названы. node --test --test-name-pattern=X12 tests/adversarial/semantics.test.mjs → 2/2 pass, файл не менялся. Оговорка: числа канона воспроизводятся при as_of = 2026-10-05 (в G-001 as_of = дате якоря = funded_as_of: перевод на эту дату уже учтён в якоре и резерве, предупреждение не выдаётся — причина covered_by_anchor/before_reserve_snapshot; см. notes)."
+    },
+    {
+     "criterion": "Undo: state_hash после «отменить» равен хэшу до ввода (с учётом опции из FP-02)",
+     "status": "met",
+     "evidence": "tests/entry.test.mjs «TST-16 REQ-090: «Отменить» возвращает state_hash журнала»: journal.state_hash() и core_hash (= state_hash(state, {omit: ['imports']}), опция FP-02) после отмены равны значениям до ввода; prefix_hash прежних записей не изменился (журнал только дописывается, в нём появились revert); «Вернуть» восстанавливает факт; то же для сверки с заменой якоря на ту же дату и для перевода вместе с уменьшением резерва (одно «Отменить» на оба); entry_boot: в настоящем app.mjs отмена возвращает плашку и inputs_hash."
+    },
+    {
+     "criterion": "Ввод в чужом формате: число из набора en читается по правилам набора, а не языка интерфейса",
+     "status": "met",
+     "evidence": "tests/entry.test.mjs «TST-58 REQ-090: ввод в чужом формате»: ws.number_format = en при русском интерфейсе — «1,234.50» → 123450, «12,50» отвергается; набор ru при английском интерфейсе — «12,50» принимается; формат {decimal ',', thousands '.'} при интерфейсе en — «1.234,50» → 123450 (REQ-112); без настройки — формат языка. То же для сверки остатка («3,950.00» → 395000)."
+    }
+   ],
+   "notes": [
+    "app.mjs, i18n.mjs, index.html, style.css, tests/demo.test.mjs НЕ менялись: кнопки встают в слот реестра nav.actions (touched_files из backlog не понадобился). Существующие экспорты и тесты не менялись и не ослаблены; поведение существующего кода не изменено. Добавлены сверх списка new_files: demo/pack_fp04.mjs (точка входа по заданию), demo/css/entry.css, tests/entry_boot.test.mjs (настоящий app.mjs на заглушке DOM, как settings_boot у FP-03).",
+    "ИНТЕГРАЦИОННЫЙ КОНФЛИКТ (не от FP-04 одного): существующий tests/ext_boot.test.mjs (FP-01) грузит настоящий манифест и ждёт ровно 9 пунктов навигации и один li.nav-action. Он красный уже из-за пакета FP-03 (#settings); пакет FP-04 добавляет ещё 4 кнопки в nav.actions. Тест надо сделать независимым от реальных пакетов (hook-requests-FP04.md §1). Запрос интегратору, сам тест не правил.",
+    "Находка по tests/demo.test.mjs (TST-56 «мёртвые ключи»): ссылки на ключи ищутся регулярным выражением [a-z0-9_]+, поэтому ключи пакета с заглавными буквами (entry.err_E_BAD_DATE) считаются неиспользованными. Ключи FP-04 только строчные (entry.err_not_integer и т. п.).",
+    "Двойное вычитание (REQ-063) учтено так, как оно реально работает в движке: аллокация учитывается только при funded_as_of < date ≤ as_of (reserve_open), а факт на дату якоря в остаток не входит (после якоря — строго позже). Поэтому check_transfer молчит с названной причиной, если перевод не позже якоря счёта (covered_by_anchor) или не позже funded_as_of резерва (before_reserve_snapshot): иначе предупреждение «вычтутся дважды» было бы ложным, а согласие — пустым. На G-001 as_of = 2026-10-04 = дата якоря = funded_as_of, значит в демо перевод на «сегодня» предупреждения не даёт; числа канона 250000 → 150000 → 250000 воспроизведены на G-001 с as_of = 2026-10-05. Нужно управление «сегодня» (hook-requests-FP04.md §3) или решение владельца по before_reserve_snapshot (правка funded_start вместо аллокации).",
+    "Предупреждение показывается ДО записи перевода (шторка: «записать и уменьшить резерв» / «записать без изменения» / «назад»); перевод и аллокации идут одним пересчётом — одно «Отменить». Для переводов, уже лежащих в данных (из файла), есть карточка «перевод ждёт ответа» в слотах overview.cards и reserves.sections. Согласие = аллокация с детерминированным id tg-<transfer_id>-<reserve_id> (идемпотентна). Отказ хранится в журнале (draft.proposed, state.extra) и памяти страницы; в ws его нет, мост ws→журнал extra не переносит — после пересборки журнала из ws запрос повторится (FP-05 должен хранить journal.export()).",
+    "Сверка остатка: якорь на ту же дату у счёта заменяется (тот же anchor_id), чтобы два якоря на одну дату не различались порядком идентификаторов; дрейф показа = (названное) − (предыдущий якорь строго раньше + факты после него до даты), совпадает с opening_state.drift (тест на 40 случайных). У первой сверки счёта сравнивать не с чем — текст «первая сверка». Счёт по умолчанию для сверки — самый несвежий, для факта — последний использованный.",
+    "Формат чисел: entry.mjs сам читает ws.number_format (канон §3.1 {decimal, thousands, date?}, допустимые знаки те же, что в number_format.mjs FP-03; пресет «ru»/«en» и ws.params.number_format тоже допускаются), иначе формат языка интерфейса. Дублирование с number_format.mjs FP-03 сознательное (пакеты независимы); после слияния можно свести в одну функцию (порядок аргументов у FP-03 другой).",
+    "Знак суммы: без знака берётся вид из переключателя (по умолчанию «Расход»); «−» вперёд — расход, «+» — приход (знак перебивает переключатель); для перевода знак игнорируется. Не сделано сознательно: Ctrl+Z (нужен глобальный обработчик), ввод плана/будущей даты, перевод между валютами, правка введённого факта.",
+    "Ошибка, найденная и исправленная по ходу: страница перерисовывается внутри ctx.set_ws, а стопка отмены и отказ обновлялись после — кнопки в навигации показывали устаревшее состояние. Теперь запись в стопку идёт до записи с ручкой rollback при отказе пересчёта (tests/entry.test.mjs «страница перерисовывается ВНУТРИ записи»; entry_boot проверяет в настоящем app.mjs).",
+    "Запуски: node --test tests/entry.test.mjs tests/entry_boot.test.mjs tests/transfer_guard.test.mjs → 37/37 (25 + 4 + 8); node --test tests/demo.test.mjs tests/purity.test.mjs → 109/109; X12 в semantics.test.mjs → 2/2; node tools/lint_vocab.mjs → 0 ошибок (63 предупреждения — все в wiki, чужие файлы; по файлам FP-04 замечаний нет). Машина была сильно загружена параллельными агентами (один запуск упал по нехватке памяти процесса Node при старте, не по тесту) — прогоны выполнялись в фоне с записью в файл. Полный набор и TST-54 не запускал (по правилам задания).",
+    "Для координатора (таблицы, которые нельзя править пакетам): prototype/README.md и 15-prototype-guide.md — карта модулей и раздел «Ограничения» («нет форм для фактов» устарело); _ops/tst-coverage.json — новые тесты содержат TST-02, 16, 56, 57, 58, 59 и REQ-028, 063, 090; engine/transfer_guard.mjs вне карты рангов purity.test.mjs (проверяются только чистота, импорты и отсутствие циклов), не реэкспортируется из index.mjs. Всё перечислено в _ops/impl/hook-requests-FP04.md."
+   ],
+   "hook_requests": [
+    "_ops/impl/hook-requests-FP04.md §1 (FP-01/интегратор): tests/ext_boot.test.mjs красный из-за реальных пакетов в манифесте (#settings от FP-03, 4 кнопки nav.actions от FP-04) — сделать тест независимым от пакетов.",
+    "§2 (FP-01): новый слот banner.actions для кнопки «Сверить остаток» прямо в плашке stale/block (app.mjs → render_summary); сейчас кнопка в навигации и выделяется, пока данные устарели.",
+    "§3 (FP-01/интегратор): управление «сегодня» (ws_edit set_as_of + поле в настройках), иначе в демо на G-001 нельзя показать ввод и предупреждение REQ-063 (as_of = дата якоря = funded_as_of).",
+    "§4 (интегратор): свести разбор числа entry.mjs и number_format.mjs (FP-03) в одну функцию после слияния.",
+    "§5 (координатор): README/15-prototype-guide, tst-coverage, 02-requirements REQ-063 (аллокация effective только при date > funded_as_of), 16-prototype-findings (регэксп TST-56 не видит ключи с заглавными).",
+    "§6: Ctrl+Z, ввод плана и разновалютный перевод не делались; отказ по двойному вычитанию живёт только в журнале (ws его не хранит) — для сохранения между сессиями FP-05 должен писать journal.export()."
+   ]
+  },
+  {
+   "fp": "FP-05",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\store.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\store_idb.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\backup.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\data_actions.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\data_runtime.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\data_view.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\rights.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\log.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp05.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\data.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\data.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\fake_idb.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\store.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\backup.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\data_actions.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\data_pack.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\rights.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\log.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP05.md"
+   ],
+   "tests_total": 275,
+   "tests_pass": 275,
+   "acceptance": [
+    {
+     "criterion": "REQ-122: контрактные тесты порта Store проходят на in-memory и на IndexedDB-обёртке; сбой записи откатывает транзакцию целиком; восстановление из копии при пустой базе",
+     "status": "met",
+     "evidence": "tests/store.test.mjs (41 тест, все зелёные): контракт на memory, фейк-IDB (tests/fake_idb.mjs) и localStorage; сбой на 5-м из 10 запросов IDB откатывает всю пачку (store_failed, в базе прежние 2 записи); tests/data_actions.test.mjs «TST-38 REQ-122 восстановление из копии при пустой базе»: база стёрта, restore() из файла, state_hash в хранилище равен хэшу файла, те же event_id."
+    },
+    {
+     "criterion": "REQ-122: два писателя по 1000 записей под Web Lock дают один state_hash (navigator.locks доступен в Node 24)",
+     "status": "met",
+     "evidence": "tests/store.test.mjs «две вкладки по 1000 записей под Web Lock» на [memory] и [idb (фейк)]: 2001 запись, seq без дыр, event_id и entity_id без повторов, 0 конфликтов, state_hash вкладок A, B и свежего чтения равны. Дополнительно тест без navigator.locks (проверка seq + повтор) и тест if_empty."
+    },
+    {
+     "criterion": "REQ-097: backup_due срабатывает на 50-й записи и на 7-й день, не срабатывает на 49-й и 6-й (значения из vocab.json)",
+     "status": "met",
+     "evidence": "tests/backup.test.mjs (8 тестов): пороги сверены с engine/vocab.json (50 и 7, hypothesis); 49/50 записей и 6/7 день; плюс сквозной тест на живой среде в tests/data_actions.test.mjs «напоминание на живой среде» (49 правок — нет, 50-я — да; 6-й день после копии — нет, 7-й — да)."
+    },
+    {
+     "criterion": "TST-38 REQ-094: «Скачать журнал» = export_json, «Восстановить» = import_json, state_hash совпадает; демо по-прежнему читает прежний JSON рабочей области",
+     "status": "met",
+     "evidence": "tests/data_actions.test.mjs: на четырёх наборах G-001 export_journal_copy/inspect_import дают тот же state_hash, что io.import_json, и тот же inputs_hash/ряды; G-001 opening=400000, end_close=340000; журнал с заменой и откатом записей; файл рабочей области (g001*.json) разбирается как kind 'workspace' без изменений (учтено, что у G-001 в поле format стоит runway-journal/1: журнал определяется по events). Недоверенный файл: bad_json, too_big, newer_format, ключ __proto__."
+    },
+    {
+     "criterion": "TST-43 / TST-44 REQ-095, REQ-096: CSV журнала с защитой от формул, hledger без падения E_SCHEMA на ws-массивах (через ws_bridge); список потерь формата показан",
+     "status": "met",
+     "evidence": "tests/data_actions.test.mjs: export_csv_file(ws) через ws_to_state — =HYPERLINK(...) выходит как '=HYPERLINK, сумма -4730 без изменений, обратный разбор профилем runway-csv/1 возвращает текст без префикса; export_hledger_file(ws): якорь с assertion, 16 плановых ~-правил, повтор даёт те же байты, отказ build_events не роняет выгрузку (planned_error). Списки потерь: format_losses/FORMAT_LOSSES (csv — lost, hledger — lost + materialized), показаны в разделе «Хранение и файл-копия» (tests/data_pack.test.mjs проверяет строки)."
+    },
+    {
+     "criterion": "REQ-098: eraseAll показывает «будет удалено N операций, M правил, K сценариев», выдаёт квитанцию {erased, date, counts, stores, copies_warning}, повторный вызов без ошибки, ключи localStorage и база очищены",
+     "status": "met",
+     "evidence": "tests/data_actions.test.mjs: erase_preview, erase_all на memory и на фейк-IDB (база снята: f.dbs.has false, чтение пусто), чужой ключ localStorage остаётся, кэш и сервис-воркер сняты, повтор без ошибки, сбой шага изолирован (errors кодом, текст ошибки не попадает); tests/data_pack.test.mjs: диалог «Будет удалено: 28 операций, 4 правил, 2 сценариев», квитанция с датой и предупреждением о копиях (всегда)."
+    },
+    {
+     "criterion": "REQ-124: лог содержит только id, n, ms, code, engine_version; запись amount_minor или описания в лог — красный тест",
+     "status": "met",
+     "evidence": "demo/log.mjs + tests/log.test.mjs (9 тестов): белый список из 5 полей; строгий режим бросает log_field_forbidden на amount_minor/desc/note/name/tag и др.; обычный режим отбрасывает и считает; строки срезаются до 32; отчёт об ошибке только по согласию, только поля белого списка, показывается полным текстом; в demo/**/*.mjs нет console.* (проверка по исходникам)."
+    },
+    {
+     "criterion": "REQ-125: rights.report() вычисляется из состояния (есть ли копия, возраст, число записей, persisted)",
+     "status": "met",
+     "evidence": "demo/rights.mjs rights_report(state) + tests/rights.test.mjs (6 тестов): копия есть/нет, возраст в днях, записей после копии, persisted true/false/null, вид хранилища; остатки рисков (потеря устройства, расширения, нет шифрования); строки каталога сверены с vocab.json → forbidden_phrases. Отчёт подключён в раздел «Где что лежит» и берётся из runtime.status()."
+    }
+   ],
+   "notes": [
+    "ПЕРЕПРОВЕРКА ЗАВИСАНИЯ (ответ на запрос пользователя). Состояние на диске до работы: store.mjs, store_idb.mjs, tests/fake_idb.mjs, tests/store.test.mjs — целы; остальных файлов FP-05 не было. Причины двух симптомов найдены и устранены: (1) «падение по state_hash» — ошибка ожидания в тесте: в состоянии у каждого факта лежит event_id записи журнала, а он зависит от очерёдности писателей; ожидаемая свёртка с другими event_id не может совпасть. Тест теперь сравнивает порядко-независимый хэш (факты без служебного event_id) при прежних строгих проверках без потерь и дублей и равенстве state_hash у вкладок А, Б и свежего чтения; (2) «зависание» IndexedDB-варианта — не взаимоблокировка, а медленный фейк: setTimeout(0) на Windows даёт ~15 мс на тик, 2000 записей × 3 транзакции × ~6 тиков ≈ минуты. В tests/fake_idb.mjs тик заменён на setImmediate (было 95 мс на транзакцию, стало ~1,4 мс); вариант IDB теперь идёт ~30 с (один из самых тяжёлых тестов набора, держится в пределах 120 с таймаута).",
+    "Реальный дефект найден тестом двух вкладок: при одновременной первой записи вторая вкладка дописывала набор данных поверх чужого журнала (под замком «догоняла» чужие записи и не видела конфликта по seq). Добавлена опция open_persistent.write(specs, {if_empty: true}) в store.mjs (аддитивно) — под замком непустое хранилище даёт store_conflict без записи; среда выполнения использует её для первой записи.",
+    "Изменения общих файлов НЕТ: app.mjs, i18n.mjs, index.html, style.css, tests/demo.test.mjs не тронуты. «Продолжить с сохранённого» и секции экрана «Данные» подключены пакетом pack_fp05 через слоты overview.cards и data.sections и хук boot. Перерисовка без записи сделана через событие hashchange на window (в Node вызов пропускается); запрос ctx.refresh()/ctx.adopt и прочие — в _ops/impl/hook-requests-FP05.md. Попытка перерисовывать через ctx.set_ws(ctx.get_ws()) ломала tests/ext_boot.test.mjs (лишние события fp05_refresh у подписчика), поэтому отказался от неё.",
+    "Файлы сверх списка new_files (по существу разбиения на чистую модель и тонкий DOM): demo/data_runtime.mjs (сквозная логика: init, запись правок по разности ws_bridge.diff_ws_to_specs под замком, копия, восстановление, пауза, удаление; без DOM, тестируется в Node), demo/data_view.mjs (DOM), demo/pack_fp05.mjs (точка входа), demo/css/data.css, tests/data_pack.test.mjs (пакет на реестре и заглушке DOM), tests/fake_idb.mjs (фейк из прошлого запуска, правлен только тик). pick_store (IndexedDB → localStorage → память) добавлен в store_idb.mjs; в store.mjs добавлена только опция if_empty.",
+    "Поведение запись/продолжение: до выбора пользователем при найденном журнале в хранилище ничего не пишется (режим found); смена набора данных (reason adopt) ставит запись на паузу и не затирает сохранённое (режим paused), стирание сохранённого — только явным «Начать с текущего набора» после подтверждения; очистка/замена хранилища другой вкладкой тоже ставит запись на паузу. Журнал хранилища собственный (open_persistent), следует за рабочей областью по разности; ctx.journal FP-01 не используется как источник правды, потому что его event_id пересобираются из ws и не совпали бы с файлом (state_hash включает event_id фактов).",
+    "Что значит state_hash у файла: runway-journal/1 не содержит хэша внутри (формат канона {format, engine_version, events} не расширен); хэш показывается в интерфейсе и сохраняется в метаданных last_backup {day, count, hash}. Копия до первой записи в хранилище строится детерминированно из ws (ws_to_events, evt~000001…), после — из журнала хранилища; хэш у этих двух источников разный (разные event_id), это ожидаемо.",
+    "Канон: у набора G-001 в рабочей области поле format равно runway-journal/1 (при этом это не журнал) — inspect_import различает файл-журнал по наличию events; стоит поправить значение format в data/*.json (принадлежит интегратору/FP-02).",
+    "Пороги backup.remind_events=50 и backup.remind_days=7 — зеркало vocab.json (hypothesis), сверяются тестом; можно задать в ws.params. День без новых записей напоминания не даёт (копировать нечего) — уточнение к формулировке REQ-097. «Сегодня» для дней без копии берётся портом today() страницы (системные часы через ids.mjs), не ws.as_of.",
+    "Не проверено вне Node: реальные IndexedDB/Web Locks/BroadcastChannel/persist() и скачивание Blob в браузере (браузер по правилам задания не использовался); IndexedDB-обёртка проверена на фейке, который моделирует транзакции, откат и ConstraintError. Сервис-воркер и кэш в демо пока отсутствуют (FP-12): шаги eraseAll выполняются вхолостую через порты.",
+    "Прогнано (каждый файл отдельно, с --test-timeout=120000 --test-concurrency=1): store 41, backup 8, data_actions 32, data_pack 4, rights 6, log 9, purity 81, demo 34, а также ext_boot 6, entry_boot 4, settings_boot 6, ext 16, journal_log 10, ws_bridge 18 — все зелёные. node tools/lint_vocab.mjs: 0 ошибок (63 предупреждения в wiki, не мои). Единственный долгий тест — «две вкладки по 1000 записей [idb (фейк)]» (~30 с)."
+   ]
+  },
+  {
+   "fp": "FP-06",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\import_model.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\import_wizard.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp06.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\import.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\import.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\data\\profiles\\csv-generic.json",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\data\\profiles\\csv-semicolon-dmy.json",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\fixtures\\import-152.csv",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\import_model.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\import_wizard.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP06.md"
+   ],
+   "tests_total": 30,
+   "tests_pass": 30,
+   "acceptance": [
+    {
+     "criterion": "TST-42 REQ-092: файл на 152 строки даёт «распознано 138 · отклонено 2 · дубликатов 12», сумма категорий равна числу строк, state_hash не меняется до «Подтвердить»",
+     "status": "met",
+     "evidence": "tests/import_model.test.mjs: «TST-42 REQ-092: файл на 152 строки…» (138/2/12, 138+2+12=152, отклонены строки 61 и 121) и «state_hash не меняется до «Подтвердить»». tests/import_wizard.test.mjs: тот же путь через DOM и app.mjs (строка «распознано 138 · отклонено 2 · дубликатов 12», «Строк в файле: 152 = 138 + 2 + 12», хэш прежний до клика). 12 дубликатов получены честно: в данные сначала импортируется партия из первых 12 строк того же файла. Оба файла зелёные (21 и 9)."
+    },
+    {
+     "criterion": "TST-43 REQ-093: повторный импорт того же файла даёт 0 новых; «Откатить» возвращает state_hash к значению до импорта (после FP-02)",
+     "status": "met",
+     "evidence": "tests/import_model.test.mjs «TST-43 REQ-093…» и tests/import_wizard.test.mjs «TST-43 REQ-093 в интерфейсе…»: после записи повторный прогон даёт «распознано 0 · отклонено 2 · дубликатов 150», «Подтвердить» недоступна, commit_plan возвращает E_SCHEMA nothing_to_import; откат партии (кнопка в списке партий и на шаге «Готово») возвращает ws_state_hash к прежнему значению; ручной ввод после импорта откат не затрагивает (отдельный тест)."
+    },
+    {
+     "criterion": "REQ-091: файл > 5 МБ отклоняется до разбора; профиль с regex или исполняемым полем отвергается; описание операции выводится только через textContent",
+     "status": "met",
+     "evidence": "import_model.test.mjs: check_size (5 МБ ровно допустим, +1 байт — E_SCHEMA file_too_large), wiz_csv_load/wiz_hl_load/plan_csv/decode_bytes отказывают по размеру до разбора; read_profile_text отвергает regex, script, transform, eval, __proto__/constructor/prototype, большой файл, чужую кодировку. import_wizard.test.mjs: arrayBuffer() файла >5 МБ не вызывается (отказ до чтения), профиль с regex и с __proto__ отвергаются в интерфейсе; описание «<img src=x onerror=alert(1)>» показано текстом: в дереве нет элемента img, нет style и on*-атрибутов; в import_wizard.mjs нет innerHTML и setAttribute('style') (плюс статические проверки demo.test.mjs). Правила меток — литералы (parse_rules_text), «(zq+)+$» не исполняется."
+    },
+    {
+     "criterion": "REQ-091: «12,50» при thousands=\",\" не превращается в 1250,00 (после FP-02)",
+     "status": "met",
+     "evidence": "import_model.test.mjs и import_wizard.test.mjs: профиль csv-generic (decimal «.», thousands «,») строку «12,50» отклоняет как bad_amount (строка названа в отчёте «сумма не разобрана»), «1,250.00» читается как 125000, «12.50» как 1250 minor; суммы 125000 у «12,50» нет."
+    },
+    {
+     "criterion": "REQ-099: hledger-журнал с двумя ногами импортируется через dry_run; @/@@ и более двух активных ног дают явный отказ E_SCHEMA и строку «не поддержано», а не молчаливую потерю",
+     "status": "met",
+     "evidence": "import_model.test.mjs: журнал с зарплатой, расходом и переводом проходит plan_hledger (те же три числа, перевод — пара ног с одним transfer_id, партия откатывается вместе с новыми счетами, state_hash возвращается); «@», «@@» и три активные ноги дают E_SCHEMA unsupported_constructs с перечнем {line, reason} (все места разом, а не по одному; «@@» движок пропускает молча, его ловит scan_hledger); тексты журнала в отказ не попадают. import_wizard.test.mjs: во вкладке hledger видно «Журнал отклонён целиком… (E_SCHEMA)» и строки «Строка 3/1/8: не поддержано — …», «Подтвердить» отсутствует, хэш прежний."
+    }
+   ],
+   "notes": [
+    "ВОЗОБНОВЛЕНИЕ после обрыва: на диске уже были import_model.mjs (798 строк, проходил node --check), профили, fixture. Я проверил модель и дополнил её, не ломая: в import_model.mjs ДОБАВЛЕНА секция «Состояние мастера» (new_wizard, wiz_csv_load/set/run/profile_file, wiz_hl_load, wiz_refresh, wiz_decide, wiz_commit, wiz_committed, wiz_rollback, MAPPING_FIELDS, TABS) и два исправления в добавленном ранее коде: sniff_csv определяет разделитель по строке заголовка после пропуска преамбулы, а не по первой строке файла; wiz_csv_resniff не затирает автоматическую догадку о колонках старой догадкой (флаг mapping_edited). Существующие экспорты не удалялись и не переименовывались.",
+    "Создано: demo/import_wizard.mjs (экран и чистые помощники read_picked_file/error_text/size_text), demo/pack_fp06.mjs (слот data.sections, i18n, css, подписка на adopt), demo/i18n/import.mjs (RU/EN, паритет), demo/css/import.css, tests/import_model.test.mjs (21 тест), tests/import_wizard.test.mjs (9 тестов на настоящем app.mjs с заглушкой DOM), _ops/impl/hook-requests-FP06.md. Общие файлы (app.mjs, i18n.mjs, index.html, style.css, demo.test.mjs, ext.mjs) НЕ правились.",
+    "Запуск (с таймаутом, по одному файлу): tests/import_model.test.mjs 21/21, tests/import_wizard.test.mjs 9/9, tests/purity.test.mjs 75/75, tests/settings_boot 6/6, tests/entry_boot 4/4. node ../tools/lint_vocab.mjs — 0 ошибок (63 предупреждения прежние, из wiki). Совет: тесты с `| head` в конвейере и `--test-timeout` могут казаться зависшими из-за открытого пайпа; результаты надёжнее писать в файл. Ни одного зависшего теста в моих файлах нет (≈1,5 и ≈4,5 с).",
+    "НЕ мои падения, замеченные при прогоне: (1) tests/demo.test.mjs TST-56 «запрещённые формулировки» падает на подстроке «безопасно» в demo/pack_fp05.mjs:16 и комментарии demo/data_view.mjs:3 (FP-05; я сам тоже написал «Безопасность» в комментарии и исправил, до FP-05 demo.test.mjs у меня был зелёный 34/34); (2) tests/ext_boot.test.mjs «смена набора данных (ext.reset)…» ждёт ровно ['adopt'], а подписчик FP-05 добавил 'fp05_refresh'. Подробности — в hook-requests-FP06.md.",
+    "Ограничение имён: пространство строк `import` совпадает с типами записей журнала 'import.started'/'import.rolled_back' в journal_log.mjs, а проверка TST-56 считает такие литералы ключами; поэтому ключи import.started и import.rolled_back есть в каталоге и реально используются (объявление «Файл принят», сообщение об откате). Запрос интегратору — в hook-requests-FP06.md п.1.",
+    "Честные границы (не «молчаливая потеря»): в hledger периодические правила `~` и разовые планы в рабочую область не вносятся, в отчёте строка «Найдено, но не перенесено: …». Информация о внесённых hledger-партией счетах, якорях и курсах хранится в памяти вкладки: после перезагрузки откат убирает факты партии (у них batch_id), а счета/якоря/курсы остаются. Кнопка «Отменить» FP-04 импорт не знает — откат делается кнопкой «Откатить партию».",
+    "Поведение: возможный двойник по умолчанию пропускается, решение «Записать»/«Пропустить» по каждой строке; перевод hledger записывается целиком или не записывается (если одна нога отклонена/дубликат — вторая тоже). При изменении данных между прогоном и «Подтвердить» отчёт пересчитывается заново с теми же решениями (wiz_refresh), commit_plan с устаревшим планом отказывает stale_plan. Идентификаторы партий/фактов выдаёт ctx.new_id (повтор — отказ duplicate_id). Факты партии несут dedup_key и batch_id (ws_edit эти поля уже допускал).",
+    "Сухой прогон не использует Date/random/сеть; recorded_at берётся из ws.as_of. Движок engine/ не менялся."
+   ]
+  },
+  {
+   "fp": "FP-07",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\scenario_ext.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\engine\\wave_sweep.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp07.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\scenario_builder.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\wave_edit.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\why_more.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\scenarios.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\scenarios.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\scenario_builder.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\wave_edit.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\why_more.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP07.md"
+   ],
+   "tests_total": 157,
+   "tests_pass": 157,
+   "acceptance": [
+    {
+     "criterion": "TST-33 REQ-049: пять новых операций строят ops и проходят apply_scenario; сохранённый сценарий входит в экспорт; сохранение и удаление не меняют facts_hash (после FP-02)",
+     "status": "met",
+     "evidence": "tests/scenario_builder.test.mjs (18 тестов зелёные): build_op строит shift_flow, set_amount, remove_flow, add_flow (разово и по месяцам), fx_shock и сдвиг выбранного поступления (delay_income); каждая проходит apply_scenario и analyze, результат совпадает с ручным редактированием копии данных; save_edit + apply_edit(save_scenario) кладёт сценарий в ws.scenarios, он есть в ws_to_events (scenario.set) и в файле-копии ws_to_journal -> journal_to_ws без потерь; хэш фактов (ws.facts и записи tx.posted журнала) и базовые ряды не меняются ни при сохранении, ни при удалении. Именованной функции facts_hash в движке нет: тест считает sha256 от содержимого фактов (пометка в hook-requests-FP07.md, п. 3)."
+    },
+    {
+     "criterion": "TST-37 REQ-036: merge/split/pin пишут wave_override.set; устаревшая правка даёт W_OVERRIDE_STALE; одна правка идемпотентна",
+     "status": "met",
+     "evidence": "tests/wave_edit.test.mjs (12 зелёные): merge W1+W2 G-001 даёт одну волну total_out 254000; plan_split/plan_pin/plan_pin_range дают корректные волны, Σ total_out равна Σ значимых обязательств; ws_to_events и ctx.journal содержат wave_override.set (в DOM-тесте на реальном app.mjs, журнал +1 запись); правка на исчезнувший платёж даёт W_OVERRIDE_STALE и статус «устарела» с кнопкой «Снять» (снятие пишет revert); идентификатор правки wov_<12hex> по содержимому, already_applied не пишет повторно, повторное применение не меняет ни список, ни волны; правка переживает пересчёт с новым обязательством."
+    },
+    {
+     "criterion": "REQ-104: сумма строк цепочки «почему» вместе с «Остальное» равна просадке (сейчас 200000 против 217000 на G-001-low); «почему» есть у волны и у вердикта plan",
+     "status": "met",
+     "evidence": "tests/why_more.test.mjs (12 зелёные): narrowest_why на g001-low, worse: группы 90000+60000+50000=200000, «Остальное» 17000, итог 217000 = просадка; сходится в обоих режимах на четырёх наборах и при поступлениях в окне; wave_why (R_w) и sts_why (разложение движка с платежами по группам) и verdict_why (ok/tight/short) сходятся. В приложении: блок хука show_why добавляет «Полную цепочку» с «Остальное» и словесным «Сходится» в штатный диалог; карточка «Почему так» на «Обзоре» (вердикт по плану, по «если хуже», «можно потратить») и кнопка «Почему такая потребность» у каждой волны — по одному нажатию. Штатная таблица app.mjs не менялась (запрос п. 1.1 в hook-requests-FP07.md)."
+    },
+    {
+     "criterion": "REQ-051: чип «курс ±N bp» даёт тот же результат, что scenario_fx_shock; операция hours работает только через scenario_ext",
+     "status": "met",
+     "evidence": "tests/scenario_builder.test.mjs: на наборе с USD (2000,00 $ при 0,9250) чип -500 bp даёт ops, scenario_fx_shock({ops}) = {USD:-500}, событие 185000 -> 175750 (-9250), совпадает с build_events; DOM-тест нажимает чип. Операция hours: analyze и apply_scenario по умолчанию отвечают E_SCHEMA op_not_in_v1 (не изменено); через engine/scenario_ext.mjs (hours_to_ops, expand_scenario_ext, analyze_ext) октябрьская выплата S-HOURLY@2026-11-05 = 240000 вместо 279000 (80 ч вместо 93 ч); worse без чипов считает те же суммы, что plan; хук scenario_ops разворачивает hours в set_amount; сценарий с hours в набор не сохраняется (намеренно, п. 2.2 запроса)."
+    },
+    {
+     "criterion": "TST-58: каждый новый блок имеет текстовую альтернативу цвету и подпись для скринридера",
+     "status": "met",
+     "evidence": "Во всех трёх DOM-наборах функция a11y_problems проверяет на настоящем app.mjs: у каждой таблицы caption, aria-labelledby ведёт на существующий id, у кнопок текст или aria-label, у полей label for, нет inline-стилей. Смысл передан словами: «Сходится/Не сходится», «лучше на / хуже на / без изменений», «в силе / устарела: платежа больше нет», «состав по правилам / изменён правками», «текущее»; сообщения о действиях в role=status aria-live=polite. Эта же проверка зелёная для tests/demo.test.mjs (TST-56/59 CSP, словарь §10, i18n RU/EN)."
+    }
+   ],
+   "notes": [
+    "Задание стартовало заново: от прошлого запуска FP-07 не сохранилось ни одного файла. Все файлы созданы с нуля. Запуск тестов только с --test-timeout=120000 --test-concurrency=1, по одному файлу, без фонового и полного прогона. Прогнаны и зелёные: scenario_builder (18), wave_edit (12), why_more (12), purity (81), demo (34); для проверки совместимости пакета ещё ext_boot (6), settings_boot (6), entry_boot (4), ext (16), ws_edit (20), ws_bridge (18). lint_vocab: 0 ошибок, по файлам FP-07 предупреждений нет (63 предупреждения — прежние, в wiki).",
+    "Существующий код не менялся. Ни app.mjs, ни ext.mjs, ws_edit.mjs, i18n.mjs, index.html, style.css, demo.test.mjs, ни существующие тесты не тронуты; изменений поведения существующего кода нет. Пакет подключается манифестом (pack_fp07 уже в списке). touched_files из backlog (app.mjs: хук scenario_ops, кнопки в view_waves, show_why) не правились: нужные хуки и слоты уже есть, оставшееся оформлено в hook-requests-FP07.md.",
+    "Что регистрирует pack_fp07: экран #scenario_lab «Конструктор» (order 55; слота на экране «Сценарии» в SLOTS нет), слот waves.actions (правки волн, порог θ, таблица чувствительности), слот overview.cards (карточка «Почему так»), хуки scenario_ops и show_why, строки scenarios.* (RU/EN, 200+ ключей без мёртвых), css/scenarios.css.",
+    "Запросы к владельцам общих файлов (подробно в _ops/impl/hook-requests-FP07.md): (1) app.mjs: «Остальное» и «Поступления» в штатную таблицу цепочки; why_button('plan') на экране покупки; слот scenarios.after и per-wave слот waves.card; имя сценария для чужих видов; (2) ws_edit.mjs: разрешить pin только с pin_range; решение владельца, хранить ли сценарии с операцией hours; (3) координатор: README и guide, tst-coverage (TST-27/33/37/58, REQ-036/049/050/051/104), запись семантики hours и правок волн в wiki.",
+    "Решение по семантике hours{stream_id, minutes, from?, to?}: minutes — ожидаемые минуты каждого периода потока; min/max периода подтягиваются, чтобы min ≤ exp ≤ max; период, закрытый с фактом (actual_minutes), не меняется; операции hours переводятся в начало списка и разворачиваются в set_amount над событиями потока, которые есть в модели (их суммы считает тот же expand_stream_ex, одно округление за период); worse часы сам не включает. apply_scenario не менялся и по-прежнему даёт op_not_in_v1.",
+    "Ограничение слоя записи: ws_edit.set_wave_override отвергает пустой event_ids даже у pin с pin_range, поэтому «закрепить даты» записывает платежи диапазона перечнем плюс pin_range. save_scenario не принимает hours, поэтому сценарий с часами остаётся гипотезой на экране (сообщение словами).",
+    "Критерий TST-33 говорит о facts_hash, которого в движке нет; тест считает хэш содержимого ws.facts и записей tx.posted журнала (seq записей при добавлении сценария сдвигается, содержимое фактов нет).",
+    "Обнаруженная ловушка для авторов пакетов: replaceChildren(null) в браузере даёт текст «null» (h() из dom.mjs null пропускает); исправлено в scenario_builder.mjs, запись о ловушке в hook-requests. Сообщение после ctx.edit нужно ставить до вызова: страница перерисовывается внутри edit.",
+    "База для сравнения в конструкторе при включённом на странице сценарии считается отдельно (analyze(ws)), иначе «база» была бы уже сценарием; тест это проверяет.",
+    "Идентификатор правки волны детерминирован по содержимому (wov_ + 12 hex, FNV-1a): повтор той же правки ничего не пишет; merge ссылается на первые платежи двух соседних волн."
+   ]
+  },
+  {
+   "fp": "FP-09",
+   "files": [
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\showcase.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\tests\\promises.test.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\promises.json",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\promises.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\_ops\\impl\\hook-requests-FP09.md",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\pack_fp09.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\debts.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\store_mode.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\ladder.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\golden_panel.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\report.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\hotkeys.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\payload_preview.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\i18n\\showcase.mjs",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\demo\\css\\showcase.css",
+    "C:\\xampp\\htdocs\\01\\301\\runway\\prototype\\data\\golden-g001.json"
+   ],
+   "tests_total": 169,
+   "tests_pass": 169,
+   "acceptance": [
+    {
+     "criterion": "TST-01 / TST-02 / TST-04 REQ-109: панель «Эталон» показывает восемь значений канона и вычисленные, все отметки «совпало»",
+     "status": "met",
+     "evidence": "demo/golden_panel.mjs + data/golden-g001.json. tests/showcase.test.mjs: файл и зеркало GOLDEN равны, восемь значений движка равны канону, экран (RU/EN) показывает 8 меток «✓ совпало» и «Совпало 8 из 8», в реальном app.mjs маршрут #golden тоже даёт 8 из 8; правка анкера даёт «не совпало»."
+    },
+    {
+     "criterion": "UP-02: лестница на G-001 даёт границы 210,00 / 435,00 / 935,00 € из max_amount с буфером и без",
+     "status": "met",
+     "evidence": "demo/ladder.mjs. Тест: bounds {21000, 43500, 93500}; сетка равна прямым вызовам max_amount (с буфером и без, plan/worse); на каждой границе S и S+1 вердикт check_purchase равен вердикту лестницы (112+ проб по датам горизонта, 4 набора данных); экран показывает 210,00 / 435,00 / 935,00."
+    },
+    {
+     "criterion": "REQ-184 / REQ-178: каждая строка promises.json имеет level и test; node tools/lint_vocab.mjs --registry принимает файл; level hypothesis в интерфейсе → ошибка линтера",
+     "status": "met",
+     "evidence": "tests/promises.test.mjs (12): level и test у всех 16 строк, файл теста существует и id есть в названии теста; запуск CLI на promises.json без ошибок promise-*, на файле с hypothesis/ui — код 1 и [promise-hypothesis-in-ui], устаревшее измерение — [promise-stale]; страница hypothesis не показывает. Найден и исправлен дефект: ссылка golden указывала на g001.golden.test.mjs, где TST-01 нет в названии теста — теперь tests/g001.test.mjs."
+    },
+    {
+     "criterion": "TST-29 / TST-30 REQ-082: график аннуитета, сумма платежей и переплата совпадают с движком; prepay shorten и lower_payment",
+     "status": "met",
+     "evidence": "demo/debts.mjs; showcase.test.mjs: аннуитет 120000/12 %/6 → A=20706, Σ=124235, переплата 4235; дифференцированный и рассрочка; prepay_compare строки равны E.prepay для shorten (5 платежей, % 3121) и lower_payment (платёж 13017, % 3481); reanchor drift +107/13 bp по TV-6; экран RU/EN."
+    },
+    {
+     "criterion": "REQ-052: «в магазине» отвечает с теми же числами, что buy_run на as_of; замер времени расчёта печатается",
+     "status": "met",
+     "evidence": "demo/store_mode.mjs; тест сравнивает store_model с APP.buy_run на 10 суммах (вердикт, m_after, margin, at, S_max, ссылка c_…); экран печатает «Расчёт и показ заняли X мс»; t.diagnostic: ≈0,06 мс на вызов. Цель 1 с названа целью до замера на эталонном устройстве."
+    },
+    {
+     "criterion": "REQ-131: недоверенный текст только по кнопке, ≤ 80 символов, с меткой untrusted; REQ-132: чип показывает режим и дату узкой точки",
+     "status": "met",
+     "evidence": "demo/payload_preview.mjs; тесты: clip_untrusted ≤ 80 по кодовым точкам, перечень без текста, экран скрывает текст до кнопки «Показать», метка untrusted, build_payload без утечек на 4 инструментах и обнаружение утечки; чип: режим, версия движка, дата узкой точки (2026-11-14 для worse), hash_short, c_… ."
+    },
+    {
+     "criterion": "TST-56: запрещённые формулировки отсутствуют в новых строках RU и EN",
+     "status": "met",
+     "evidence": "showcase.test.mjs и promises.test.mjs проверяют каталог showcase и код пакета по vocab.json forbidden_phrases; tests/demo.test.mjs (34/34) и node tools/lint_vocab.mjs: 0 ошибок."
+    }
+   ],
+   "notes": [
+    "Все файлы пакета уже были на диске после обрыва; проверены (node --check), ничего не удалялось. Дописаны tests/showcase.test.mjs (42 теста) и tests/promises.test.mjs (12). Запускал по одному файлу с --test-timeout=120000 --test-concurrency=1: showcase 42/42, promises 12/12, purity 81/81, demo 34/34 (всего 169, 0 fail).",
+    "Изменение существующего поведения: нет. Правки в своих файлах: ссылка claim «golden» в promises.json и зеркале REGISTRY (promises.mjs) исправлена с tests/g001.golden.test.mjs на tests/g001.test.mjs (там действительно есть тесты с TST-01 в названии).",
+    "Общие файлы (app.mjs, i18n.mjs, index.html, style.css, demo.test.mjs) не правились. Запросы и замечания — _ops/impl/hook-requests-FP09.md: клавиша «T» ведёт на экран settings из FP-03; зеркало GOLDEN/REGISTRY в коде, потому что fetch/import разрешены только app.mjs и манифесту.",
+    "Наблюдение: в G-001 недоверенными полями считаются метки tag (33 значения); предпросмотр «в облако» утечек на них не находит (проверка подстрокой по результату инструмента) — тесты учитывают это относительно базовых значений.",
+    "Состояние экранов «Долги» живёт на уровне модуля между показами (как введённые пользователем значения); тесты сбрасывают форму явно. По умолчанию первый платёж — через месяц от даты расчёта (2026-11-04), в тестах задан 2026-11-05.",
+    "Использовал только свои тесты + purity + demo; полный набор и тест производительности TST-54 не запускал (по правилам — интегратор). Серверов, браузера и фоновых процессов не запускал. Не затронуты внешние MCP-серверы (часть lorenzo-* не подключилась — к задаче отношения не имеет)."
+   ]
+  }
+ ]
+}

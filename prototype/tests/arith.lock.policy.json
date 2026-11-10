@@ -1,0 +1,23 @@
+{
+  "format": "arith.lock.policy/1",
+  "rule": "Любое изменение tests/arith.lock.json сопровождается повышением ENGINE_VERSION (REQ-172, ADR-014): в history добавляется запись с новым sha256 замка и БОЛЬШЕЙ версией движка. Проверяет tests/lock_policy.test.mjs. Сам замок и его перегенерацию (ARITH_LOCK_UPDATE=1) этот файл не заменяет.",
+  "history": [
+    {
+      "lock_sha256": "0938d3628c9dedd93c7adf84863fc751dd932b4c10959d492867b2e0ca7e2d30",
+      "engine_version": "0.1.0",
+      "cases": 574,
+      "note": "исходный замок арифметики: 574 случая, seed 2026 (волна 0, TST-52)"
+    }
+  ],
+  "engine_lock": {
+    "rule": "Любое изменение tests/engine.lock.json сопровождается повышением ENGINE_VERSION (REQ-172, ADR-014): в history добавляется запись с новой суммой файла замка и БОЛЬШЕЙ версией движка. Проверяет tests/engine_lock.test.mjs; перегенерация — node tools/make_engine_lock.mjs --write.",
+    "history": [
+      {
+        "lock_sha256": "d5c883672d6e6d46c8833af335c926956fba2242318f229eb21b808f3cb5c882",
+        "engine_version": "0.1.0",
+        "cases": 500,
+        "note": "замок вывода движка: sha256(canon(analyze(ws, query))) на 500 журналах, seed 2026 (FP-24, REQ-172)"
+      }
+    ]
+  }
+}

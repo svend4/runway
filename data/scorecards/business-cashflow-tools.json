@@ -1,0 +1,101 @@
+{
+  "slug": "business-cashflow-tools",
+  "name": "Бизнес-планировщики cash flow (Float, Pulse, Xero Cash flow, QuickBooks Cash Flow Planner, FreeAgent Cashflow, Fathom)",
+  "category": "biz-cashflow",
+  "checked": "2026-10-04",
+  "price": "Float (floatapp.com): Essentials £99/мес (£79 при годовой оплате), Growth £199/£159, Scale £295/£235 + £59/£47 за доп. entity до 5, триал 14 дней без карты, без VAT, 8 сценариев на всех планах, горизонт 12 мес. (Essentials) / 36 мес. (Growth, Scale) (floatapp.com/pricing, 2026-10-04); Capterra показывает другие USD-тарифы ($59/$99/$199) — расхождение, вероятно устаревшие данные. Pulse: Basics $29 / Small Business $59 (+QuickBooks Online sync, план/факт) / Premium $89 (+конвертация валют) в мес, триал 30 дней (pulseapp.com/pricing, 2026-10-04). Xero Cash flow / QuickBooks Cash Flow Planner / FreeAgent Cashflow: отдельной цены нет, функция внутри платформы (цены самих платформ не подтверждены). Fathom: Pro $450/мес (25 компаний, +$17 за компанию), Portfolio $67/мес (100 компаний), Enterprise по запросу, триал 14 дней (fathomhq.com/pricing, 2026-10-04; ориентирован на бухгалтеров, цифры нетипичны для SMB — перепроверить). Не путать с float.com (планирование ресурсов, $7/$12 за человека).",
+  "status_note": "Float (floatapp.com) жив: актуальная pricing-страница 2026, листинг в Xero Marketplace с декабря 2014, 4.83/5 по 345 отзывам; Sage Intacct помечен как 'coming soon'; дата последнего релиза не найдена. Pulse (Simple Focus, также Ballpark, Sifter, Curated): страница Capterra обновлена 2026-09-30, отзывы на 2026-03-13; дат релизов не найдено. Xero Cash flow manager: статья CFOtech от 2026-05-27. QuickBooks Cash Flow Planner: описание на intuit.com, дата не указана. FreeAgent: 90-дневный cashflow упомянут в блоге 2026. Fathom: pricing-страница живая, цифры противоречивы между источниками. FreeAgent как источник данных Float подтверждён страницей freeagent.com/en/integrations/float и блогом FreeAgent от 2026-02-19 (на pricing-странице Float перечислены только Xero/QBO); у Pulse в подвале ©2019; признаков закрытия или покупки Float и Pulse не найдено.",
+  "support": {
+    "forecast_by_date": {
+      "level": "full",
+      "note": "Float: дневной, недельный и месячный вид до 12 мес. на Essentials и до 36 мес. на Growth/Scale (pricing Float), Xero: 7/30/60/90/180 дней (180 — по независимому обзору только на планах с Analytics/Syft; не подтверждено), QuickBooks: 30/90 дней, FreeAgent: 90 дней, Pulse: ежедневный вид. Исключение: Fathom — только месяц/квартал/год, не daily/weekly."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Что-если реализовано как событие или сценарий поверх базы: Float (до 8 именованных сценариев, переключение строк), QuickBooks/FreeAgent (ручные события, не попадающие в книги), Xero (ручные разовые суммы, 'оплатить счёт на этой неделе или на следующей'). Float показывает самый низкий проектный остаток окна, но готового вердикта 'можно купить / нельзя' по узкой точке нет (вывод)."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Float: автоопределение повторяющихся расходов (Smart Cost Prediction), правила повтора, linked budgets, одноразовые записи; Xero предсказывает повторы по истории; Pulse — повторяющиеся доходы/расходы. 'Волны' видны через недельную сетку 13-week и метрику низшей точки, но расчёта 'сколько нужно к волне' не найдено (вывод)."
+    },
+    "sinking_funds": {
+      "level": "unknown",
+      "note": "Резервов или амортизации редких трат ни у одного продукта группы не найдено; модель кассовая — платёж падает на свою дату. Подтверждённого отсутствия нет, поэтому unknown."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "FreeAgent включает налоговые обязательства в проекцию, 13-week модели держат налоги отдельной строкой оттоков; откладывания налога при поступлении дохода и налоговых правил по датам не найдено. Не консультация."
+    },
+    "multi_currency": {
+      "level": "partial",
+      "note": "Pulse: multi-currency поддерживается уже на Basics, Premium добавляет конвертацию валют для отчётности; Fathom: мультивалютная консолидация; Float: биллинг в GBP/USD/EUR/AUD, но мультивалютность прогноза официально не подтверждена, пользователи в отзывах жалуются на её отсутствие (не подтверждено); QuickBooks Cash Flow Planner не поддерживает файлы с включённой мультивалютностью."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "Доход моделируется через счета с ожидаемой датой оплаты: Float Smart Expected Dates по реальному поведению клиента, учёт активных и предполагаемых проектов в Forecast Confidence; Pulse — отчёты по клиентам и проектам. Ставок, часов и нормы часов нет."
+    },
+    "privacy_local_first": {
+      "level": "none",
+      "note": "Облачные SaaS, данные приходят из учётной системы: Float читает Xero/QBO/FreeAgent односторонне (read-only) раз в 24 часа, Pulse — веб-сервис с синхронизацией QuickBooks. Self-host, E2E и локальные данные не заявлены; хостинг и сертификации Float не подтверждены."
+    },
+    "import_export": {
+      "level": "partial",
+      "note": "Импорт — живая синхронизация с Xero/QuickBooks Online/FreeAgent (Fathom ещё Excel и Google Sheets), у Pulse экспорт CSV подтверждён офсайтом, CSV-импорт — только обзоры (не подтверждено). Экспорт: Float CSV/PDF, Pulse CSV, FreeAgent CSV/PDF; публичный API Float не найден."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Float: Smart Cost Prediction и Smart Expected Dates — подсказки по истории, не диалоговый ассистент; Xero Cash flow manager — ML-прогноз по истории; Fathom Pro: Commentary Writer. На уровне платформ есть диалоговые агенты (Xero JAX, Intuit Assist/агенты QuickBooks), отвечающие в т.ч. на вопросы про cash flow, но связь с детерминированным прогнозом планировщика не подтверждена."
+    },
+    "openness": {
+      "level": "none",
+      "note": "Закрытые коммерческие SaaS; расширяемость только через официальные API учётных систем. Лицензий с открытым кодом нет; публичный API Float не обнаружен."
+    }
+  },
+  "borrow": [
+    "Сценарий как слой-diff поверх базового прогноза: именованный набор событий, сравнение нескольких сценариев рядом и слияние в базу после решения (Float); события не создают транзакций в учёте (QuickBooks, Xero).",
+    "Самая низкая точка окна как главная метрика: min(balance[t]) с датой, маркер на графике и порог минимального остатка (буфер; 13-week: строка минимального остатка и избытка/дефицита); это прямой строительный блок для Q3.",
+    "Два числа runway: дни до нуля с ожидаемыми приходами и дни до нуля без новых приходов (runway и buffer из Xero); реализуется одной проходкой по прогнозу.",
+    "Ожидаемая дата поступления по истории задержек каждого плательщика (Float Smart Expected Dates): хранить фактические задержки, предлагать дату и использовать задержку как параметр неопределённости.",
+    "Индекс доверия к прогнозу: хранить снимки прогнозов и сравнивать с фактом за N недель (идея Forecast Confidence: 3 мес. факта против 6 мес. прогноза), но формулу показывать пользователю.",
+    "Недельный режим по образцу 13-week: недельная сетка opening/inflows/outflows/closing, еженедельный ритуал 'факт заменяет прогноз' и разбор расхождений по датам и суммам.",
+    "Автопоиск повторов по истории операций: система предлагает правило, подтверждает пользователь."
+  ],
+  "avoid": [
+    "Зависимость прогноза от закрытия учёта и суточной синхронизации (унаследованные задержки ledger): ввод в Runway должен отражаться немедленно.",
+    "Непрозрачный балл доверия без опубликованной формулы и границ полос.",
+    "Единственная линия прогноза без диапазона (интервалы неопределённости не найдены ни у одного продукта; fan-chart — только общее решение, по сниппету поиска).",
+    "Месячная гранулярность как у Fathom: для Q1 и Q2 нужен дневной шаг.",
+    "Смешение выручки с денежными поступлениями (частая ошибка 13-week моделей).",
+    "B2B-тарификация и мультиэнтити-архитектура: для личного уровня избыточны и дороги (от £79/мес у Float)."
+  ],
+  "sources": [
+    "https://www.floatapp.com/pricing",
+    "https://www.floatapp.com/features",
+    "https://floatapp.com/product",
+    "https://floatapp.com/xero-cash-flow-forecast",
+    "https://floatapp.com/ai-info-page",
+    "https://intercom.help/floatapp/en/articles/8588038-forecast-confidence",
+    "https://apps.xero.com/au/app/float-cashflow-forecasting",
+    "https://www.freeagent.com/blog/cashflow-integrations/",
+    "https://www.freeagent.com/features/cashflow/",
+    "https://www.pulseapp.com/pricing",
+    "https://www.pulseapp.com/",
+    "https://www.pulseapp.com/features",
+    "https://www.capterra.com/p/226486/Float-Cash-Flow/",
+    "https://www.capterra.com/p/192868/Pulse/pricing/",
+    "https://www.xero.com/accounting-software/analytics/cash-flow/",
+    "https://cfotech.co.uk/story/xero-cash-flow-manager-projects-short-term-cash-moves",
+    "https://cashflowfrog.com/blog/xero-cash-flow-forecasting-tool-uses-and-limitations",
+    "https://quickbooks.intuit.com/global/cash-flow/",
+    "https://www.fathomhq.com/pricing",
+    "https://www.fathomhq.com/blog/the-best-cash-flow-forecasting-software",
+    "https://hidata.ai/resources/13-week-cash-flow-forecast",
+    "https://agicap.com/en/features/cashflow-forecast/",
+    "https://www.runfutureproof.com/blog/cash-flow-forecasting-software",
+    "https://blog.finexer.com/?p=25735",
+    "https://metricgate.com/calculator/fan-chart-uncertainty",
+    "https://www.freeagent.com/en/integrations/float/",
+    "https://intercom.help/floatapp/en/articles/1934041-what-are-budgets",
+    "https://www.accountingtoday.com/news/xeros-jax-ai-gains-agentic-capacities"
+  ]
+}

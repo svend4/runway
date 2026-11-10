@@ -1,0 +1,6 @@
+/* a0ext.css — чип происхождения ответа ассистента и карточка журнала вызовов (FP-20). Только токены темы из style.css, цвета не заданы. */
+.a0-origin { display: flex; flex-wrap: wrap; align-items: flex-start; gap: 8px; }
+.a0-origin .sc-chip { margin: 0; }
+.a0-actions { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.a0-calls .tbl .num { font-variant-numeric: tabular-nums; }
+.a0-examples .chips { margin-top: 4px; }

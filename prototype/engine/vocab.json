@@ -1,0 +1,134 @@
+{
+  "format": "runway-vocab/1",
+  "source": "design-brief §2.0 (v1.1), §4, §10, §14 N5/N8; wiki-таблицы генерируются из этого файла",
+  "modes": {
+    "plan": { "ru": "по плану", "en": "as planned", "phase": "v1" },
+    "worse": { "ru": "если хуже (консервативный)", "en": "if worse", "phase": "v1", "synonyms": ["conservative"] },
+    "expected": { "ru": "ожидаемый", "en": "expected", "phase": "v2" }
+  },
+  "headline_modes": ["plan", "worse"],
+  "verdicts": {
+    "OK": { "ru": "выдерживает", "en": "holds", "rank": 0 },
+    "FRAGILE": { "ru": "хрупко", "en": "fragile", "rank": 1 },
+    "TIGHT": { "ru": "впритык", "en": "tight", "rank": 2 },
+    "NO": { "ru": "не хватает", "en": "short", "rank": 3 }
+  },
+  "verdict_order": ["OK", "FRAGILE", "TIGHT", "NO"],
+  "layers": {
+    "posted": { "ru": "факт", "en": "actual" },
+    "planned": { "ru": "план", "en": "planned" },
+    "hypothetical": { "ru": "гипотеза", "en": "hypothetical" }
+  },
+  "occurrence_statuses": {
+    "expected": { "ru": "ожидается", "en": "expected" },
+    "matched": { "ru": "сопоставлено", "en": "matched" },
+    "overdue": { "ru": "просрочено", "en": "overdue" },
+    "skipped": { "ru": "пропущено", "en": "skipped" },
+    "cancelled": { "ru": "отменено", "en": "cancelled" }
+  },
+  "assistant_modes": {
+    "A0": { "ru": "без LLM", "legacy": "M1" },
+    "A1": { "ru": "локальная модель", "legacy": "M2" },
+    "A2": { "ru": "облако (символьный)", "legacy": "M3a" },
+    "A3": { "ru": "облако (агрегаты)", "legacy": "M3b" }
+  },
+  "tool_tiers": {
+    "T0": { "ru": "чтение" },
+    "T1": { "ru": "черновик, по включению" }
+  },
+  "shortfall_metrics": {
+    "need": { "ru": "не хватает до буфера (деньги на счетах)", "series": "trough", "source": "Q1" },
+    "gap_w": { "ru": "дефицит волны (физический)", "series": "trough", "source": "waves" },
+    "short_to_buffer": { "ru": "не хватает до буфера (с учётом резервов)", "series": "free", "source": "safe_to_spend" }
+  },
+  "error_codes": {
+    "E_NOT_INTEGER": { "ru": "значение не целое число" },
+    "E_OVERFLOW": { "ru": "значение вне допустимого целого диапазона (safe-integer)" },
+    "E_BAD_DATE": { "ru": "некорректная дата" },
+    "E_FUTURE_POSTED": { "ru": "факт с датой позже as_of" },
+    "E_RULE_INVALID": { "ru": "некорректное правило" },
+    "E_CURRENCY_MISMATCH": { "ru": "валюты не согласованы" },
+    "E_NO_RATE": { "ru": "нет курса" },
+    "E_SCHEMA": { "ru": "неверная форма данных" },
+    "E_UNTRUSTED_LEAK": { "ru": "недоверенный текст попал в результат инструмента", "note": "N8: код инструментов" },
+    "E_NOT_PERMITTED": { "ru": "инструмент недоступен на этом уровне", "note": "N8: код инструментов" },
+    "E_CALL_LIMIT": { "ru": "превышен предел вызовов на вопрос", "note": "N8: код инструментов" },
+    "E_UNKNOWN_TOOL": { "ru": "неизвестный инструмент", "note": "N8: код инструментов" }
+  },
+  "warning_pattern": "^[WE]_[A-Z_]+$",
+  "warning_codes": {
+    "W_OVERRIDE_STALE": { "ru": "правка волны ссылается на событие, которого больше нет", "en": "wave override refers to a missing event" },
+    "W_WAVE_NEAR_HORIZON": { "ru": "волна у края горизонта: метрики могут быть неполными", "en": "wave near the horizon edge: metrics may be incomplete" },
+    "W_DATE_CLAMPED": { "ru": "дата в прошлом сдвинута на дату расчёта", "en": "past date moved to the as-of date" },
+    "W_PART_BEYOND_HORIZON": { "ru": "часть платежей лежит за горизонтом и не учтена", "en": "part of the payments lies beyond the horizon" },
+    "W_T_CLAMPED": { "ru": "дата T зажата границей горизонта", "en": "date T clamped to the horizon" },
+    "W_HOURS_NOT_CONFIRMED": { "ru": "часы за период не подтверждены фактом", "en": "hours for the period are not confirmed" },
+    "W_NO_HISTORY": { "ru": "нет истории для расчёта", "en": "no history for the calculation" },
+    "W_LAG_BEYOND_HISTORY": { "ru": "сдвиг выходит за пределы наблюдений", "en": "lag exceeds observed history" },
+    "W_BUFFER_UNSET": { "ru": "буфер не задан: расчёт ведётся с B = 0", "en": "buffer is not set: calculated with B = 0" },
+    "W_RULE_STALE": { "ru": "правило давно не проверялось", "en": "rule has not been reviewed for a while" },
+    "W_RULE_DISABLED": { "ru": "правило не подтверждено: зависящие от него числа не показываются", "en": "rule is not confirmed: dependent numbers are hidden" },
+    "W_NO_RESERVES": { "ru": "налоговый конверт и накопления не заданы: вердикт и «можно потратить» посчитаны по физическим деньгам", "en": "no tax envelope or savings set: verdict and spendable amount use physical cash" },
+    "W_RESERVE_BEHIND": { "ru": "резерв отстаёт от плана пополнения", "en": "reserve is behind its funding plan" },
+    "W_RESERVE_RESIDUAL": { "ru": "после платежа в резерве остаётся остаток", "en": "a residual remains in the reserve after the payment" },
+    "W_RESERVE_OVERDUE": { "ru": "срок резерва прошёл, цель не достигнута", "en": "reserve is past due and the target is not reached" },
+    "W_RATE_STALE": { "ru": "курс устарел", "en": "exchange rate is stale" }
+  },
+  "round_modes": ["half_even", "half_up", "floor", "ceil"],
+  "weekend_policies": ["keep", "prev", "next", "skip"],
+  "month_end_policies": ["clamp", "skip", "next_first"],
+  "freqs": ["D", "W", "M", "Y"],
+  "locales": ["ru", "en"],
+  "number_formats": {
+    "ru": { "decimal": ",", "thousands": " " },
+    "en": { "decimal": ".", "thousands": "," }
+  },
+  "params": {
+    "decision_currency": { "default": null, "note": "валюта первого operating-счёта; задаётся при создании рабочей области" },
+    "horizon_days": { "default": 180 },
+    "buffer_minor": { "default": null, "note": "не задан (null): Q1 и волны считают B = 0 с W_BUFFER_UNSET; Q3 и «можно потратить» не отвечают (no_buffer); явный 0 — «задан» (C-018)" },
+    "buffer_hint_days": { "default": 7 },
+    "headline_mode": { "default": "worse" },
+    "worse.income_delay_days": { "default": 14, "hypothesis": true },
+    "grace_days.income": { "default": 3 },
+    "grace_days.expense": { "default": 0 },
+    "match.window_days": { "default": 3, "hypothesis": true },
+    "match.tol_bp": { "default": 500, "hypothesis": true },
+    "wave.gap_days": { "default": 3, "hypothesis": true },
+    "wave.max_span_days": { "default": 10, "hypothesis": true },
+    "wave.threshold_minor": { "default": null, "note": "при создании рабочей области: max(30·10^exponent, round_div(Σ исходящих posted за 90 дн., 300)); нет истории — 30·10^exponent (C-022, X1)" },
+    "explain.top_k": { "default": 10 },
+    "explain.share_cutoff_bp": { "default": 9000 },
+    "stale.banner_days": { "default": 7 },
+    "stale.block_days": { "default": 21 },
+    "rounding": { "default": "half_even" },
+    "ready.q1": { "default": 3 },
+    "ready.q3": { "default": 4 },
+    "crypto.liquidity_bp": { "default": 0 },
+    "backup.remind_events": { "default": 50, "hypothesis": true },
+    "backup.remind_days": { "default": 7, "hypothesis": true },
+    "fx.stale_days": { "default": 30, "hypothesis": true },
+    "backtest.h_days": { "default": 30, "hypothesis": true },
+    "backtest.min_window_days": { "default": 14, "hypothesis": true },
+    "debt.drift_tol_bp": { "default": 50, "hypothesis": true, "phase": "v2" },
+    "kdf.iterations": { "default": null, "note": "определяет ADR до v2" },
+    "kdf.wrap": { "default": null, "note": "определяет ADR до v2" },
+    "calib.window": { "default": 24, "hypothesis": true, "note": "N5" },
+    "calib.prior": { "default": 7, "hypothesis": true, "note": "N5" },
+    "calib.k": { "default": 3, "hypothesis": true, "note": "N5" },
+    "calib.alpha_bp": { "default": 3000, "hypothesis": true, "note": "N5" },
+    "calib.min_origins": { "default": 3, "hypothesis": true, "note": "N5" },
+    "mc.n_paths": { "default": 2000, "hypothesis": true, "note": "N5" },
+    "tools.max_calls": { "default": 12, "hypothesis": true, "note": "N5" }
+  },
+  "forbidden_phrases": [
+    "без галлюцинаций", "точные цифры", "гарантируем", "гарантир", "да, спокойно", "безопасно", "прогноз точен",
+    "не уйдёте в минус", "ваши финансы только у вас", "только ваши", "мы посчитаем налоги", "защитит от штрафов",
+    "даже мы не можем прочитать", "полностью работает без сети", "всегда офлайн", "ранняя безопасная дата",
+    "данные не пропадут", "ии-советник", "рекомендуем купить", "рекомендуем сократить"
+  ],
+  "tax_disclaimer": {
+    "ru": "расчёт по введённым правилам, не консультация",
+    "en": "calculated from the rules you entered; not advice"
+  }
+}

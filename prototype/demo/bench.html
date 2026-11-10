@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <!-- TST-59: только свои файлы, без inline-скриптов и стилей, без внешних шрифтов и аналитики. Страница замера живёт отдельно от приложения: единственное обращение к сети — чтение набора G-001 с того же хоста (connect-src 'self'). -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; connect-src 'self'; base-uri 'none'; form-action 'none'">
+  <title>Runway — замер пересчёта</title>
+  <meta name="description" content="Замер p50 и p95 полного пересчёта Runway на этом устройстве: набор G-001 и синтетические наборы около 1000, 2000 и 4000 событий. Расчёт по введённым данным и правилам, без аккаунта.">
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/probe.css">
+  <script type="module" src="bench_page.mjs"></script>
+</head>
+<body class="probe-page">
+  <a id="bn-skip" class="skip" href="#main">К содержимому / Skip to content</a>
+  <header id="bn-title-bar" class="top">
+    <div class="brand">
+      <h1>Runway — замер пересчёта / recompute benchmark</h1>
+      <p class="sub">Проверка на устройстве / Device check</p>
+    </div>
+    <div class="seg" role="group" aria-label="Язык / Language">
+      <button id="bn-lang-ru" type="button" lang="ru" aria-pressed="true">RU</button>
+      <button id="bn-lang-en" type="button" lang="en" aria-pressed="false">EN</button>
+    </div>
+  </header>
+  <div class="content">
+    <main id="main" tabindex="-1">
+      <p>Загрузка… / Loading…</p>
+      <noscript>
+        <p>Для замера нужен JavaScript: расчёт идёт в этой странице, на этом устройстве, без передачи данных.</p>
+        <p>The benchmark needs JavaScript: the calculation runs in this page, on this device, with no data sent anywhere.</p>
+      </noscript>
+    </main>
+  </div>
+</body>
+</html>

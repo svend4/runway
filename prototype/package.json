@@ -1,0 +1,33 @@
+{
+  "name": "runway-prototype",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Runway: исполняемый прототип детерминированного движка прогноза денежного потока (чистый JS, без зависимостей)",
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "test": "node --test",
+    "test:all": "node tools/run_all_tests.mjs",
+    "test:fast": "node tools/run_all_tests.mjs --fast",
+    "test:nightly": "node tools/run_all_tests.mjs --nightly",
+    "lock:engine": "node tools/make_engine_lock.mjs --check",
+    "lock:engine:write": "node tools/make_engine_lock.mjs --write",
+    "build": "node tools/build_manifest.mjs",
+    "build:check": "node tools/build_manifest.mjs --check",
+    "build:gate": "npm run lint:words && node tools/build_manifest.mjs --check",
+    "lint": "node ../tools/lint.mjs",
+    "lint:vocab": "node ../tools/lint_vocab.mjs --registry demo/promises.json",
+    "lint:tables": "node tools/gen_vocab_tables.mjs --check",
+    "lint:words": "npm run lint:vocab && npm run lint:tables",
+    "check": "npm run lint && npm run lint:words && npm run build:check && npm run verify && npm run contrast",
+    "gen:vocab": "node tools/gen_vocab.mjs",
+    "gen:vocab:check": "node tools/gen_vocab.mjs --check",
+    "verify": "node tools/verify.mjs --fixtures",
+    "contrast": "node tools/contrast.mjs",
+    "bench": "node tools/bench.mjs",
+    "mutate": "node tools/mutate.mjs",
+    "fuzz": "node tools/fuzz_nightly.mjs",
+    "oracle:hledger": "node tools/hledger_oracle.mjs",
+    "typecheck": "tsc -p jsconfig.json"
+  }
+}

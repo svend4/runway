@@ -1,0 +1,24 @@
+/* feedx.css — стили пакета FP-28: действия строки «Ленты», счётчик «Сверка: N», карточка «Куда делись деньги», разбивка на платежи на экране «Купить».
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: «сходится / не сходится» и состояние сверки — слова, а не оттенки. */
+
+.feedx-head { margin: 0 0 12px; }
+.feedx-head p { margin: 4px 0; }
+.feedx-recon .btn { margin-right: 4px; min-height: 36px; }
+
+.feedx-acts { margin-left: 4px; white-space: nowrap; }
+.feedx-acts .link { min-height: 36px; padding: 0 6px; }
+
+.feedx-fix .field { margin: 8px 0; }
+.feedx-fix input[type="text"], .feedx-fix input[type="date"], .feedx-fix select { max-width: 100%; }
+
+.feedx-where .total th, .feedx-where .total td { font-weight: 600; border-top: 1px solid var(--border); }
+.feedx-where td.num, .feedx-where th.num { text-align: right; white-space: nowrap; }
+.feedx-where .actions { margin: 8px 0 0; }
+
+.buyx-toggle { margin-top: 8px; }
+.buyx-fields .field { margin: 6px 0; }
+.buyx-fields input { max-width: 100%; }
+.buyx-result { margin-top: 12px; }
+.buyx-result h5 { margin: 12px 0 4px; }
+.buyx-schedule summary { cursor: pointer; min-height: 36px; }

@@ -1,0 +1,106 @@
+{
+  "slug": "modern-saas-trackers",
+  "name": "Современные SaaS-трекеры: Monarch, Copilot, Lunch Money, Quicken Simplifi (и Rocket Money)",
+  "category": "envelope",
+  "checked": "2026-10-04",
+  "price": "Monarch: Core $99.99/год или $14.99/мес (только независимые обзоры — не подтверждено официально; Plus только годовая оплата; обзоры revenuememo.com, costbench.com; официальную страницу цен прочитать не удалось), Plus $199/год (monarch.com/blog/monarch-plus, запуск 2026-04-20), триал 7 дней. Copilot: $95/год ($7.92/мес при годовой оплате), триал 1 месяц (copilot.money); $13/мес только по сторонним обзорам (не подтверждено официально). Lunch Money: $10/мес с триалом 30 дней (lunchmoney.app/pricing, по сниппету поиска); год — pay-what-you-want, минимум $60 с 2026-03-15 (было $50), цена фиксируется навсегда (блог Lunch Money); costbench.com указывает $100/год — расходится с официальным блогом. Simplifi: $3.99/мес при годовой оплате вместо $6.99 (quicken.com/features/projected-cashflow); сторонние обзоры называют $2.99 на первый год и $5.99 после (промо, не подтверждено). Rocket Money: Free; Premium $7–14/мес по принципу «плати сколько считаешь справедливым»; Premium+ $15/мес с AI Rowan (rocketmoney.com, страница от 2026-01-19) — подробно не изучался.",
+  "status_note": "Все продукты живы на 2026-10-04. Monarch: независимая частная компания, венчурное финансирование (Series B $75M, май 2025; по сторонним источникам, подтверждено); релизы по 2026-10-01 (анонс: $100M ARR, к команде присоединилась команда HMBradley; Forecasting 2026-04-13, Plus 2026-04-20, MCP-коннектор в бете); Intuit закрыл Mint в начале 2024. Copilot: US-only, iPhone/iPad/Mac и веб (с декабря 2025), Android в официальном FAQ не упомянут и сторонние источники подтверждают Apple-only и веб (2026-10-04); один сторонний источник утверждает про Android-приложение с 2024 — не подтверждено. Lunch Money: основан Jen Yip, без инвесторов и планов продажи (lunchmoney.app/blog/the-new-era), API v2.11.1 от 2026-09-28. Simplifi: продукт Quicken, Quicken AI (в разных местах называется и Quicken Assist) в бете, пост от 2026-08-04; владелец Quicken (не проверялся). Rocket Money: принадлежит Rocket Companies (по сторонним источникам).",
+  "support": {
+    "forecast_by_date": {
+      "level": "partial",
+      "note": "Simplifi: Projected Cash Flow показывает баланс по дням на срок до года из recurring-напоминаний и операций с будущей датой, но Planned Spend и цели в проекцию не входят, неопределённости нет (маркетинговая страница Quicken упоминает «planned spending», справка это отрицает — приоритет у справки). Lunch Money: Projected Income/Expenses за период и календарь, дневной баланс — только сторонний CashFlow App. Monarch: Forecasting (только Plus) — годовая модель net worth на десятилетия, без Monte Carlo. Copilot: Cash Flow только до сегодняшнего дня, прогноза нет."
+    },
+    "can_i_afford": {
+      "level": "partial",
+      "note": "Simplifi заявляет what-if на странице продукта, но на самой странице сценарии не описаны (2026-10-04), в справке по Projected Cash Flow такого сценария нет (вывод: обходом может служить будущая операция). У Lunch Money what-if есть в сторонней open-source программе CashFlow App (MIT, ключ API остаётся в браузере). Встроенной проверки покупки с самой узкой точкой в изученных материалах (2026-10-04) не найдено ни у одного продукта группы."
+    },
+    "recurring_and_waves": {
+      "level": "partial",
+      "note": "Recurring зрелые: Lunch Money — каденс из числа и единицы, start/end, фиксированная или плавающая сумма, автосопоставление; Simplifi — детект и ручные серии на графике по дням; Monarch — список и календарь, Bill Sync (только США — не подтверждено); раздел Recurring анонсирован к переделке (2026-09-29). Волны как кластеры и расчёт «сколько нужно к каждой волне» не найдены ни у одного продукта."
+    },
+    "sinking_funds": {
+      "level": "full",
+      "note": "Monarch: Non-monthly bucket (flex budgeting) переводит цель и периодичность в ежемесячный взнос с rollover. Simplifi — через Savings Goal с ручными взносами, Lunch Money — rollover по категориям; эти два уровня partial."
+    },
+    "tax_envelope": {
+      "level": "partial",
+      "note": "Откладывания налога при поступлении дохода в изученных материалах (2026-10-04) не найдено ни у одного продукта группы. Monarch Plus (только США): Business Tax Prep сопоставляет категории со строками Schedule C и позволяет выбрать квартал для оценки квартальных платежей — это отчётность, а не конверт."
+    },
+    "multi_currency": {
+      "level": "full",
+      "note": "Lunch Money: 160+ фиатных валют, плюс BTC, ETH и металлы; валюта на счёте и операции, home currency, пересчёт по дневным курсам (не по курсу конкретной операции). Monarch, Copilot и Simplifi не различают валюты (Copilot — USD, Simplifi — USD или CAD по одной за раз) и не конвертируют, суммы смешиваются."
+    },
+    "hourly_income": {
+      "level": "partial",
+      "note": "Ставки, нормы часов и инвойсов в изученных материалах (2026-10-04) не найдено ни у одного продукта группы. Нерегулярный доход частично: Lunch Money допускает плавающую сумму recurring, Monarch Plus даёт P&L по бизнесу."
+    },
+    "privacy_local_first": {
+      "level": "partial",
+      "note": "Облако у всех, self-host и E2E не найдены. Банковские пароли держит агрегатор (Plaid и др.), данные не продаются (Copilot, Lunch Money заявляют явно). Без агрегатора можно работать через ручные счета и CSV — Lunch Money, Monarch. Simplifi хранит финансовые данные на серверах Quicken."
+    },
+    "import_export": {
+      "level": "full",
+      "note": "Lunch Money: экспорт CSV с колонками валюты и Recurring ID, экспорт счетов и истории балансов, импорт CSV/PDF, публичный API v2 (Bearer-токен, TypeScript SDK, OpenAPI). Monarch: CSV экспорт и импорт, официального публичного API не найдено, есть неофициальная библиотека. Copilot: CSV. Simplifi: только CSV и только в вебе."
+    },
+    "ai_assistant": {
+      "level": "partial",
+      "note": "Monarch: AI Assistant на данных пользователя (Labs-настройка) и официальный MCP-коннектор для Claude, ChatGPT и других (бета, OAuth, чтение и запись). Copilot: Money Assistant (бета). Simplifi: Quicken AI (бета) на сторонних LLM вроде ChatGPT, обращается к встроенным инструментам вроде Spending Plan, но оговаривает возможные ошибки. Rocket Money: Rowan в Premium+. Lunch Money: встроенного AI нет, только сторонние MCP-серверы. Опора на детерминированный расчёт нигде не подтверждена."
+    },
+    "openness": {
+      "level": "partial",
+      "note": "Код всех продуктов закрыт. Lunch Money выделяется открытым API v2 с публичным changelog, TypeScript SDK, спецификацией для генерации клиентов и сообществом сторонних инструментов (CashFlow App под MIT). Monarch расширяется через MCP-коннектор."
+    }
+  },
+  "borrow": [
+    "Дневная лента событий (Simplifi): баланс = стартовый баланс + события по датам, точки событий при наведении; но включать плановые и переменные траты и цели, которые Simplifi исключает из проекции.",
+    "Модель recurring Lunch Money: каденс как (число, единица), start/end, фиксированная или плавающая сумма, автосопоставление пришедшей операции с правилом, recurring_id в операции и в экспорте.",
+    "Мультивалюта: валюта на счёте и на операции, home currency; хранить курс на момент операции, а не только дневные курсы.",
+    "Резервы на редкие траты (Monarch Non-monthly): цель + периодичность + дата превращаются в ежемесячный взнос, который виден отдельным слоем на графике прогноза.",
+    "API-first: OpenAPI-спека, токен, SDK, публичный changelog; ключ клиента остаётся в браузере, как у CashFlow App.",
+    "AI через MCP: детерминированный движок прогноза как набор инструментов, чтение по умолчанию, запись по явному согласию, OAuth (по образцу Monarch MCP).",
+    "Сравнение сценариев бок о бок (Monarch Forecasting, 2026-07-29 — не подтверждено) для what-if; смена источника импорта по счёту с сохранением истории (Monarch, 2026-09-29)."
+  ],
+  "avoid": [
+    "Называть cash flow ретроспективу (Copilot) или давать прогноз только на годы вперёд (Monarch Forecasting).",
+    "Молча исключать плановые траты и цели из проекции (Simplifi) — результат оптимистичный (вывод).",
+    "Показывать один знак «$» для любых валют без конвертации (Monarch, Copilot, Simplifi) — итоги вводят в заблуждение.",
+    "Привязка к единственному агрегатору без ручного пути (Lunch Money — только Plaid); у агрегаторов есть географические пробелы и растущие комиссии банков за доступ к данным.",
+    "AI на внешней LLM с оговоркой «может ошибаться» вместо ответа из расчёта движка (Quicken AI).",
+    "Закрытый API или его отсутствие (Monarch, Copilot, Simplifi) — сообщество делает неофициальные обходы (вывод)."
+  ],
+  "sources": [
+    "https://www.copilot.money/",
+    "https://www.copilot.money/faq",
+    "https://help.copilot.money/en/articles/9682232-cash-flow-tab-overview",
+    "https://help.copilot.money/en/articles/10768078-how-do-you-get-my-financial-data",
+    "https://help.copilot.money/en/articles/10715424-international-currency",
+    "https://www.monarch.com/blog/monarch-plus",
+    "https://www.monarch.com/blog/forecasting",
+    "https://www.monarch.com/blog/september-product-update",
+    "https://www.monarch.com/whats-new",
+    "https://www.monarch.com/blog/planning-for-the-unexpected-managing-non-monthly-expenses",
+    "https://help.monarch.com/hc/en-us/articles/48344411171092-Business-Tracking",
+    "https://help.monarch.com/hc/en-us/articles/360048393552-International-Accounts-and-Currency",
+    "https://help.monarch.com/hc/en-us/articles/50207234679956-Monarch-MCP-Connector",
+    "https://www.revenuememo.com/p/who-owns-monarch-money",
+    "https://www.costbench.com/software/personal-finance/monarch-money/",
+    "https://lunchmoney.app/pricing",
+    "https://lunchmoney.app/blog/an-update-to-our-annual-plan-minimum-effective-march-15-2026",
+    "https://lunchmoney.dev/v2/changelog",
+    "https://lunchmoney.dev/currencies",
+    "https://support.lunchmoney.app/guides/automatic-imports",
+    "https://support.lunchmoney.app/faq",
+    "https://feedback.lunchmoney.app/institution-status-requests/p/support-mx-in-addition-to-plaid",
+    "https://github.com/WesleyCeraso/cashflow-app",
+    "https://lunchmoney.app/blog/the-new-era",
+    "https://www.quicken.com/features/projected-cashflow/",
+    "https://support.simplifi.quicken.com/en/articles/3357429-using-projected-cash-flow",
+    "https://support.simplifi.quicken.com/en/articles/3828353-what-currencies-does-quicken-simplifi-support",
+    "https://support.simplifi.quicken.com/en/articles/3404263-how-to-export-transactions-from-quicken-simplifi",
+    "https://www.quicken.com/blog/what-is-quicken-ai-the-new-ai-chat-in-quicken-simplifi/",
+    "https://www.rocketmoney.com/learn/personal-finance/how-much-does-rocket-money-cost",
+    "https://fiskl.com/blog/open-finance/jpmorgan-chase-data-fees-plaid/",
+    "https://www.retailbankerinternational.com/news/monarch-secures-75m-funding/",
+    "https://help.copilot.money/en/articles/5944414-exporting-your-transaction-data"
+  ]
+}

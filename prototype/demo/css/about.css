@@ -1,0 +1,15 @@
+/* about.css — стили пакета FP-12: экран «О программе» (#about). Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов
+   (CSP style-src 'self'). Смысл не передаётся только цветом: состояния воркера — слова в тексте, кнопки подписаны, хэш — текст в моноширинном шрифте. */
+
+.about .tbl th[scope="row"] { width: 14em; white-space: nowrap; }
+.about .ab-hash {
+  display: inline-block; max-width: 100%; padding: 2px 6px; background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
+  font: 0.85rem/1.4 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; overflow-wrap: anywhere; word-break: break-all;
+}
+.about #ab-pwa { font-weight: 600; }
+.about #ab-check-msg:empty, .about #ab-calc-msg:empty { display: none; }
+.about .row { margin-top: 8px; }
+
+@media (max-width: 599px) {
+  .about .tbl th[scope="row"] { width: auto; white-space: normal; }
+}

@@ -1,0 +1,9 @@
+/* error_report.css — стили пакета FP-22: блок «Сообщить об ошибке» на экране «Данные» (REQ-124).
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self'). */
+
+.er-block .er-text { margin: 8px 0; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2); color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.er-block .er-text:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+.er-block .field.check label { display: inline-flex; gap: 8px; align-items: center; }
+.er-block .er-actions { margin: 8px 0; }
+.er-block #er-copy-status:empty { display: none; }

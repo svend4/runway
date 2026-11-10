@@ -1,0 +1,55 @@
+/* css/showcase.css — стили пакета FP-09: «В магазине», «Лестница сумм», «Долги», «Эталон», «Обещаем / не обещаем», «Лист для печати», «Облако: предпросмотр».
+   Только токены из style.css (светлая и тёмная темы наследуются), без внешних адресов и шрифтов (CSP style-src 'self').
+   Смысл не передаётся только цветом: вердикт — слово и значок, отметка «совпало» — значок и слово, ступени лестницы подписаны словами. */
+
+.sc-view .field input[type="text"], .sc-view .field input[type="date"], .sc-view .field select { max-width: 22em; }
+#sc-st-amount { width: 100%; max-width: 22em; font-size: 1.5rem; padding: 8px 10px; }
+.sc-big { font-size: 1.35rem; margin: 6px 0; }
+.sc-big strong { font-size: 1.9rem; }
+.sc-verdict { font-size: 1.15rem; margin: 10px 0; }
+.sc-out .error:empty, .sc-view .error:empty { display: none; }
+.sc-view input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.sc-time { font-size: 0.9rem; }
+
+/* чип происхождения чисел */
+.sc-chip { margin: 10px 0; padding: 6px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface-2); display: block; }
+.sc-chip[open] { border-radius: 10px; }
+.sc-chip > summary { cursor: pointer; min-height: 28px; display: list-item; }
+.sc-ai { font-weight: 600; color: var(--wave); }
+.sc-dl { display: grid; grid-template-columns: max-content 1fr; gap: 4px 14px; margin: 8px 0; }
+.sc-dl dt { color: var(--muted); }
+.sc-dl dd { margin: 0; overflow-wrap: anywhere; }
+
+/* предпросмотр payload и недоверенный текст */
+.sc-pre {
+  max-height: 24rem; overflow: auto; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; background: var(--surface-2);
+  font-size: 0.85rem; white-space: pre-wrap; overflow-wrap: anywhere;
+}
+.sc-badge { display: inline-block; padding: 0 8px; border: 1px solid var(--tight); border-radius: 4px; color: var(--tight); background: var(--tight-bg); font-size: 0.8rem; font-weight: 700; text-transform: lowercase; }
+.sc-quote { overflow-wrap: anywhere; }
+.sc-untrusted { min-width: 12em; }
+
+/* лестница сумм */
+.sc-svg-wrap { max-width: 720px; margin: 8px 0 16px; }
+.lad-svg { width: 100%; height: auto; display: block; }
+.lad-seg { stroke: var(--border); stroke-width: 1; }
+.lad-OK { fill: var(--ok-bg); stroke: var(--ok); }
+.lad-FRAGILE { fill: var(--fragile-bg); stroke: var(--fragile); }
+.lad-TIGHT { fill: var(--tight-bg); stroke: var(--tight); }
+.lad-NO { fill: var(--no-bg); stroke: var(--no); }
+.lad-label { fill: var(--text); font-size: 13px; font-weight: 600; }
+.lad-num { fill: var(--muted); font-size: 12px; }
+.lad-tick { stroke: var(--text); stroke-width: 1.5; }
+
+/* лист для печати */
+.rep-sheet { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.rep-sheet h3 { margin-top: 0; }
+.rep-foot { font-family: ui-monospace, Consolas, monospace; font-size: 0.85rem; overflow-wrap: anywhere; }
+
+@media print {
+  .sc-noprint { display: none !important; }
+  .rep-sheet { border: 0; padding: 0; box-shadow: none; }
+  .rep-sheet .tbl { font-size: 0.8rem; }
+  .rep-sheet tr { break-inside: avoid; }
+  .rep-sheet thead { display: table-header-group; }
+}

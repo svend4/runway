@@ -1,0 +1,14 @@
+/* v0.css — стили страницы-калькулятора v0 (FP-10). Токены и общие элементы — из style.css (светлая и тёмная темы наследуются); своих цветов нет.
+   Без внешних адресов и шрифтов (CSP style-src 'self'). Смысл не передаётся только цветом: вердикт — слово и рамка, ошибка поля — текст рядом с полем. */
+
+.v0-page .content { padding-bottom: 32px; }
+.v0-page .v0-form { max-width: 720px; }
+.v0-page .v0-form .field input[type="text"],
+.v0-page .v0-form .field input[type="date"] { max-width: 18em; }
+.v0-page .v0-form .field select { max-width: 100%; }
+.v0-page .field .error:empty { display: none; }
+.v0-page input[aria-invalid="true"] { border-color: var(--no); border-width: 2px; }
+.v0-page .field.check label { display: inline-flex; gap: 8px; align-items: center; font-weight: 600; }
+.v0-page .v0-list ul { margin-bottom: 10px; }
+.v0-page .card h3 { margin-top: 0; }
+.v0-page #v0-result .verdict { margin-left: 4px; }
